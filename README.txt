@@ -4,12 +4,11 @@ Problem Statement -
 
 Team Member Roles -
     	Manager: Anas Milhem
-		Assistant:
+		Assistant: Sean Leonard
 	Marketing: Zafer Zhourdaji
-		Assistant:
+		Assistant: Anas Milhem
 	Design: Sean Leonard
-		Assistant:
-	Engineering: Gavin 
+		Assistant: Zafer Zhourdaji
+	Engineering: Gavin Maier-Denk
 		Assistant: Josh Thonnisssen
-	Support: Mohammed
-		Assistant:
+	Support: Mohammad Matter
