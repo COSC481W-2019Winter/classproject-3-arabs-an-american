@@ -3,7 +3,7 @@ Problem Statement -
 	not always have the ability, time or resources they need to complete these goals.
 
 Team Member Roles -
-    Manager: Anas Milhem
+    	Manager: Anas Milhem
 		Assistant:
 	Marketing: Zafer Zhourdaji
 		Assistant:
