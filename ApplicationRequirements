@@ -7,6 +7,11 @@ User:
 •	Ability to tip the driver
 •	Ability for the user to check estimated time delivery and driver’s live location.(Google Maps Integration)
 •	Ability to chat with User
+•	Ability to pay the delivery fee using debit card information
+
+
+
+
 
 
 
@@ -16,6 +21,9 @@ Driver:
 •	Ability to use a GPS within the application. (Google Maps Integration)
 •	Ability to review customer.
 •	Ability to chat with User, or Phone call
+•
+
+
 
 
 
