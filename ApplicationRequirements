@@ -1,0 +1,22 @@
+Application Business Requirements
+
+User:
+•	Ability to upload purchase order confirmation, picture of item that needs to be picked up 
+•	Ability to set a time and a location when item is purchased and ready for delivery (maximum day delivery, max location)
+•	Ability to review drivers
+•	Ability to tip the driver
+•	Ability for the user to check estimated time delivery and driver’s live location.(Google Maps Integration)
+•	Ability to chat with User
+
+
+
+Driver:
+•	Ability to turn online or offline for delivery.
+•	Ability to accept or decline a delivery request
+•	Ability to use a GPS within the application. (Google Maps Integration)
+•	Ability to review customer.
+•	Ability to chat with User, or Phone call
+
+
+
+ 
