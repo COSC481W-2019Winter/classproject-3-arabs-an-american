@@ -14,6 +14,7 @@ Team Member Roles -
 		Assistant: Zafer Zhourdaji
 	Engineering: Gavin Maier-Denk
 		Assistant: Josh Thonnisssen
-	Support: Mohammad Matter --> Mattar!
+	Support: Mohammad Mattar
 
 Sign here:
+	Joshua Thonnissen
