@@ -1,4 +1,5 @@
-*missing a mission statement*
+Mission Statement - 
+	Taking away the daily stress out of our user's life.
 
 Problem Statement -
 	People place orders, need things delivered, and have general errands to run, but do 
