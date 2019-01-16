@@ -4,6 +4,7 @@
 ## **Table of Content**
 ### 1 Problem
 ### 2 Solution
+### 3 Design Specifications
 ---
 ### 1 Problem
 
@@ -13,8 +14,11 @@ We also are seeing an increase in life expectancy along with the world becoming 
 
 ---
 ### 2 Solution
+
 Create an app that allows people to request deliveries and errands to be done for them.
-### Design Specifications: 
+
+---
+### 3 Design Specifications
 
 #### Mandatory Requirements:
   >* A user should be able to create, read, update, display and delete a request.
@@ -26,11 +30,10 @@ Create an app that allows people to request deliveries and errands to be done fo
   >* The user should be able to see real time location of the driver
   >* The driver should be able to access a gps through the app to locate his delivery and pickup addresses (Google Maps        integration)
   >* The user and the driver should have the ability to rate each other after a delivery request has been done and the confirmation page popped up.
-  >* Every user and driver should be able to create and account and authenticate it with a password.
+  >* Every user and driver should be able to create and account with their email and password.
   >* Drivers should recieve notifications notifying them about any delivery requests within their radius.
   >* After a Delivery request has been done. An Email confirmation should be sent to their email showing a sumary of the
       trip
   >* The driver and user should have the ability to chat or call each other.
   >* A user should be able to pay the driver through the application.
-
 ---
