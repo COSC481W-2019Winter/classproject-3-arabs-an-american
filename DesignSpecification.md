@@ -19,12 +19,23 @@ Create an app that allows people to request deliveries and errands to be done fo
 ###### Mandatory Requirements:
   * *A user should be able to create, read, update, display and delete a request.* 
     * Once a user enters the request page they should be required to submit their contact email and phone number. 
+    
+    **PLACE WIREFRAME OF SCREEN FOR CONTACT INFORMATION TO BE LOGIN LATER HERE**
     * They should then be directed to another page to enter a mandatory pickup address along with optional field for special pickup instructions. They should also have a mandadtory field for delivery address and optional field for special delivery instructions. There should also be a link to upload images of reciets or order confirmations for the driver.
+    
+    **PLACE WIREFRAME OF SCREEN FOR DELIVERY REQUEST INFORMATION HERE**
     * For each request a user shall be able to optionally select a desired delivery time.
     * Once a request is submitted the user shall see a confirmation page where they can confirm information and change errors.
+    
+    **PLACE WIREFRAME OF SCREEN FOR REQUEST SUBMISSION PAGE HERE**
   * *A driver has the option to accept any request in the display menu.*
-    * There shall be a page the driver can access and veiw a lost of open request within their area of delivery and accept a delivery. Once accepted there should be a notification sent to customer of the driver that will be working their request. The driver shall have an option to contact the client if desired.
+    * There shall be a page the driver can access and veiw a lost of open request within their area of delivery and accept a delivery. 
+    
+    **PLACE WIREFRAME OF SCREEN FOR LIST OF REQUESTS HERE**
+    * Once accepted there should be a notification sent to customer of the driver that will be working their request. The driver shall have an option to contact the client if desired.
   * *After a delivery has been done. A delivery confirmation screen will show up for both the user and the driver.*
+  
+  **PLACE WIREFRAME OF SCREEN FOR CONFIRMATION PAGE HERE**
   
 ###### Desirable requirements:
   * The user should be able to see real time location of the driver
