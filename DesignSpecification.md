@@ -14,6 +14,7 @@ We also are seeing an increase in life expectancy along with the world becoming 
 ---
 ### 2 Solution
 Create an app that allows people to request deliveries and errands to be done for them.
+
 *PLACE DESIGN SPECS HERE*
 
 ---
