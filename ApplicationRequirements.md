@@ -1,20 +1,13 @@
-Design Specifications
+# Design Specifications
 
-Mandatory Requirements:
-1) User can CRUD a request
-  - A user should be able to create, read, update and delete a request with a delivery and a pickup address.
-2) Display Requests
- - The driver should be able to 
-Accept or decline requests
-Confirmation of delivery request 
-
-The web application should enable users to CRUD delivery requests with an address and time for delivery and pickup.
-Drivers should also be able to accept and cancel delivery requests. After a delivery is done, the delivery request is removed from the system. 
-
-
-Desirable requirements:
-Scheduled deliveries
-Real time location (Google maps integration)
+## Mandatory Requirements:
+  1) A user should be able to create, read, update, display and delete a request.
+  2) For each delivery request a user is able to select a time and a delivery and pickup address.
+  3) A driver has the option to accept any request in the display menu
+  4) After a delivery has been done. A delivery confirmation screen will show up for both the user and the driver.
+  
+## Desirable requirements:
+1) Real time location (Google maps integration)
 Ability to rate the driver
 Authentication
 Notify drivers about delivery requests
