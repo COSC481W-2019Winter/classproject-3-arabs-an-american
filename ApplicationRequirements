@@ -1,4 +1,26 @@
-Application Business Requirements
+Design Specifications
+
+Mandatory Requirements:
+1) User can CRUD a request
+  - A user should be able to create, read, update and delete a request with a delivery and a pickup address.
+2) Display Requests
+ - The driver should be able to 
+Accept or decline requests
+Confirmation of delivery request 
+
+The web application should enable users to CRUD delivery requests with an address and time for delivery and pickup.
+Drivers should also be able to accept and cancel delivery requests. After a delivery is done, the delivery request is removed from the system. 
+
+
+Desirable requirements:
+Scheduled deliveries
+Real time location (Google maps integration)
+Ability to rate the driver
+Authentication
+Notify drivers about delivery requests
+Email Confirmation
+
+--------------------------------------------------------------
 
 User:
 •	Ability to upload purchase order confirmation, picture of item that needs to be picked up 
