@@ -7,7 +7,8 @@
 	not always have the ability, time or resources they need to complete these goals.
 
 ### Team Member Roles -
-    	Manager: Anas Milhem
+
+    Manager: Anas Milhem
 		Assistant: Sean Leonard
 	Marketing: Zafer Zhourdaji
 		Assistant: Anas Milhem
@@ -23,3 +24,4 @@
 	Sean Leonard
 	Gavin Maier-Denk
 	Mohammad Mattar
+	Zafer Zhourdaji
