@@ -2,12 +2,13 @@
 
 **Taking away the daily stress out of our user's life.**
 
-Problem Statement -
+### Problem Statement -
 	People place orders, need things delivered, and have general errands to run, but do 
 	not always have the ability, time or resources they need to complete these goals.
 
-Team Member Roles -
-    	Manager: Anas Milhem
+### Team Member Roles -
+
+    Manager: Anas Milhem
 		Assistant: Sean Leonard
 	Marketing: Zafer Zhourdaji
 		Assistant: Anas Milhem
@@ -17,9 +18,10 @@ Team Member Roles -
 		Assistant: Josh Thonnisssen
 	Support: Mohammad Mattar
 
-Sign here:
+###### Sign here:
 	Joshua Thonnissen
 	Anas Milhem
 	Sean Leonard
 	Gavin Maier-Denk
 	Mohammad Mattar
+	Zafer Zhourdaji
