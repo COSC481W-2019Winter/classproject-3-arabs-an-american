@@ -16,11 +16,11 @@ We also are seeing an increase in life expectancy along with the world becoming 
 Create an app that allows people to request deliveries and errands to be done for them.
 ##### Design Specifications
 
+
 ###### Mandatory Requirements:
   * *A user should be able to create, read, update, display and delete a request.* 
+     ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/josh/Requests%20Homepage%20Screenshot.png?raw=true)
     * Once a user enters the request page they should be required to submit their contact email and phone number. 
-    
-    **PLACE WIREFRAME OF SCREEN FOR CONTACT INFORMATION TO BE LOGIN LATER HERE**
     * They should then be directed to another page to enter a mandatory pickup address along with optional field for special pickup instructions. They should also have a mandadtory field for delivery address and optional field for special delivery instructions. There should also be a link to upload images of reciets or order confirmations for the driver.
     
     **PLACE WIREFRAME OF SCREEN FOR DELIVERY REQUEST INFORMATION HERE**
