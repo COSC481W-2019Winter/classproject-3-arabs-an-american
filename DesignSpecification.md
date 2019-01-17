@@ -19,30 +19,19 @@ Create an app that allows people to request deliveries and errands to be done by
 
 ###### Mandatory Requirements:
   * *A user should be able to create, read, update, display and delete a request.* 
-     ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/src/common/images/RequestsHomepageScreenshot.png)
+     ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/RequestsHomepageScreenshot.png)
     * Once a user enters the request page they should be required to submit their contact email and phone number. 
     * They should then be directed to another page to enter a mandatory pickup address along with optional field for special pickup instructions. They should also have a mandadtory field for delivery address and optional field for special delivery instructions. There should also be an optional link to open a window to upload images of receipts or order confirmations pertaining to the order or items the customer feels may be helpful for the driver.
-    
-    **PLACE WIREFRAME OF SCREEN FOR DELIVERY REQUEST INFORMATION HERE**
-   
+   ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/DeliveryInfoScreenshot.png)
     * For each request a user shall be able to optionally select a desired delivery time.
-    * Once a request is submitted the user shall see a confirmation page displaying the requested addresses and any instructions and files added where they can reveiw and confirm information or change errors.
-    
-    **PLACE WIREFRAME OF SCREEN FOR REQUEST SUBMISSION PAGE HERE**
-    ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/src/common/images/DeliveryInfoScreenshot.png)
-    
+    * Once a request is submitted the user shall see a confirmation page displaying the requested addresses and any instructions and files added where they can reveiw and confirm information or change errors. 
+    ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/RequestConf.png)
   * *A driver has the option to accept any request in the display menu.*
     * There shall be a page the driver can access via a login or personnel verification to veiw a list of open request within their area of delivery and accept a delivery. 
-    ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/src/common/images/LoginScreenshot.png)
-    
-    
-    **PLACE WIREFRAME OF SCREEN FOR LIST OF REQUESTS HERE**
-    
+    ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/LoginScreenshot.png)
+    ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/RequestList.png)
     * Once accepted there should be a notification sent to customer of the driver that will be working their request. The driver shall have an option to contact the client if desired.
-  * *After a delivery has been done. A delivery confirmation screen will show up for both the user and the driver.*
-  
-  **PLACE WIREFRAME OF SCREEN FOR CONFIRMATION PAGE HERE**
-  
+  * *After a delivery has been done. A delivery confirmation notification stateing date, delivery driver name, and addresses will be sent to both the user and the driver.*  
   
 ###### Desirable requirements:
   * The user should be able to see real time location of the driver
