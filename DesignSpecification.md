@@ -43,7 +43,7 @@ Create an app that allows people to request deliveries and errands to be done fo
   * The user and the driver should have the ability to rate each other after a delivery request has been done and the confirmation page popped up.
   * Every user and driver should be able to create and account with their email and password.
   * Drivers should recieve notifications notifying them about any delivery requests within their radius.
-  * After a Delivery request has been done. An Email confirmation should be sent to their email showing a sumary of the
+  * After a Delivery request has been done. An Email confirmation should be sent to their email showing a summary of the
       trip
   * The driver and user should have the ability to chat or call each other.
   * A user should be able to pay the driver through the application.
