@@ -1,0 +1,22 @@
+Home Screen
+	Create New Request Button
+		-> Takes user to Create New Request Screen
+	Driver Sign-in Button
+		-> Takes user to Driver Sign-in Screen
+	
+Create New Request Screen
+	Name Text Box
+	Email Text Box
+	Phone Number Text Box
+	Pickup Address Text Box
+	Delivery Address Text Box
+	Pickup Instructions Text Box (Optional)
+	Delivery Instructions Text Box (Optional)
+	Upload Files Button (Optional)
+	Preferred Delivery Time Drop-down (Optional)
+	Submit Button
+		-> Takes user to Confirmation Screen
+		
+Driver Sign-in Screen
+		
+Confirmation Screen
