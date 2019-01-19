@@ -56,37 +56,6 @@ namespace Authentication2.Controllers
 
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RegisterAsync(string username, string password, string role)
-        {
-            var user = new MyIdentityUser { UserName = username };
-            IdentityResult result = await _userManager.CreateAsync(
-               user, password);
-            if (!string.IsNullOrEmpty(role))
-            {
-                if (!await _roleManager.RoleExistsAsync(role))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(role));
-                }
-                var roleResult = await _userManager.AddToRoleAsync(user, role);
-            }
-            if (result.Succeeded)
-            {
-                return Content("Account created");
-            }
-            else
-            {
-
-                return Content(result.Errors.First().Description);
-            }
-
-        }
-
         public IActionResult RegisterDriver()
         {
             return View();

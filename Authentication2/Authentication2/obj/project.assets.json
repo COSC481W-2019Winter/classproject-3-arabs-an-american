@@ -12950,11 +12950,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\khour\\source\\repos\\Authentication2\\Authentication2\\Authentication2.csproj",
+      "projectUniqueName": "C:\\Users\\khour\\Documents\\GitHub\\classproject-3-arabs-an-american\\Authentication2\\Authentication2\\Authentication2.csproj",
       "projectName": "Authentication2",
-      "projectPath": "C:\\Users\\khour\\source\\repos\\Authentication2\\Authentication2\\Authentication2.csproj",
+      "projectPath": "C:\\Users\\khour\\Documents\\GitHub\\classproject-3-arabs-an-american\\Authentication2\\Authentication2\\Authentication2.csproj",
       "packagesPath": "C:\\Users\\khour\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\khour\\source\\repos\\Authentication2\\Authentication2\\obj\\",
+      "outputPath": "C:\\Users\\khour\\Documents\\GitHub\\classproject-3-arabs-an-american\\Authentication2\\Authentication2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
