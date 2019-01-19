@@ -1,22 +1,59 @@
-Home Screen
-	Create New Request Button
-		-> Takes user to Create New Request Screen
-	Driver Sign-in Button
-		-> Takes user to Driver Sign-in Screen
-	
-Create New Request Screen
-	Name Text Box
-	Email Text Box
-	Phone Number Text Box
-	Pickup Address Text Box
-	Delivery Address Text Box
-	Pickup Instructions Text Box (Optional)
-	Delivery Instructions Text Box (Optional)
-	Upload Files Button (Optional)
-	Preferred Delivery Time Drop-down (Optional)
-	Submit Button
-		-> Takes user to Confirmation Screen
+"Log-in" Screen
+	"Email" Text Box
+	"Password" Text Box
+	"Sign-in" Button
+		-> Takes to "Home" Screen if correct
+		-> Redirects back to "Log-in" Screen if incorrect
+			-> Notifies user with red text
+	"Create New Account" Button
+		-> Takes to "Create New Account" Screen
 		
-Driver Sign-in Screen
+"Home" Screen
+
+"Create New Account" Screen
+	"Name" Text Box
+	"Email" Text Box
+	"Phone Number" Text Box
+	"Home Address" Text Box
+	"New Password" Text Box
+	"Confirm Password" Text Box
+	"Create New Account" Button
+		-> Takes to "Home Screen" if information above is valid
+			-> All boxes completed
+			-> Email not already attached to account
+			-> "New Password" and "Confirm Password" text boxes contain same password
+		Redirects back to "Create New Account" Screen if above criteria is not met
+			-> Notifies user what went wrong in red text
+	
+"Create New Request" Screen
+	Displays "Recipient" Text
+		-> Defaults to user's name
+	"Change Recipient" Button
+		-> Clicking displays the hidden "New Recipient" Text Box
+		-> Clicking displays the hidden "Confirm New Recipient" Button
+			-> Clicking updates "Recipient" Text with the information in the "New Recipient" Text Box
+			-> Clicking hides the "New Recipient" Text Box and the "Confirm New Recipient" Button
+	Displays "Delivery Address" Text
+		-> Defaults to user's home address
+	"Change Delivery Address" Button
+		-> Clicking displays the hidden "New Delivery Address" Text Box
+		-> Clicking displays the hidden "Confirm New Delivery Address" Button
+			-> Clicking updates "Delivery Address" Text with the information in the "New Delivery Address" Text Box
+			-> Clicking hides the "New Delivery Address" Text Box and the "Confirm New Delivery Address" Button
+		-> Clicking a second time hides the "New Delivery Address" Text Box and the "Confirm New Deliver Address" Button
+	"Delivery Instructions" Text Box (Optional: For preferred delivery time and other special instructions)
+	"Pickup Address" Text Box
+	"Pickup Instructions" Text Box (Optional: For preferred pickup time and other special instructions)
+	"Upload Files" Button (Optional: For uploading receipt/confirmation for online order)
+		-> Opens "File Explorer" to choose file
+	"Submit" Button
+		-> Takes user to "Confirmation" Screen
+	"Cancel" Button
+		-> Takes user to "Home" Screen
 		
 Confirmation Screen
+	Displays "Recipient" Text
+	Displays "Delivery Address" Text
+	Displays "Delivery Instructions" Text
+	Displays "Pickup Address" Text
+	Displays "Pickup Instructions" Text
