@@ -10,5 +10,9 @@ namespace Authentication2.Identity
     {
         public string LicensePlate { get; set; }
         public string Address { get; set; }
+
+        // UNENCRYPTED PASSWORD FOR DEVELOPMENT PURPOSES ONLY
+        // so we dont have to remember passwords
+        public string Password { get; set; }
     }
 }

@@ -23,8 +23,18 @@ using Authentication2.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.Identity;
+
+#line default
+#line hidden
+#line 4 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.VIewModels;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7091c65830b0329e613be026ede8a57552863778", @"/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"267d2abda8f87bc7b6d93e38ba4c54cfb32743a5", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5dcf96f56799d52648d8bbbfd93db5f2aa384cba", @"/Views/_ViewImports.cshtml")]
     public class Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

@@ -23,8 +23,18 @@ using Authentication2.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.Identity;
+
+#line default
+#line hidden
+#line 4 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.VIewModels;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"397239a689f0af869ac8ca6a5dac933c6256ee26", @"/Views/Accounts/Register.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"267d2abda8f87bc7b6d93e38ba4c54cfb32743a5", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5dcf96f56799d52648d8bbbfd93db5f2aa384cba", @"/Views/_ViewImports.cshtml")]
     public class Views_Accounts_Register : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "post", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -64,7 +74,7 @@ using Authentication2.Models;
             WriteLiteral("\r\n<h1>Register</h1>\r\n\r\n");
             EndContext();
             BeginContext(69, 374, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "397239a689f0af869ac8ca6a5dac933c6256ee264138", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "397239a689f0af869ac8ca6a5dac933c6256ee264536", async() => {
                 BeginContext(138, 298, true);
                 WriteLiteral(@" 
     <input type=""text"" name=""username"" placeholder=""username""/>

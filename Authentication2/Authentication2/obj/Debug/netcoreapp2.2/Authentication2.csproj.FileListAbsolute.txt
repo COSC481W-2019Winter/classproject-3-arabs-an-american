@@ -66,3 +66,4 @@ C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2
 C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\obj\Debug\netcoreapp2.2\Authentication2.dll
 C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\obj\Debug\netcoreapp2.2\Authentication2.pdb
 C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\obj\Debug\netcoreapp2.2\Authentication2.csproj.CopyComplete
+C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\obj\Debug\netcoreapp2.2\Razor\Views\Accounts\Index.g.cshtml.cs

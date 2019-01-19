@@ -23,8 +23,18 @@ using Authentication2.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.Identity;
+
+#line default
+#line hidden
+#line 4 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.VIewModels;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6a5b7a3a7a0ccfeea636e4e854cb50239c19d03f", @"/Views/Accounts/Login.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"267d2abda8f87bc7b6d93e38ba4c54cfb32743a5", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5dcf96f56799d52648d8bbbfd93db5f2aa384cba", @"/Views/_ViewImports.cshtml")]
     public class Views_Accounts_Login : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "post", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -64,7 +74,7 @@ using Authentication2.Models;
             WriteLiteral("\r\n<h1>Login</h1>\r\n\r\n");
             EndContext();
             BeginContext(63, 248, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6a5b7a3a7a0ccfeea636e4e854cb50239c19d03f4108", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6a5b7a3a7a0ccfeea636e4e854cb50239c19d03f4506", async() => {
                 BeginContext(130, 174, true);
                 WriteLiteral("\r\n    <input type=\"text\" placeholder=\"username\" name=\"username\"/>\r\n    <input type=\"text\" placeholder=\"password\" name=\"password\"/>\r\n    <button type=\"submit\">Login</button>\r\n");
                 EndContext();

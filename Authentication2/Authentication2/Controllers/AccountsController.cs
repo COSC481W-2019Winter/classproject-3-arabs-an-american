@@ -1,4 +1,5 @@
-﻿using Authentication2.Identity;
+﻿using Authentication2.DataAccessLayer;
+using Authentication2.Identity;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,18 +15,33 @@ namespace Authentication2.Controllers
         UserManager<MyIdentityUser> _userManager;
         SignInManager<MyIdentityUser> _signInManager;
         RoleManager<IdentityRole> _roleManager;
+        MyIdentityContext _identityContext;
 
         public AccountsController(UserManager<MyIdentityUser> userManager,
             SignInManager<MyIdentityUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            MyIdentityContext identityContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _identityContext = identityContext;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            AccountsViewModel accountsViewModel = new AccountsViewModel();
+            //accountsViewModel.Accounts. = _identityContext.Users.ToList();
+            var users = _identityContext.Users.ToList();
+            foreach(var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                var role = roles.First();
+                accountsViewModel.Accounts.Add(new Account { Username=user.UserName,
+                Password = user.Password,
+                Role =  role
+                });
+            }
+            return View("Index", accountsViewModel);
         }
 
         public IActionResult Login()
@@ -72,7 +88,8 @@ namespace Authentication2.Controllers
             var user = new MyIdentityUser
             {
                 UserName = userViewModel.Username,
-                Address = userViewModel.Address
+                Address = userViewModel.Address,
+                Password = userViewModel.Password
 
             };
             IdentityResult result = await _userManager.CreateAsync(
@@ -96,7 +113,8 @@ namespace Authentication2.Controllers
             var user = new MyIdentityUser
             {
                 UserName = driverViewModel.Username,
-                LicensePlate = driverViewModel.LicensePlate
+                LicensePlate = driverViewModel.LicensePlate,
+                Password = driverViewModel.Password
 
             };
             IdentityResult result = await _userManager.CreateAsync(

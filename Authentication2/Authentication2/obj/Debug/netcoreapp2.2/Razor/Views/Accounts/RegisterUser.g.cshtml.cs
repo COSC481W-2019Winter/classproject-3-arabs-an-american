@@ -23,8 +23,18 @@ using Authentication2.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.Identity;
+
+#line default
+#line hidden
+#line 4 "C:\Users\khour\Documents\GitHub\classproject-3-arabs-an-american\Authentication2\Authentication2\Views\_ViewImports.cshtml"
+using Authentication2.VIewModels;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b8e7bf6851fa35c2064abd75cfbd90d6c5f055c3", @"/Views/Accounts/RegisterUser.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"267d2abda8f87bc7b6d93e38ba4c54cfb32743a5", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5dcf96f56799d52648d8bbbfd93db5f2aa384cba", @"/Views/_ViewImports.cshtml")]
     public class Views_Accounts_RegisterUser : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "post", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -64,7 +74,7 @@ using Authentication2.Models;
             WriteLiteral("\r\n<h1>RegisterUser</h1>\r\n\r\n");
             EndContext();
             BeginContext(77, 307, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b8e7bf6851fa35c2064abd75cfbd90d6c5f055c34178", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b8e7bf6851fa35c2064abd75cfbd90d6c5f055c34576", async() => {
                 BeginContext(150, 227, true);
                 WriteLiteral("\r\n    <input type=\"text\" placeholder=\"Username\" name=\"Username\" />\r\n    <input type=\"text\" placeholder=\"Password\" name=\"Password\" />\r\n    <input type=\"text\" placeholder=\"Address\" name=\"Address\" />\r\n    <input type=\"submit\" />\r\n");
                 EndContext();
