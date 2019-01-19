@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<p>Click to register an account either as a driver or a user</p>
+
+<a href="@Url.Action("RegisterDriver","Accounts")">Register as a driver</a>
+<br />
+<a href="@Url.Action("RegisterUser","Accounts")">Register as a user</a>
+<br />
+Already have an account?
+<a href="@Url.Action("Login","Accounts")">Sign in here</a>
