@@ -8,12 +8,15 @@
 			-> Notifies user with red text
 	"Create New Account" Button
 		-> Takes to "Create New Account" Screen
+	"About" Text
 		
 "Home" Screen - General
 	"Create New Request" Button
 		-> Takes to "Create New Request" Screen
 	"My Requests" Button
 		-> Takes to "My Requests" Screen
+	"Become a Driver" Button
+		-> Takes to "Driver Registration" Screen
 		
 "Home" Screen - Driver
 	"Create New Request" Button
@@ -39,11 +42,22 @@
 			-> "New Password" and "Confirm Password" text boxes contain same password
 		Redirects back to "Create New Account" Screen if above criteria is not met
 			-> Notifies user what went wrong in red text
+			
+"Driver Registration" Screen
+	"Car Make" Text Box
+	"Car Model" Text Box
+	"Car Year" Text Box
+	"Car License Plate" Text Box
+	"Submit" Button
+		-> Submits information to be reviewed
+		-> Displays hidden "Information Submitted" Text
+		-> Redirects back to "Home" Screen after a couple seconds
 
 "My Requests" Screen
 	Shows the "Request History" of the user
 	Each request shows the status of each request (en route, delivered, awaiting driver, canceled, etc.)
 	Each request shows all of the information inputted when creating the request (deliver to, pickup from, etc.)
+	Each request shows the driver information if it has been accepted by a driver
 	Each request has an "Update Request" Button
 		-> Takes to "Update Request" Screen if not already out for delivery
 		-> Requests can NOT be updated if out for delivery
@@ -125,6 +139,7 @@
 		-> Clicking adds the request to the top of the driver's "My Deliveries" List
 		-> Clicking removes the request from the "Request Queue"
 		-> Clicking updates the request status to "Awaiting Pickup"
+		-> Clicking adds the driver's information to the request
 		
 "My Deliveries" Screen
 	Shows the driver's "My Deliveries" List of all the deliveries that the driver has ever accepted
@@ -135,5 +150,6 @@
 		-> Driver is to select "Delivered" after completing the delivery
 		-> Driver can select "Release Request" before picking up the delivery
 			-> This will return the request to the top of the "Request Queue"
+			-> This will remove the driver's information from the request
 		
 	
