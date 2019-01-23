@@ -1,0 +1,9 @@
+- Entity ORM (object relational mapper) for interacting with the database
+- Identity Framework for authentication
+- Google maps (desired)
+
+we can also list front end technologies
+- jQuery for dom manipulation
+- jQuery-validate for client side form validation
+- Bootstrap or Semantic UI 
+- Font Awesome for icons (desired)
