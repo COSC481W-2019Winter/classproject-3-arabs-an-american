@@ -2,10 +2,10 @@ List of components:
 
 -------------------------------------------------
 Models:
+    MyDbContext.cs
     AccountModel.cs
     RequestModel.cs
     AddressModel.cs
-    MyDbContext.cs
     
 Controllers:
     AccountsController.cs
@@ -14,7 +14,7 @@ Controllers:
 View Models:
     SignUpViewModel.cs
     LoginViewModel.cs
-    UpgradeToDriverViewModel.cs
+    BecomeDriverViewModel.cs
     CreateRequestViewModel.cs
 
 Views:
@@ -31,7 +31,8 @@ Views:
         CreateRequestView.cshtml
         EditRequestView.cshtml
         DeleteRequestView.cshtml
-        ViewRequestsView.cshtml
+        ViewRequestView.cshtml
+        ViewAllRequestsView.cshtml
         
 Identity:
     UserManager.cs
@@ -137,24 +138,46 @@ Properties:
 -----------
 Name                Type            Description
 ----                ----            -----------
-_context            MyDbContext     an instance of the service layer class MyDbContext
+_context            MyDbContext     an instance of the data access layer class MyDbContext
 _signinManager      SignInManager   an instance of the SignInManager class
 _roleManager        RoleManager     an instance of the RoleManager class
 
 Functionalities:
 ----------------
-Name            Parameters          Return          Behavior
-----            ----------          ------          --------
+Name            Parameters          Return              Behavior
+----            ----------          ------              --------
 Constructor     MyDbContext,         
                 SignInManager, 
-                RoleManager         Instance        Widens the scope of the parameters
+                RoleManager         Instance            Widens the scope of the parameters
                 
-Signup (GET)    None                SignupView      Just returns the signup page.
-Signup (POST)   SignUpViewModel     HomePage        Creates a new account and redirect to homepage
+Signup (GET)    None                SignupView          Just returns the signup page.
+Signup (POST)   SignUpViewModel     HomePage            Creates a new account and redirect to homepage
 
-Login (GET)     None                LoginView       Just returns the LoginView
-Login (POST)    LoginViewModel      HomePage        Checks if the user exist or not, and redirect to                                                                appropriate page  
-Logout (GET)    None                HomePage        Logs the user out
+Login (GET)     None                LoginView           Just returns the LoginView
+Login (POST)    LoginViewModel      HomePage            Checks if the user exist or not, and redirect to                                                                appropriate page  
+Logout (GET)    None                HomePage            Logs the user out
+
+Driver(GET)     None                BecomeDriverView    Just returns the BecomeDriver form
+Driver(POST)    BecomeDriverViewModel HomePage          Populates the driver fields in the user account
+                                                        and adds the "Driver" role to the account.
+
+Connectors:
+    When the user navigates to a specific route in the accounts controller like /accounts/signup, an instance of this class will be instantiated and the appropriate action method will be called depending on the route and the http verb associated with the request.
+    
+-------------------------------------------------
+
+RequestController:
+    This class will contain all the action methods related to requests. Creating them, deleting them, updating them, getting a list of them, etc..
+    
+Name            Parameters          Return              Behavior
+----            ----------          ------              --------
+Get(GET)        int id              ViewRequestView     Uses the data access layer to look up the specified                                                             request using the provided id
+Delete(GET)     int id              DeleteRequestView   shows the confirm delete page
+Delete(POST)    RequestModel        HomePage            Deletes the request from the database
+Edit (GET)      int id              EditRequestView     Shows the edit request page populating the                                                                      appropriate fields to edit
+Edit(POST)      RequestModel        HomePage            Updates the request in the database with the changes
+All(GET)        None                ViewAllRequestsView Looks up all the requests in the database
+
 
 -------------------------------------------------
 SignUpViewModel:
@@ -194,7 +217,7 @@ Connectors:
     This type will statically bind to the Login.cshtml page making it a strongly typed view.
 
 -------------------------------------------------
-UpgradeToDriverViewModel:
+BecomeDriverViewModel:
     An object from this class represents the view model of the become a driver page.
     We use this class to do client side validation. The form wont go through unless the form is valid.
     
