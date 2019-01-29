@@ -156,97 +156,97 @@ Driver(GET)|None|BecomeDriverView |Just returns the BecomeDriver form
 Driver(POST)|BecomeDriverViewModel |HomePage |Populates the driver fields in the user account and adds the "Driver" role to the account.
                                                         
 
-Connectors:
-    When the user navigates to a specific route in the accounts controller like /accounts/signup, an instance of this class will be instantiated and the appropriate action method will be called depending on the route and the http verb associated with the request.
+### Connectors:
+When the user navigates to a specific route in the accounts controller like /accounts/signup, an instance of this class will be instantiated and the appropriate action method will be called depending on the route and the http verb associated with the request.
     
 -------------------------------------------------
 
-RequestController:
-    This class will contain all the action methods related to requests. Creating them, deleting them, updating them, getting a list of them, etc..
+## RequestController:
+This class will contain all the action methods related to requests. Creating them, deleting them, updating them, getting a list of them, etc..
     
-Name            Parameters          Return              Behavior
-----            ----------          ------              --------
-Get(GET)        int id              ViewRequestView     Uses the data access layer to look up the specified                                                             request using the provided id
-Delete(GET)     int id              DeleteRequestView   shows the confirm delete page
-Delete(POST)    RequestModel        HomePage            Deletes the request from the database
-Edit (GET)      int id              EditRequestView     Shows the edit request page populating the                                                                      appropriate fields to edit
-Edit(POST)      RequestModel        HomePage            Updates the request in the database with the changes
-All(GET)        None                ViewAllRequestsView Looks up all the requests in the database
-
-
--------------------------------------------------
-SignUpViewModel:
-    An object from this class represents the view model of the sign up page.
-    We use this class to do client side validation. The form wont go through unless the form is valid.
-    
-Properties:
-Name                Type        Description                 Attribute Decorators
-----                ----        -----------                 --------------------
-Username            String      Username for login          Required, DataType.Text
-Password            String      The user's password         Required, DataType.Password
-Email               String      The user's Email address    Required, DataType.Email
-Address             Address     The user's Address          None
-PhoneNumber         String      The user's phone number     DataType.Phone
-
-Functionalties:
-    Getters and setters for all properties
-    
-Connectors:
-    This type will statically bind to the Signup.cshtml page making it a strongly typed view.
+Name|Parameters|Return|Behavior
+----|----------|------|--------
+Get(GET)|int id |ViewRequestView |Uses the data access layer to look up the specified                                                                           request using the provided id
+Delete(GET)|int id |DeleteRequestView|shows the confirm delete page
+Delete(POST)|RequestModel| HomePage | Deletes the request from the database
+Edit (GET)|int id |EditRequestView |Shows the edit request page populating the appropriate fields to edit                     
+Edit(POST)|RequestModel|HomePage|Updates the request in the database with the changes
+All(GET)|None|ViewAllRequestsView|Looks up all the requests in the database
 
 -------------------------------------------------
-LogInViewModel:
-    An object of this class represents the view model of the login page.
-    We use this class to do client side validation. The form wont go through unless the form is valid.
+## SignUpViewModel:
+An object from this class represents the view model of the sign up page.
+We use this class to do client side validation. The form wont go through unless the form is valid.
     
-Properties:
-Name                Type        Description                 Attribute Decorators
-----                ----        -----------                 --------------------
-Username            String      Username for login          Required, DataType.Text
-Password            String      The user's password         Required, DataType.Password
+### Properties:
+Name|Type|Description|Attribute Decorators
+----|----|-----------|--------------------
+Username|String|Username for login|Required, DataType.Text
+Password |String|The user's password|Required, DataType.Password
+Email |String|The user's Email address|Required, DataType.Email
+Address|Address|The user's Address| None
+PhoneNumber |String| The user's phone number|DataType.Phone
 
-Functionalties:
-    Getters and setters for all properties
+### Functionalties:
+Getters and setters for all properties
     
-Connectors:
-    This type will statically bind to the Login.cshtml page making it a strongly typed view.
+### Connectors:
+This type will statically bind to the Signup.cshtml page making it a strongly typed view.
 
 -------------------------------------------------
-BecomeDriverViewModel:
-    An object from this class represents the view model of the become a driver page.
-    We use this class to do client side validation. The form wont go through unless the form is valid.
+## LogInViewModel:
+An object of this class represents the view model of the login page.
+We use this class to do client side validation. The form wont go through unless the form is valid.
     
-Name                Type        Description                         Attribute Decorators
-----                ----        -----------                         --------------------
-CarMake             String      The driver's car make               Required
-CarModel            String      The driver's car model              Required
-CarColor            String      The driver's car color              Required
-CarYear             int         The driver's car year               Required
-CarLicensePlate     String      The driver's car's license plate    Required
+### Properties:
 
-Functionalities:
-    Getters and setters for all properties
+Name|Type|Description|Attribute Decorators
+----|----|-----------|--------------------
+Username|String |Username for login|Required, DataType.Text
+Password|String|The user's password|Required, DataType.Password
+
+### Functionalties:
+Getters and setters for all properties
     
-Connectors:
-    This type will statically bind to the BecomeDriver.cshtml page making it a strongly typed view.
+### Connectors:
+This type will statically bind to the Login.cshtml page making it a strongly typed view.
+
+-------------------------------------------------
+## BecomeDriverViewModel:
+An object from this class represents the view model of the become a driver page.
+We use this class to do client side validation. The form wont go through unless the form is valid.
+    
+Name|Type|Description|Attribute Decorators
+----|----|-----------|--------------------
+CarMake|String|The driver's car make|Required
+CarModel|String|The driver's car model|Required
+CarColor|String|The driver's car color | Required
+CarYear|int|The driver's car year|Required
+CarLicensePlate|String|The driver's car's license plate|Required
+
+### Functionalities:
+Getters and setters for all properties
+    
+### Connectors:
+This type will statically bind to the BecomeDriver.cshtml page making it a strongly typed view.
     
 -------------------------------------------------    
-CreateRequestViewModel:
-    An instnace of this class represents the view model of the create request page.
-    We use this class to do client side validation. The form won go through unless its valid.
+### CreateRequestViewModel:
+An instnace of this class represents the view model of the create request page.
+We use this class to do client side validation. The form won go through unless its valid.
     
-Name                Type        Description                         Attribute Decorators
-----                ----        -----------                         --------------------
-PickupStreetName    String      The pickup street name              Required, DataType.Text
-PickupStreetNumber  int         The pickup street number            Required, DataType.Number
-PickupCity          String      The pickup city                     Required, DataType.Text
-PickupState         String      The pickup state                    Required, DataType.Text
-PickupZipCode       int         The pickup zip code                 Required, DataType.Number
-DropoffStreetName   String      The dropoff street name             Required, DataType.Text
-DropoffStreetNumber int         The dropoff street number           Required, DataType.Number
-DropoffCity         String      The dropoff city                    Required, DataType.Text
-DropoffState        String      The dropoff state                   Required, DataType.Text
-DropoffZipCode      int         The dropoff zip code                Required, DataType.Number
-Item                String      The name of the item                Required, DataType.Text
-PickupInstructions  String      Optional instructions for pickup    
-DropoffInstructions String      Optional instructions for drop off
+Name|Type|Description|Attribute Decorators
+----|----|-----------|--------------------
+PickupStreetName|String|The pickup street name|Required, DataType.Text
+PickupStreetNumber|int|The pickup street number|Required, DataType.Number
+PickupCity|String|The pickup city|Required, DataType.Text
+PickupState|String|The pickup state|Required, DataType.Text
+PickupZipCode|int|The pickup zip code|Required, DataType.Number
+DropoffStreetName|String|The dropoff street name|Required, DataType.Text
+DropoffStreetNumber|int|The dropoff street number|Required, DataType.Number
+DropoffCity|String|The dropoff city|Required, DataType.Text
+DropoffState|String|The dropoff state|Required, DataType.Text
+DropoffZipCode|int|The dropoff zip code|Required, DataType.Number
+Item|String |The name of the item |Required, DataType.Text
+PickupInstructions|String |Optional instructions for pickup|   
+DropoffInstructions|String|Optional instructions for drop off|
