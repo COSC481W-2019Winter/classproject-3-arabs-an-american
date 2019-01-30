@@ -35,7 +35,7 @@
 * At completion of delivery a confirmation email will be sent to requesting user containing request number and date of completion.
 
 ## Event Driven Flow
-![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/EventDrivenBasedxml2.png)
+![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/EventDiagram.png)
 
 ## Context Diagram
 ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/ContextDiagram.png)
