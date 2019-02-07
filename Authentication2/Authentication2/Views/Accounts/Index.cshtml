@@ -1,0 +1,32 @@
+﻿@model AccountsViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<h2>Below is a list of accounts currently registered. This is for development purposes only.</h2>
+
+@if (Model.Accounts.Count == 0)
+{
+    <p>There are no accounts currently registered</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Role</th>
+        </tr>
+        @foreach (var user in Model.Accounts)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Password</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,17 @@
+﻿@model List<MyIdentityUser>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<p>Click to register an account either as a driver or a user</p>
+
+<a href="@Url.Action("RegisterDriver","Accounts")">Register as a driver</a>
+<br />
+<a href="@Url.Action("RegisterUser","Accounts")">Register as a user</a>
+<br />
+Already have an account?
+<a href="@Url.Action("Login","Accounts")">Sign in here</a>
+<br />
+<a href="@Url.Action("IndexAsync","Accounts")">View all accounts currently registered (this is for development purposes only)</a>

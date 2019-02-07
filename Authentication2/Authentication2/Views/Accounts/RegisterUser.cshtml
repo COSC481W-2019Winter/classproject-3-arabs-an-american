@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "RegisterUser";
+}
+
+<h1>RegisterUser</h1>
+
+<form action="@Url.Action("RegisterUserAsync","Accounts")" method="post">
+    <input type="text" placeholder="Username" name="Username" />
+    <input type="text" placeholder="Password" name="Password" />
+    <input type="text" placeholder="Address" name="Address" />
+    <input type="submit" />
+</form>
