@@ -20,25 +20,28 @@ namespace Authentication2.Controllers
         public AccountsController(UserManager<MyIdentityUser> userManager,
             SignInManager<MyIdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
+            SignInManager<MyIdentityUser> signinManager,
             MyIdentityContext identityContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _identityContext = identityContext;
+            _signInManager = signInManager;
         }
         public async Task<IActionResult> IndexAsync()
         {
             AccountsViewModel accountsViewModel = new AccountsViewModel();
-            //accountsViewModel.Accounts. = _identityContext.Users.ToList();
             var users = _identityContext.Users.ToList();
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 var role = roles.First();
-                accountsViewModel.Accounts.Add(new Account { Username=user.UserName,
-                Password = user.Password,
-                Role =  role
+                accountsViewModel.Accounts.Add(new Account
+                {
+                    Username = user.UserName,
+                    Password = user.Password,
+                    Role = role
                 });
             }
             return View("Index", accountsViewModel);
@@ -50,86 +53,101 @@ namespace Authentication2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
             MyIdentityUser user = await _userManager.FindByNameAsync(username);
-            SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
-
-            if (result.Succeeded)
+            if (user != null)
             {
-                var roles = await _userManager.GetRolesAsync(user);
-                string role;
-                if (roles.Count != 0)
-                    role = roles.First().ToString();
+                SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+                if (result.Succeeded)
+                {
+                    var roles = await _userManager.GetRolesAsync(user);
+                    string role;
+                    if (roles.Count != 0)
+                        role = roles.First().ToString();
+                    else
+                        role = "None";
+                    _signInManager.SignInAsync(user, true).Wait();
+                    return RedirectToAction("Index", "Home");
+                }
+
                 else
-                    role = "None";
-                return Content("You are now logged in as " + user.UserName + " your role is " + role.ToString());
+                {
+                    return Content("Failed to login");
+                }
             }
             else
             {
-                return Content("Failed to login");
+                return Content("Failed to login. User doesnt exist");
             }
+
+
 
         }
 
-        public IActionResult RegisterDriver()
+
+        public IActionResult Signup()
         {
             return View();
         }
 
-        public IActionResult RegisterUser()
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync().Wait();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Signup(SignUpViewModel signUpViewModel)
+        {
+            MyIdentityUser user = new MyIdentityUser()
+            {
+                UserName = signUpViewModel.Username,
+                Password = signUpViewModel.Password,
+                Email = signUpViewModel.Email,
+                Address = signUpViewModel.Address,
+                PhoneNumber = signUpViewModel.PhoneNumber
+            };
+
+            IdentityResult result = _userManager.CreateAsync(user, signUpViewModel.Password).Result;
+            if (result.Succeeded)
+            {
+                IdentityResult roleResult = _userManager.AddToRoleAsync(user, "User").Result;
+                if (roleResult.Succeeded)
+                {
+                    return Content("User Account " + user.UserName + " Created Successfully. You can now login at /accounts/login");
+
+                }
+                else
+                {
+                    return Content("Adding role failed: " + roleResult.Errors.First().Description);
+                }
+            }
+            else
+            {
+                return Content("User account creation failed: " + result.Errors.First().Description);
+            }
+        }
+
+        public IActionResult BecomeDriver()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUserAsync(UserViewModel userViewModel)
+        public IActionResult BecomeDriver(BecomeDriverViewModel becomeDriverViewModel)
         {
-            var user = new MyIdentityUser
-            {
-                UserName = userViewModel.Username,
-                Address = userViewModel.Address,
-                Password = userViewModel.Password
-
-            };
-            IdentityResult result = await _userManager.CreateAsync(
-               user, userViewModel.Password);
-
-            if (!await _roleManager.RoleExistsAsync("User"))
-            {
-                await _roleManager.CreateAsync(new IdentityRole("User"));
-            }
-            var roleResult = await _userManager.AddToRoleAsync(user, "User");
-
-            if (result.Succeeded)
-                return Content("User Account created");
-            else
-                return Content(result.Errors.First().Description);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RegisterDriverAsync(DriverViewModel driverViewModel)
-        {
-            var user = new MyIdentityUser
-            {
-                UserName = driverViewModel.Username,
-                LicensePlate = driverViewModel.LicensePlate,
-                Password = driverViewModel.Password
-
-            };
-            IdentityResult result = await _userManager.CreateAsync(
-               user, driverViewModel.Password);
-
-            if (!await _roleManager.RoleExistsAsync("Driver"))
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Driver"));
-            }
-            var roleResult = await _userManager.AddToRoleAsync(user, "Driver");
-
-            if (result.Succeeded)
-                return Content("Driver Account created");
-            else
-                return Content(result.Errors.First().Description);
+            MyIdentityUser user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            user.CarMake = becomeDriverViewModel.CarMake;
+            user.CarModel = becomeDriverViewModel.CarModel;
+            user.CarYear = becomeDriverViewModel.CarYear;
+            user.CarColor = becomeDriverViewModel.CarColor;
+            user.LicensePlate = becomeDriverViewModel.CarLicensePlate;
+            IdentityResult roleResult = _userManager.AddToRoleAsync(user, "Driver").Result;
+            IdentityResult updateResult = _userManager.UpdateAsync(user).Result;
+            _signInManager.SignOutAsync().Wait();
+            _signInManager.SignInAsync(user, true).Wait();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

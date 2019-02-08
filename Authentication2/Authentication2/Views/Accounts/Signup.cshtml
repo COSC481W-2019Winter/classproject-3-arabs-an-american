@@ -1,0 +1,39 @@
+﻿@model SignUpViewModel
+@{
+    ViewData["Title"] = "RegisterAccount";
+}
+
+<h1>RegisterAccount</h1>
+
+<form asp-action="RegisterAccount" asp-controller="Accounts" method="post">
+
+    <label asp-for="Username">Username</label>
+    <input asp-for="Username" />
+    <br />
+    <label asp-for="Password">Password</label>
+    <input asp-for="Password" />
+    <br />
+    <label asp-for="Email">Email</label>
+    <input asp-for="Email" />
+    <br />
+    <label asp-for="Address.StreetNumber">StreetNumber</label>
+    <input asp-for="Address.StreetNumber" />
+    <br />
+    <label asp-for="Address.StreetName">StreetName</label>
+    <input asp-for="Address.StreetName" />
+    <br />
+    <label asp-for="Address.City">City</label>
+    <input asp-for="Address.City" />
+    <br />
+    <label asp-for="Address.State">State</label>
+    <input asp-for="Address.State" />
+    <br />
+    <label asp-for="Address.ZipCode">ZipCode</label>
+    <input asp-for="Address.ZipCode" />
+    <br />
+    <label asp-for="PhoneNumber">PhoneNumber</label>
+    <input asp-for="PhoneNumber" />
+    <br />
+ 
+    <input type="submit" value="Signup" />
+</form>

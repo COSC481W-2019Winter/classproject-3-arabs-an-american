@@ -50,7 +50,8 @@ namespace Authentication2
             
         }
         
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            UserManager<MyIdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +73,9 @@ namespace Authentication2
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            MyIdentityInitializer.SeedData(userManager, roleManager);
+
+
         }
     }
 }

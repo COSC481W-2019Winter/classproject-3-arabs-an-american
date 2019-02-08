@@ -1,0 +1,31 @@
+﻿@model BecomeDriverViewModel
+@{
+    ViewData["Title"] = "BecomeDriver";
+}
+
+<h1>BecomeDriver</h1>
+
+<form asp-action="BecomeDriver" asp-controller="Accounts">
+
+    <label asp-for="CarMake">CarMake</label>
+    <input asp-for="CarMake" />
+    <br />
+
+    <label asp-for="CarColor">CarColor</label>
+    <input asp-for="CarColor" />
+    <br />
+
+    <label asp-for="CarModel">CarModel</label>
+    <input asp-for="CarModel" />
+    <br />
+
+    <label asp-for="CarYear">CarYear</label>
+    <input asp-for="CarYear" />
+    <br />
+
+    <label asp-for="CarLicensePlate">Car License Plate</label>
+    <input asp-for="CarLicensePlate" />
+    <br />
+
+   <input type="submit" value="Become a Driver"/>
+</form>
