@@ -28,7 +28,7 @@ namespace Authentication2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MyIdentityContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<MyIdentityUser, IdentityRole>(options => {
                 options.Password.RequireDigit = false;
