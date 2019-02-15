@@ -12,10 +12,10 @@ namespace Authentication2.Controllers
     public class AccountsController : Controller
     {
 
-        UserManager<MyIdentityUser> _userManager;
-        SignInManager<MyIdentityUser> _signInManager;
-        RoleManager<IdentityRole> _roleManager;
-        MyIdentityContext _identityContext;
+        private readonly UserManager<MyIdentityUser> _userManager;
+        private readonly SignInManager<MyIdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly MyIdentityContext _identityContext;
 
         public AccountsController(UserManager<MyIdentityUser> userManager,
             SignInManager<MyIdentityUser> signInManager,
@@ -81,8 +81,6 @@ namespace Authentication2.Controllers
                 return Content("Failed to login. User doesnt exist");
             }
 
-
-
         }
 
 
@@ -115,8 +113,8 @@ namespace Authentication2.Controllers
                 IdentityResult roleResult = _userManager.AddToRoleAsync(user, "User").Result;
                 if (roleResult.Succeeded)
                 {
-                    return Content("User Account " + user.UserName + " Created Successfully. You can now login at /accounts/login");
-
+                    _signInManager.SignInAsync(user, true);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

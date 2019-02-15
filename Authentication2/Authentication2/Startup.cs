@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Authentication2.DataAccessLayer;
 using Authentication2.Identity;
@@ -27,8 +28,16 @@ namespace Authentication2
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyIdentityContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                services.AddDbContext<MyIdentityContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("DefaultWinConnection")));
+            }
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                services.AddDbContext<MyIdentityContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("DefaultMacConnection")));
+            }
 
             services.AddIdentity<MyIdentityUser, IdentityRole>(options => {
                 options.Password.RequireDigit = false;
