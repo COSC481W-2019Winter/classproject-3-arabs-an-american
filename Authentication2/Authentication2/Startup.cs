@@ -28,16 +28,20 @@ namespace Authentication2
         
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = "";
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                services.AddDbContext<MyIdentityContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("DefaultWinConnection")));
+                connection = Configuration.GetConnectionString("DefaultWinConnection");
             }
             else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                services.AddDbContext<MyIdentityContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("DefaultMacConnection")));
+                connection = Configuration.GetConnectionString("DefaultMacConnection");
             }
+            services.AddDbContext<MyIdentityContext>(options =>
+                    options.UseSqlite(connection));
+
+            services.AddDbContext<RequestContext>(options =>
+                    options.UseSqlite(connection));
 
             services.AddIdentity<MyIdentityUser, IdentityRole>(options => {
                 options.Password.RequireDigit = false;
@@ -56,6 +60,8 @@ namespace Authentication2
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
             
         }
         
