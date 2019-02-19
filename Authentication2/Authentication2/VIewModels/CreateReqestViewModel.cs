@@ -21,6 +21,6 @@ namespace Authentication2.VIewModels
         public string DropoffInstructions { get; set; }
         public int DropoffStreetNumber { get; set; }
         public int DropoffZipcode { get; set; }
-        public string item { get; set; }
+        public string Item { get; set; }
     }
 }
