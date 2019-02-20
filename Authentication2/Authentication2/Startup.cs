@@ -40,9 +40,6 @@ namespace Authentication2
             services.AddDbContext<MyIdentityContext>(options =>
                     options.UseSqlite(connection));
 
-            services.AddDbContext<RequestContext>(options =>
-                    options.UseSqlite(connection));
-
             services.AddIdentity<MyIdentityUser, IdentityRole>(options => {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
@@ -51,6 +48,9 @@ namespace Authentication2
                 options.Password.RequireLowercase = false;
             })
                 .AddEntityFrameworkStores<MyIdentityContext>();
+
+
+            
 
             services.Configure<CookiePolicyOptions>(options =>
             {

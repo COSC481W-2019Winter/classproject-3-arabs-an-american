@@ -14,10 +14,12 @@ namespace Authentication2.DataAccessLayer
         {
             this.Database.EnsureCreated();
         }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
         }
+        public DbSet<Models.RequestModel> Requests {get; set;}
     }
 }
