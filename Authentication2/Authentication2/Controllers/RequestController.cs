@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Authentication2.DataAccessLayer;
+using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,15 +33,43 @@ namespace Authentication2.Controllers
         [HttpPost]
         public IActionResult Create(CreateRequestViewModel model){
 
-                //TODO: create req model from the view model
+            //TODO: create req model from the view model
+            RequestModel request = new RequestModel
+            {
+                PickupAddress = new Identity.Address
+                {
+                    StreetNumber = model.PickupStreetNumber,
+                    StreetName = model.PickupStreetName,
+                    City = model.PickupCity,
+                    State = model.PickupState,
+                    ZipCode = model.PickupZipcode
+                },
+                DropOffAddress = new Identity.Address
+                {
+                    StreetNumber = model.DropoffStreetNumber,
+                    StreetName = model.DropoffStreetName,
+                    City = model.DropoffCity,
+                    State = model.DropoffState,
+                    ZipCode = model.DropoffZipcode
+                },
+                Item = model.Item,
+                PickUpInstructions = model.PickupInstructions,
+                DropOffInstructions = model.DropoffInstructions,
+            };
 
-                // add to the context
+            // add to the context
+            _context.Add<RequestModel>(request);
 
-                // save
+            // save
+            _context.SaveChanges();
 
-//return RedirectToAction()
-                return Content("Post method create");
+            return RedirectToAction("ConfirmCreate");
+            //return Content(model.Item);
+        }
 
+        public IActionResult ConfirmCreate()
+        {
+            return View();
         }
     }
 }
