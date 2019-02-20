@@ -29,6 +29,11 @@ namespace Authentication2.Controllers
             return View();
         }
 
+        public IActionResult Update()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Create(CreateRequestViewModel model){
 
@@ -41,6 +46,12 @@ namespace Authentication2.Controllers
 //return RedirectToAction()
                 return Content("Post method create");
 
+        }
+
+        [HttpPost]
+        public IActionResult Update(CreateRequestViewModel model)
+        {
+            return Content("Post method update");
         }
     }
 }
