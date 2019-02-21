@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Authentication2.DataAccessLayer;
+using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace Authentication2.Controllers
 {
     public class RequestController : Controller
     {
+
         private readonly MyIdentityContext _context;
         
          public RequestController(MyIdentityContext context)
@@ -29,6 +31,7 @@ namespace Authentication2.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult Create(CreateRequestViewModel model){
 
@@ -42,5 +45,29 @@ namespace Authentication2.Controllers
                 return Content("Post method create");
 
         }
+
+        public async Task<IActionResult> ViewByID(int? id)
+        {
+            if(id == null){
+                return View();
+            }
+
+            var request = await _context.Requests.FindAsync(id);
+
+            if(request == null)
+            {
+                return Content("The model was null with ID: "+id.ToString());
+            }
+            // var request = new ViewByIDViewModel();
+            // request.PickupAddress = new Identity.Address();
+            // request.DropOffAddress = new Identity.Address();
+            // request.Item = "Fishsticks";
+            // request.PickUpInstructions = "eat it";
+            // request.DropOffInstructions = "fish it";
+            return View(request);
+            
+        }
+
+
     }
 }
