@@ -6,6 +6,7 @@ using Authentication2.DataAccessLayer;
 using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,7 +34,15 @@ namespace Authentication2.Controllers
         public IActionResult Update(long id)
         {
             id = 1;//Testing purposes only
-            RequestModel request = _context.Requests.Where(r => r.Id == id).FirstOrDefault();
+
+           //var requsts = _context.Requests.Inc
+            //RequestModel request = _context.Requests.Where(r => r.Id == id).FirstOrDefault();
+            RequestModel request = _context.Requests
+                .Where(r => r.Id == id)
+                .Include(req => req.DropOffAddress)
+                .Include(req => req.PickupAddress)
+                .FirstOrDefault();
+
             return View(request);
         }
 
