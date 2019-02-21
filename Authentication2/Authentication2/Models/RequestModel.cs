@@ -1,5 +1,6 @@
 using System;
 using Authentication2.Identity;
+using Authentication2.VIewModels;
 
 namespace Authentication2.Models
 {
