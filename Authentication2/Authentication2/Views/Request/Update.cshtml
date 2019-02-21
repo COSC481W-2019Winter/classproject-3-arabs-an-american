@@ -3,7 +3,7 @@
 <h1>Update Request</h1>
 
 <form method="post" action='@Url.Action("Update","Request")'>
-
+    @Html.HiddenFor(m => m.Id)
     <table>
         <tr><th><h3>Pickup</h3></th></tr>
         <tr>

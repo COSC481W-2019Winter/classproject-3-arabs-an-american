@@ -34,9 +34,6 @@ namespace Authentication2.Controllers
         public IActionResult Update(long id)
         {
             id = 1;//Testing purposes only
-
-           //var requsts = _context.Requests.Inc
-            //RequestModel request = _context.Requests.Where(r => r.Id == id).FirstOrDefault();
             RequestModel request = _context.Requests
                 .Where(r => r.Id == id)
                 .Include(req => req.DropOffAddress)
@@ -63,7 +60,11 @@ namespace Authentication2.Controllers
         [HttpPost]
         public IActionResult Update(RequestModel request)
         {
-            RequestModel existingRequest = _context.Requests.Where(r => r.Id == request.Id).FirstOrDefault();
+            RequestModel existingRequest = _context.Requests
+                .Where(r => r.Id == request.Id)
+                .Include(req => req.DropOffAddress)
+                .Include(req => req.PickupAddress)
+                .FirstOrDefault();
 
             existingRequest.PickupAddress = request.PickupAddress;
             existingRequest.DropOffAddress = request.DropOffAddress;
@@ -71,7 +72,7 @@ namespace Authentication2.Controllers
             existingRequest.PickUpInstructions = request.PickUpInstructions;
             existingRequest.DropOffInstructions = request.DropOffInstructions;
 
-            //_context.Update<RequestModel>(request);
+            _context.Update<RequestModel>(existingRequest);
             _context.SaveChanges();
 
             return RedirectToAction("ConfirmUpdate");
