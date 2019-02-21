@@ -1,0 +1,41 @@
+@model RequestModel
+
+<h1>Update Request</h1>
+
+<form method="post" action='@Url.Action("Update","Request")'>
+    @Html.HiddenFor(m => m.Id)
+    <table>
+        <tr><th><h3>Pickup</h3></th></tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.PickupAddress.StreetNumber, new { @class = "form-control" })</td>
+            <td colspan="2">@Html.TextBoxFor(m => m.PickupAddress.StreetName, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.PickupAddress.City, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.PickupAddress.State, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.PickupAddress.ZipCode, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td colspan="3">@Html.TextBoxFor(m => m.PickUpInstructions, new { @class = "form-control" })</td>
+        </tr>
+        <tr><th><h3>Dropoff</h3></th></tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.DropOffAddress.StreetNumber, new { @class = "form-control" })</td>
+            <td colspan="2">@Html.TextBoxFor(m => m.DropOffAddress.StreetName, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.DropOffAddress.City, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.DropOffAddress.State, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.DropOffAddress.ZipCode, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td colspan="3">@Html.TextBoxFor(m => m.DropOffInstructions, new { @class = "form-control" })</td>
+        </tr>
+        <tr><th><h3>Item</h3></th></tr>
+        <tr>
+            <td colspan="3">@Html.TextBoxFor(m => m.Item, new { @class = "form-control" })</td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Update">
+</form>
