@@ -1,6 +1,24 @@
-<p>This is the create page</p>
+<h1>Create Request</h1>
 
-<form method="post" action='@Url.Action("Create","Request")'>
-
-<input type="submit" value="Create">
+<!--<form asp-action="RegisterRequest" asp-controller="Request" method="post">-->
+<form method="post" action="@Url.Action("Create","Request")">
+    <h3>Pickup</h3><br>
+    <input type="text" name="PickupStreetNumber" placeholder="Street Number">
+    <input type="text" name="PickupStreetName" placeholder="Street Name"><br>
+    <input type="text" name="PickupCity" placeholder="City">
+    <input type="text" name="PickupState" placeholder="State">
+    <input type="number" name="PickupZipcode" placeholder="Zip"><br>
+    <input type="text" name="PickupInstructions" placeholder="Instructions">
+    <hr>
+    <h3>Dropoff</h3><br>
+    <input type="text" name="DropoffStreetNumber" placeholder="Street Number">
+    <input type="text" name="DropoffStreetName" placeholder="Street Name"><br>
+    <input type="text" name="DropoffCity" placeholder="City">
+    <input type="text" name="DropoffState" placeholder="State">
+    <input type="number" name="DropoffZipcode" placeholder="Zip"><br>
+    <input type="text" name="DropoffInstructions" placeholder="Instructions">
+    <hr>
+    <h3>Item</h3>
+    <input name="Item" type="text" placeholder="Item to be delivered">
+    <input type="submit" value="Create">
 </form>
