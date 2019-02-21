@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Authentication2.DataAccessLayer;
+using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,9 +50,40 @@ namespace Authentication2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(CreateRequestViewModel model)
+        public IActionResult Update(CreateRequestViewModel model, RequestModel request)
         {
-            return Content("Post method update");
+            request.Id = 1; //Testing purposes only. Won't need once we pass a request through to it.
+            request.PickupAddress = new Identity.Address
+            {
+                StreetNumber = model.PickupStreetNumber,
+                StreetName = model.PickupStreetName,
+                City = model.PickupCity,
+                State = model.PickupState,
+                ZipCode = model.PickupZipcode
+            };
+
+            request.DropOffAddress = new Identity.Address
+            {
+                StreetNumber = model.DropoffStreetNumber,
+                StreetName = model.DropoffStreetName,
+                City = model.DropoffCity,
+                State = model.DropoffState,
+                ZipCode = model.DropoffZipcode
+            };
+
+            request.Item = model.Item;
+            request.PickUpInstructions = model.PickupInstructions;
+            request.DropOffInstructions = model.DropoffInstructions;
+
+            _context.Update<RequestModel>(request);
+            _context.SaveChanges();
+
+            return RedirectToAction("ConfirmUpdate");
+        }
+
+        public IActionResult ConfirmUpdate()
+        {
+            return View();
         }
     }
 }

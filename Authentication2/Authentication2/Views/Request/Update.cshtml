@@ -1,18 +1,26 @@
-<p>This is the update page</p>
+<h1>Update Request</h1>
+
+<!--<form asp-action="RegisterRequest" asp-controller="Request" method="post">-->
 
 <form method="post" action='@Url.Action("Update","Request")'>
+    <h3>Pickup</h3><br>
     <input type="text" name="PickupStreetNumber" placeholder="Pickup Street Number" />
-    <input type="text" name="PickupStreetName" placeholder="Pickup Street Name" />
+    <input type="text" name="PickupStreetName" placeholder="Pickup Street Name" /><br>
     <input type="text" name="PickupCity" placeholder="Pickup City" />
     <input type="text" name="PickupState" placeholder="Pickup State" />
-    <input type="text" name="PickupZipCode" placeholder="Pickup Zip Code" />
+    <input type="text" name="PickupZipCode" placeholder="Pickup Zip Code" /><br>
+    <input type="text" name="PickupInstructions" placeholder="Pickup Instructions" />
+    <hr>
+    <h3>Dropoff</h3><br>
     <input type="text" name="DropoffStreetNumber" placeholder="Dropoff Street Number" />
-    <input type="text" name="DropoffStreetName" placeholder="Dropoff Street Name" />
+    <input type="text" name="DropoffStreetName" placeholder="Dropoff Street Name" /><br>
     <input type="text" name="DropoffCity" placeholder="Dropoff City" />
     <input type="text" name="DropoffState" placeholder="Dropoff State" />
-    <input type="text" name="DropoffZipCode" placeholder="Dropoff Zip Code" />
-    <input type="text" name="Item" placeholder="Items to be Delivered" />
-    <input type="text" name="PickupInstructions" placeholder="Pickup Instructions" />
+    <input type="text" name="DropoffZipCode" placeholder="Dropoff Zip Code" /><br>
     <input type="text" name="DropoffInstructions" placeholder="Dropoff Instructions" />
+    <hr>
+    <h3>Item</h3>
+    <input type="text" name="Item" placeholder="Items to be Delivered" />
+
     <input type="submit" value="Update">
 </form>
