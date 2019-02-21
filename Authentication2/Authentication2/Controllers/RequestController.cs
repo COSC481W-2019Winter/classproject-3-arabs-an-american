@@ -14,6 +14,7 @@ namespace Authentication2.Controllers
 {
     public class RequestController : Controller
     {
+
         private readonly MyIdentityContext _context;
         
          public RequestController(MyIdentityContext context)
@@ -83,6 +84,28 @@ namespace Authentication2.Controllers
         public IActionResult ConfirmCreate()
         {
             return View();
+        }
+
+        public async Task<IActionResult> ViewByID(int? id)
+        {
+            if(id == null){
+                return View();
+            }
+
+            var request = await _context.Requests.FindAsync(id);
+
+            if(request == null)
+            {
+                return Content("The model was null with ID: "+id.ToString());
+            }
+            // var request = new ViewByIDViewModel();
+            // request.PickupAddress = new Identity.Address();
+            // request.DropOffAddress = new Identity.Address();
+            // request.Item = "Fishsticks";
+            // request.PickUpInstructions = "eat it";
+            // request.DropOffInstructions = "fish it";
+            return View(request);
+            
         }
 
         [HttpPost]
