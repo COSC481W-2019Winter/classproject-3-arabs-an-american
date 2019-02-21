@@ -1,0 +1,9 @@
+﻿@model List<MyIdentityUser>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<a href="@Url.Action("IndexAsync","Accounts")">View all accounts currently registered (this is for development purposes only)</a>
+<br>
+<a href="@Url.Action("ViewByID","Request")">ViewByID</a>
