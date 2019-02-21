@@ -30,9 +30,11 @@ namespace Authentication2.Controllers
             return View();
         }
 
-        public IActionResult Update()
+        public IActionResult Update(long id)
         {
-            return View();
+            id = 1;//Testing purposes only
+            RequestModel request = _context.Requests.Where(r => r.Id == id).FirstOrDefault();
+            return View(request);
         }
 
         [HttpPost]
@@ -50,32 +52,17 @@ namespace Authentication2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(CreateRequestViewModel model, RequestModel request)
+        public IActionResult Update(RequestModel request)
         {
-            request.Id = 1; //Testing purposes only. Won't need once we pass a request through to it.
-            request.PickupAddress = new Identity.Address
-            {
-                StreetNumber = model.PickupStreetNumber,
-                StreetName = model.PickupStreetName,
-                City = model.PickupCity,
-                State = model.PickupState,
-                ZipCode = model.PickupZipcode
-            };
+            RequestModel existingRequest = _context.Requests.Where(r => r.Id == request.Id).FirstOrDefault();
 
-            request.DropOffAddress = new Identity.Address
-            {
-                StreetNumber = model.DropoffStreetNumber,
-                StreetName = model.DropoffStreetName,
-                City = model.DropoffCity,
-                State = model.DropoffState,
-                ZipCode = model.DropoffZipcode
-            };
+            existingRequest.PickupAddress = request.PickupAddress;
+            existingRequest.DropOffAddress = request.DropOffAddress;
+            existingRequest.Item = request.Item;
+            existingRequest.PickUpInstructions = request.PickUpInstructions;
+            existingRequest.DropOffInstructions = request.DropOffInstructions;
 
-            request.Item = model.Item;
-            request.PickUpInstructions = model.PickupInstructions;
-            request.DropOffInstructions = model.DropoffInstructions;
-
-            _context.Update<RequestModel>(request);
+            //_context.Update<RequestModel>(request);
             _context.SaveChanges();
 
             return RedirectToAction("ConfirmUpdate");
