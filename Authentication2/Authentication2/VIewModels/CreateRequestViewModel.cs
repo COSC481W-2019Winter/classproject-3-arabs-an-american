@@ -9,6 +9,7 @@ namespace Authentication2.VIewModels
 {
     public class CreateRequestViewModel
     {
+        public int Id { get; set; }
         public string PickupStreetName { get; set; }
         public string PickupCity { get; set; }
         public string PickupState { get; set; }

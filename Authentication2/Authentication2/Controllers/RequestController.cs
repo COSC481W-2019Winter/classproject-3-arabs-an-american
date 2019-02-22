@@ -34,14 +34,30 @@ namespace Authentication2.Controllers
 
         public IActionResult Update(long id)
         {
-            id = 1;//Testing purposes only
+            //id = 1;//Testing purposes only
             RequestModel request = _context.Requests
                 .Where(r => r.Id == id)
                 .Include(req => req.DropOffAddress)
                 .Include(req => req.PickupAddress)
                 .FirstOrDefault();
 
-            return View(request);
+            CreateRequestViewModel requestVM = new CreateRequestViewModel();
+            requestVM.Id = request.Id;
+            requestVM.PickupStreetNumber = request.PickupAddress.StreetNumber;
+            requestVM.PickupStreetName = request.PickupAddress.StreetName;
+            requestVM.PickupCity = request.PickupAddress.City;
+            requestVM.PickupState = request.PickupAddress.State;
+            requestVM.PickupZipcode = request.PickupAddress.ZipCode;
+            requestVM.PickupInstructions = request.PickUpInstructions;
+            requestVM.DropoffStreetNumber = request.DropOffAddress.StreetNumber;
+            requestVM.DropoffStreetName = request.DropOffAddress.StreetName;
+            requestVM.DropoffCity = request.DropOffAddress.City;
+            requestVM.DropoffState = request.DropOffAddress.State;
+            requestVM.DropoffZipcode = request.DropOffAddress.ZipCode;
+            requestVM.DropoffInstructions = request.DropOffInstructions;
+            requestVM.Item = request.Item;
+
+            return View(requestVM);
         }
 
         [HttpPost]
@@ -109,7 +125,7 @@ namespace Authentication2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(RequestModel request)
+        public IActionResult Update(CreateRequestViewModel request)
         {
             RequestModel existingRequest = _context.Requests
                 .Where(r => r.Id == request.Id)
@@ -117,11 +133,19 @@ namespace Authentication2.Controllers
                 .Include(req => req.PickupAddress)
                 .FirstOrDefault();
 
-            existingRequest.PickupAddress = request.PickupAddress;
-            existingRequest.DropOffAddress = request.DropOffAddress;
+            existingRequest.PickupAddress.StreetNumber = request.PickupStreetNumber;
+            existingRequest.PickupAddress.StreetName = request.PickupStreetName;
+            existingRequest.PickupAddress.City = request.PickupCity;
+            existingRequest.PickupAddress.State = request.PickupState;
+            existingRequest.PickupAddress.ZipCode = request.PickupZipcode;
+            existingRequest.DropOffAddress.StreetNumber = request.DropoffStreetNumber;
+            existingRequest.DropOffAddress.StreetName = request.DropoffStreetName;
+            existingRequest.DropOffAddress.City = request.DropoffCity;
+            existingRequest.DropOffAddress.State = request.DropoffState;
+            existingRequest.DropOffAddress.ZipCode = request.DropoffZipcode;
             existingRequest.Item = request.Item;
-            existingRequest.PickUpInstructions = request.PickUpInstructions;
-            existingRequest.DropOffInstructions = request.DropOffInstructions;
+            existingRequest.PickUpInstructions = request.PickupInstructions;
+            existingRequest.DropOffInstructions = request.DropoffInstructions;
 
             _context.Update<RequestModel>(existingRequest);
             _context.SaveChanges();
