@@ -32,9 +32,11 @@ namespace Authentication2.Controllers
             return View();
         }
 
-        public IActionResult Update(long id)
+        public IActionResult Update(int? id)
         {
-            //id = 1;//Testing purposes only
+            if (id == null)
+                return Content("Request with given id does not exist.");
+
             RequestModel request = _context.Requests
                 .Where(r => r.Id == id)
                 .Include(req => req.DropOffAddress)
