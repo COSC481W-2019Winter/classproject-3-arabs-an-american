@@ -133,5 +133,14 @@ namespace Authentication2.Controllers
         {
             return View();
         }
+
+        public IActionResult ReadUser()
+        {
+
+            return View(_context.Requests
+                .Include(req => req.DropOffAddress)
+                .Include(req => req.PickupAddress)
+                .ToList());
+        }
     }
 }
