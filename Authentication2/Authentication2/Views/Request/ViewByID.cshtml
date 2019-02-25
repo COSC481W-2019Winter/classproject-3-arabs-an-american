@@ -1,0 +1,33 @@
+@model RequestModel
+
+<p>This is the view By ID page</p>
+
+
+@if (Model != null)
+{
+<table border="1px">
+    <tr>
+        <th>Pickup Address</th>
+        <th>Dropoff Address</th>
+        <th>Item</th>
+        <th>Pickup Instructions</th>
+        <th>Dropoff Instructions</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>@Model.Item</td>
+        <td>@Model.PickUpInstructions</td>
+        <td>@Model.DropOffInstructions</td>
+    </tr>
+</table>
+}
+else{
+        <form method="post" action='@Url.Action("ViewByID","Request")'>
+            <input type="number" name="id" required>
+            <input type="submit" value="Find">
+        </form>
+
+        
+
+}
