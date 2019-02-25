@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Authentication2.DataAccessLayer;
 using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -61,34 +60,6 @@ namespace Authentication2.Controllers
         }
        
 
-        public IActionResult Update(long id)
-        {
-            //id = 1;//Testing purposes only
-            RequestModel request = _context.Requests
-                .Where(r => r.Id == id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
-
-            CreateRequestViewModel requestVM = new CreateRequestViewModel();
-            requestVM.Id = request.Id;
-            requestVM.PickupStreetNumber = request.PickupAddress.StreetNumber;
-            requestVM.PickupStreetName = request.PickupAddress.StreetName;
-            requestVM.PickupCity = request.PickupAddress.City;
-            requestVM.PickupState = request.PickupAddress.State;
-            requestVM.PickupZipcode = request.PickupAddress.ZipCode;
-            requestVM.PickupInstructions = request.PickUpInstructions;
-            requestVM.DropoffStreetNumber = request.DropOffAddress.StreetNumber;
-            requestVM.DropoffStreetName = request.DropOffAddress.StreetName;
-            requestVM.DropoffCity = request.DropOffAddress.City;
-            requestVM.DropoffState = request.DropOffAddress.State;
-            requestVM.DropoffZipcode = request.DropOffAddress.ZipCode;
-            requestVM.DropoffInstructions = request.DropOffInstructions;
-            requestVM.Item = request.Item;
-
-            return View(requestVM);
-        }
-
         [HttpPost]
         public IActionResult Create(CreateRequestViewModel model){
 
@@ -137,20 +108,64 @@ namespace Authentication2.Controllers
                 return View();
             }
 
-            var request = await _context.Requests.FindAsync(id);
+            var request = _context.Requests
+                .Where(req => req.Id == id)
+                .Include(req => req.DropOffAddress)
+                .Include(req => req.PickupAddress)
+                .FirstOrDefault();
 
-            if(request == null)
+            if (request == null)
             {
                 return Content("The model was null with ID: "+id.ToString());
             }
-            // var request = new ViewByIDViewModel();
-            // request.PickupAddress = new Identity.Address();
-            // request.DropOffAddress = new Identity.Address();
-            // request.Item = "Fishsticks";
-            // request.PickUpInstructions = "eat it";
-            // request.DropOffInstructions = "fish it";
-            return View(request);
-            
+
+            CreateRequestViewModel requestVM = new CreateRequestViewModel();
+            requestVM.Id = request.Id;
+            requestVM.PickupStreetNumber = request.PickupAddress.StreetNumber;
+            requestVM.PickupStreetName = request.PickupAddress.StreetName;
+            requestVM.PickupCity = request.PickupAddress.City;
+            requestVM.PickupState = request.PickupAddress.State;
+            requestVM.PickupZipcode = request.PickupAddress.ZipCode;
+            requestVM.PickupInstructions = request.PickUpInstructions;
+            requestVM.DropoffStreetNumber = request.DropOffAddress.StreetNumber;
+            requestVM.DropoffStreetName = request.DropOffAddress.StreetName;
+            requestVM.DropoffCity = request.DropOffAddress.City;
+            requestVM.DropoffState = request.DropOffAddress.State;
+            requestVM.DropoffZipcode = request.DropOffAddress.ZipCode;
+            requestVM.DropoffInstructions = request.DropOffInstructions;
+            requestVM.Item = request.Item;
+
+            return View(requestVM);
+        }
+
+        public IActionResult Update(int? id)
+        {
+            RequestModel request = _context.Requests
+                .Where(r => r.Id == id)
+                .Include(req => req.DropOffAddress)
+                .Include(req => req.PickupAddress)
+                .FirstOrDefault();
+
+            if (request == null)
+                return Content("Request with given id does not exist.");
+
+            CreateRequestViewModel requestVM = new CreateRequestViewModel();
+            requestVM.Id = request.Id;
+            requestVM.PickupStreetNumber = request.PickupAddress.StreetNumber;
+            requestVM.PickupStreetName = request.PickupAddress.StreetName;
+            requestVM.PickupCity = request.PickupAddress.City;
+            requestVM.PickupState = request.PickupAddress.State;
+            requestVM.PickupZipcode = request.PickupAddress.ZipCode;
+            requestVM.PickupInstructions = request.PickUpInstructions;
+            requestVM.DropoffStreetNumber = request.DropOffAddress.StreetNumber;
+            requestVM.DropoffStreetName = request.DropOffAddress.StreetName;
+            requestVM.DropoffCity = request.DropOffAddress.City;
+            requestVM.DropoffState = request.DropOffAddress.State;
+            requestVM.DropoffZipcode = request.DropOffAddress.ZipCode;
+            requestVM.DropoffInstructions = request.DropOffInstructions;
+            requestVM.Item = request.Item;
+
+            return View(requestVM);
         }
 
         [HttpPost]
@@ -189,11 +204,17 @@ namespace Authentication2.Controllers
 
         public IActionResult ReadUser()
         {
-
-            return View(_context.Requests
+            List<RequestModel> requests = _context.Requests
                 .Include(req => req.DropOffAddress)
                 .Include(req => req.PickupAddress)
-                .ToList());
+                .ToList();
+
+            List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
+            foreach (RequestModel model in requests)
+            {
+                requestsView.Add(new CreateRequestViewModel(model));
+            }
+            return View(requestsView);
         }
       
     }

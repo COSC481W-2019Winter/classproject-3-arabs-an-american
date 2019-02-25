@@ -1,24 +1,68 @@
+@model CreateRequestViewModel
+
 <h1>Create Request</h1>
 
 <!--<form asp-action="RegisterRequest" asp-controller="Request" method="post">-->
 <form method="post" action="@Url.Action("Create","Request")">
-    <h3>Pickup</h3><br>
-    <input type="text" name="PickupStreetNumber" placeholder="Street Number">
-    <input type="text" name="PickupStreetName" placeholder="Street Name"><br>
-    <input type="text" name="PickupCity" placeholder="City">
-    <input type="text" name="PickupState" placeholder="State">
-    <input type="number" name="PickupZipcode" placeholder="Zip"><br>
-    <input type="text" name="PickupInstructions" placeholder="Instructions">
-    <hr>
-    <h3>Dropoff</h3><br>
-    <input type="text" name="DropoffStreetNumber" placeholder="Street Number">
-    <input type="text" name="DropoffStreetName" placeholder="Street Name"><br>
-    <input type="text" name="DropoffCity" placeholder="City">
-    <input type="text" name="DropoffState" placeholder="State">
-    <input type="number" name="DropoffZipcode" placeholder="Zip"><br>
-    <input type="text" name="DropoffInstructions" placeholder="Instructions">
-    <hr>
-    <h3>Item</h3>
-    <input name="Item" type="text" placeholder="Item to be delivered">
+    @Html.HiddenFor(m => m.Id)
+    <table>
+        <tr><th><h3>Pickup</h3></th></tr>
+        <tr>
+            <td>Street Number</td>
+            <td colspan="2">Street Name</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.PickupStreetNumber, "Street Number", new { @class = "form-control" })</td>
+            <td colspan="2">@Html.TextBoxFor(m => m.PickupStreetName, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>State</td>
+            <td>Zipcode</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.PickupCity, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.PickupState, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.PickupZipcode, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Instructions</td>
+        </tr>
+        <tr>
+            <td colspan="3">@Html.TextBoxFor(m => m.PickupInstructions, new { @class = "form-control" })</td>
+        </tr>
+        <tr><th><h3>Dropoff</h3></th></tr>
+        <tr>
+            <td>Street Number</td>
+            <td colspan="2">Street Name</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.DropoffStreetNumber, new { @class = "form-control" })</td>
+            <td colspan="2">@Html.TextBoxFor(m => m.DropoffStreetName, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>State</td>
+            <td>Zipcode</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.DropoffCity, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.DropoffState, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.DropoffZipcode, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Instructions</td>
+        </tr>
+        <tr>
+            <td colspan="3">@Html.TextBoxFor(m => m.DropoffInstructions, new { @class = "form-control" })</td>
+        </tr>
+        <tr><th><h3>Item</h3></th></tr>
+        <tr>
+            <td>Item</td>
+        </tr>
+        <tr>
+            <td colspan="3">@Html.TextBoxFor(m => m.Item, new { @class = "form-control" })</td>
+        </tr>
+    </table>
     <input type="submit" value="Create">
 </form>

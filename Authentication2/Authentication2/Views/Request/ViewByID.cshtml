@@ -1,33 +1,59 @@
-@model RequestModel
+@model CreateRequestViewModel
 
-<p>This is the view By ID page</p>
+<h1>View By ID</h1>
 
 
 @if (Model != null)
 {
-<table border="1px">
-    <tr>
-        <th>Pickup Address</th>
-        <th>Dropoff Address</th>
-        <th>Item</th>
-        <th>Pickup Instructions</th>
-        <th>Dropoff Instructions</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>@Model.Item</td>
-        <td>@Model.PickUpInstructions</td>
-        <td>@Model.DropOffInstructions</td>
-    </tr>
-</table>
+    @Html.HiddenFor(m => m.Id)
+    <table>
+        <tr><th><h3>Pickup</h3></th></tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(m => m.PickupStreetNumber, new { @class = "form-control" })
+                @Html.DisplayFor(m => m.PickupStreetName, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(m => m.PickupCity, new { @class = "form-control" })
+                @Html.DisplayFor(m => m.PickupState, new { @class = "form-control" })
+                @Html.DisplayFor(m => m.PickupZipcode, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(m => m.PickupInstructions, new { @class = "form-control" })</td>
+        </tr>
+        <tr><th><h3>Dropoff</h3></th></tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(m => m.DropoffStreetNumber, new { @class = "form-control" })
+                @Html.DisplayFor(m => m.DropoffStreetName, new { @class = "form-control" })
+            <td/>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(m => m.DropoffCity, new { @class = "form-control" })
+                @Html.DisplayFor(m => m.DropoffState, new { @class = "form-control" })
+                @Html.DisplayFor(m => m.DropoffZipcode, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(m => m.DropoffInstructions, new { @class = "form-control" })</td>
+        </tr>
+        <tr><th><h3>Item</h3></th></tr>
+        <tr>
+            <td>@Html.DisplayFor(m => m.Item, new { @class = "form-control" })</td>
+        </tr>
+    </table>
 }
-else{
-        <form method="post" action='@Url.Action("ViewByID","Request")'>
-            <input type="number" name="id" required>
-            <input type="submit" value="Find">
-        </form>
+else
+{
+    <form method="post" action='@Url.Action("ViewByID","Request")'>
+        <input type="number" name="id" required>
+        <input type="submit" value="Find">
+    </form>
 
-        
+
 
 }
