@@ -37,12 +37,11 @@ namespace Authentication2.Controllers
 
         [HttpPost]
         public  IActionResult ConfirmDelete(int id)
-    {
-        ViewBag.id = id;
-        return View();
-       
-    }     
-        public int ID { get; set; }
+        {
+            ViewBag.id = id;
+            return View();
+        }     
+        
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (id == 0){

@@ -10,10 +10,7 @@ namespace Authentication2.VIewModels
 {
     public class CreateRequestViewModel
     {
-        public CreateRequestViewModel()
-        {
-
-        }
+        public CreateRequestViewModel(){ }
 
         public CreateRequestViewModel(RequestModel model)
         {
