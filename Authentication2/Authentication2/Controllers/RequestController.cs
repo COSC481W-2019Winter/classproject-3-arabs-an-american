@@ -31,6 +31,35 @@ namespace Authentication2.Controllers
         {
             return View();
         }
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public  IActionResult ConfirmDelete(int id)
+    {
+        ViewBag.id = id;
+        return View();
+       
+    }     
+        public int ID { get; set; }
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (id == 0){
+                return Content("id is not workig");
+            }
+            var request = await _context.Requests.FindAsync(id);
+            if (request != null){
+                _context.Requests.Remove(request);
+                await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
+                return Content("Request with id is deleted: " + id);
+            }
+            return Content("ID does not exist: " + id);
+            
+        }
+       
 
         public IActionResult Update(long id)
         {
@@ -166,5 +195,6 @@ namespace Authentication2.Controllers
                 .Include(req => req.PickupAddress)
                 .ToList());
         }
+      
     }
 }

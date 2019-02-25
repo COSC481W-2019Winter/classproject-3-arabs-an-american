@@ -1,0 +1,7 @@
+<p>Are you sure you want to delete request with id @ViewBag.id?</p>
+<form method="post" action='@Url.Action("DeleteConfirmed","Request")'>
+    <input type="hidden" name="id" value=@ViewBag.id>
+<input type="submit" value="Confirm Delete" >
+</form>
+
+
