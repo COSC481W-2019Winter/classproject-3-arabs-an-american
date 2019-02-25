@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Authentication2.Models.RequestModel>
+﻿@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
 
 @{
     ViewData["Title"] = "ReadUser";
@@ -32,10 +32,10 @@
                     @item.Item
                 </td>
                 <td>
-                    @item.PickupAddress.City
+                    @item.PickupCity
                 </td>
                 <td>
-                    @item.DropOffAddress.City
+                    @item.DropoffCity
                   
                 </td>
                 <td>

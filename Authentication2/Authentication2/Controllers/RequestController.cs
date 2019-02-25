@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Authentication2.DataAccessLayer;
 using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -176,11 +175,17 @@ namespace Authentication2.Controllers
 
         public IActionResult ReadUser()
         {
-
-            return View(_context.Requests
+            List<RequestModel> requests = _context.Requests
                 .Include(req => req.DropOffAddress)
                 .Include(req => req.PickupAddress)
-                .ToList());
+                .ToList();
+
+            List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
+            foreach (RequestModel model in requests)
+            {
+                requestsView.Add(new CreateRequestViewModel(model));
+            }
+            return View(requestsView);
         }
     }
 }
