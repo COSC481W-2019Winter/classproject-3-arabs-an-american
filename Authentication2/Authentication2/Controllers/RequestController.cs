@@ -30,12 +30,8 @@ namespace Authentication2.Controllers
         {
             return View();
         }
-        public IActionResult Delete()
-        {
-            return View();
-        }
-
-        [HttpPost]
+        
+        
         public  IActionResult ConfirmDelete(int id)
         {
             ViewBag.id = id;
@@ -47,11 +43,12 @@ namespace Authentication2.Controllers
             if (id == 0){
                 return Content("id is not workig");
             }
+            //TODO: add try catch to catch if request is not found
             var request = await _context.Requests.FindAsync(id);
             if (request != null){
                 _context.Requests.Remove(request);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
+                
                 return Content("Request with id is deleted: " + id);
             }
             return Content("ID does not exist: " + id);
@@ -92,12 +89,14 @@ namespace Authentication2.Controllers
             // save
             _context.SaveChanges();
 
-            return RedirectToAction("ConfirmCreate");
+            return RedirectToAction("ConfirmCreate", request);
             //return Content(model.Item);
         }
 
-        public IActionResult ConfirmCreate()
+        public IActionResult ConfirmCreate(RequestModel model)
         {
+            CreateRequestViewModel request = new CreateRequestViewModel(model);
+
             return View();
         }
 
