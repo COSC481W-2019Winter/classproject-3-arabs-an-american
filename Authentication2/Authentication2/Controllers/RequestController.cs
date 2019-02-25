@@ -101,7 +101,7 @@ namespace Authentication2.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ViewByID(int? id)
+        public IActionResult ViewByID(int? id)
         {
             if(id == null){
                 return View();
@@ -118,21 +118,23 @@ namespace Authentication2.Controllers
                 return Content("The model was null with ID: "+id.ToString());
             }
 
-            CreateRequestViewModel requestVM = new CreateRequestViewModel();
-            requestVM.Id = request.Id;
-            requestVM.PickupStreetNumber = request.PickupAddress.StreetNumber;
-            requestVM.PickupStreetName = request.PickupAddress.StreetName;
-            requestVM.PickupCity = request.PickupAddress.City;
-            requestVM.PickupState = request.PickupAddress.State;
-            requestVM.PickupZipcode = request.PickupAddress.ZipCode;
-            requestVM.PickupInstructions = request.PickUpInstructions;
-            requestVM.DropoffStreetNumber = request.DropOffAddress.StreetNumber;
-            requestVM.DropoffStreetName = request.DropOffAddress.StreetName;
-            requestVM.DropoffCity = request.DropOffAddress.City;
-            requestVM.DropoffState = request.DropOffAddress.State;
-            requestVM.DropoffZipcode = request.DropOffAddress.ZipCode;
-            requestVM.DropoffInstructions = request.DropOffInstructions;
-            requestVM.Item = request.Item;
+            CreateRequestViewModel requestVM = new CreateRequestViewModel
+            {
+                Id = request.Id,
+                PickupStreetNumber = request.PickupAddress.StreetNumber,
+                PickupStreetName = request.PickupAddress.StreetName,
+                PickupCity = request.PickupAddress.City,
+                PickupState = request.PickupAddress.State,
+                PickupZipcode = request.PickupAddress.ZipCode,
+                PickupInstructions = request.PickUpInstructions,
+                DropoffStreetNumber = request.DropOffAddress.StreetNumber,
+                DropoffStreetName = request.DropOffAddress.StreetName,
+                DropoffCity = request.DropOffAddress.City,
+                DropoffState = request.DropOffAddress.State,
+                DropoffZipcode = request.DropOffAddress.ZipCode,
+                DropoffInstructions = request.DropOffInstructions,
+                Item = request.Item
+            };
 
             return View(requestVM);
         }
@@ -148,21 +150,23 @@ namespace Authentication2.Controllers
             if (request == null)
                 return Content("Request with given id does not exist.");
 
-            CreateRequestViewModel requestVM = new CreateRequestViewModel();
-            requestVM.Id = request.Id;
-            requestVM.PickupStreetNumber = request.PickupAddress.StreetNumber;
-            requestVM.PickupStreetName = request.PickupAddress.StreetName;
-            requestVM.PickupCity = request.PickupAddress.City;
-            requestVM.PickupState = request.PickupAddress.State;
-            requestVM.PickupZipcode = request.PickupAddress.ZipCode;
-            requestVM.PickupInstructions = request.PickUpInstructions;
-            requestVM.DropoffStreetNumber = request.DropOffAddress.StreetNumber;
-            requestVM.DropoffStreetName = request.DropOffAddress.StreetName;
-            requestVM.DropoffCity = request.DropOffAddress.City;
-            requestVM.DropoffState = request.DropOffAddress.State;
-            requestVM.DropoffZipcode = request.DropOffAddress.ZipCode;
-            requestVM.DropoffInstructions = request.DropOffInstructions;
-            requestVM.Item = request.Item;
+            CreateRequestViewModel requestVM = new CreateRequestViewModel
+            {
+                Id = request.Id,
+                PickupStreetNumber = request.PickupAddress.StreetNumber,
+                PickupStreetName = request.PickupAddress.StreetName,
+                PickupCity = request.PickupAddress.City,
+                PickupState = request.PickupAddress.State,
+                PickupZipcode = request.PickupAddress.ZipCode,
+                PickupInstructions = request.PickUpInstructions,
+                DropoffStreetNumber = request.DropOffAddress.StreetNumber,
+                DropoffStreetName = request.DropOffAddress.StreetName,
+                DropoffCity = request.DropOffAddress.City,
+                DropoffState = request.DropOffAddress.State,
+                DropoffZipcode = request.DropOffAddress.ZipCode,
+                DropoffInstructions = request.DropOffInstructions,
+                Item = request.Item
+            };
 
             return View(requestVM);
         }
