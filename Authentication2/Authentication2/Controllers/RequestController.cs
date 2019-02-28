@@ -29,198 +29,246 @@ namespace Authentication2.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+
+            return Content("Please log in to use this feature");
         }
         public IActionResult Delete()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+
+            return Content("Please log in to use this feature");
         }
 
         [HttpPost]
         public  IActionResult ConfirmDelete(int id)
         {
-            ViewBag.id = id;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.id = id;
+                return View();
+            }
+
+            return Content("Please log in to use this feature");
         }     
         
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (id == 0){
-                return Content("id is not workig");
+            if (User.Identity.IsAuthenticated)
+            {
+                if (id == 0)
+                {
+                    return Content("id is not workig");
+                }
+                var request = await _context.Requests.FindAsync(id);
+                if (request != null)
+                {
+                    _context.Requests.Remove(request);
+                    await _context.SaveChangesAsync();
+                    //return RedirectToAction(nameof(Index));
+                    return Content("Request with id is deleted: " + id);
+                }
+                return Content("ID does not exist: " + id);
             }
-            var request = await _context.Requests.FindAsync(id);
-            if (request != null){
-                _context.Requests.Remove(request);
-                await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-                return Content("Request with id is deleted: " + id);
-            }
-            return Content("ID does not exist: " + id);
-            
+
+            return Content("Please log in to use this feature");
         }
        
 
         [HttpPost]
-        public IActionResult Create(CreateRequestViewModel model){
-
-            //TODO: create req model from the view model
-            RequestModel request = new RequestModel
+        public IActionResult Create(CreateRequestViewModel model)
+        {
+            if (User.Identity.IsAuthenticated)
             {
-                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                PickupAddress = new Identity.Address
+                //TODO: create req model from the view model
+                RequestModel request = new RequestModel
                 {
-                    StreetNumber = model.PickupStreetNumber,
-                    StreetName = model.PickupStreetName,
-                    City = model.PickupCity,
-                    State = model.PickupState,
-                    ZipCode = model.PickupZipcode
-                },
-                DropOffAddress = new Identity.Address
-                {
-                    StreetNumber = model.DropoffStreetNumber,
-                    StreetName = model.DropoffStreetName,
-                    City = model.DropoffCity,
-                    State = model.DropoffState,
-                    ZipCode = model.DropoffZipcode
-                },
-                Item = model.Item,
-                PickUpInstructions = model.PickupInstructions,
-                DropOffInstructions = model.DropoffInstructions,
-            };
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    PickupAddress = new Identity.Address
+                    {
+                        StreetNumber = model.PickupStreetNumber,
+                        StreetName = model.PickupStreetName,
+                        City = model.PickupCity,
+                        State = model.PickupState,
+                        ZipCode = model.PickupZipcode
+                    },
+                    DropOffAddress = new Identity.Address
+                    {
+                        StreetNumber = model.DropoffStreetNumber,
+                        StreetName = model.DropoffStreetName,
+                        City = model.DropoffCity,
+                        State = model.DropoffState,
+                        ZipCode = model.DropoffZipcode
+                    },
+                    Item = model.Item,
+                    PickUpInstructions = model.PickupInstructions,
+                    DropOffInstructions = model.DropoffInstructions,
+                };
 
-            // add to the context
-            _context.Add<RequestModel>(request);
+                // add to the context
+                _context.Add<RequestModel>(request);
 
-            // save
-            _context.SaveChanges();
+                // save
+                _context.SaveChanges();
 
-            return RedirectToAction("ConfirmCreate");
-            //return Content(model.Item);
+                return RedirectToAction("ConfirmCreate");
+                //return Content(model.Item);
+            }
+
+            return Content("Please log in to use this feature");
         }
 
         public IActionResult ConfirmCreate()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+
+            return Content("Please log in to use this feature");
         }
 
         public IActionResult ViewByID(int? id)
         {
-            if(id == null){
-                return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if (id == null)
+                {
+                    return View();
+                }
+
+                var request = _context.Requests
+                    .Where(req => req.Id == id)
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .FirstOrDefault();
+
+                if (request == null)
+                {
+                    return Content("The model was null with ID: " + id.ToString());
+                }
+
+                CreateRequestViewModel requestVM = new CreateRequestViewModel
+                {
+                    Id = request.Id,
+                    PickupStreetNumber = request.PickupAddress.StreetNumber,
+                    PickupStreetName = request.PickupAddress.StreetName,
+                    PickupCity = request.PickupAddress.City,
+                    PickupState = request.PickupAddress.State,
+                    PickupZipcode = request.PickupAddress.ZipCode,
+                    PickupInstructions = request.PickUpInstructions,
+                    DropoffStreetNumber = request.DropOffAddress.StreetNumber,
+                    DropoffStreetName = request.DropOffAddress.StreetName,
+                    DropoffCity = request.DropOffAddress.City,
+                    DropoffState = request.DropOffAddress.State,
+                    DropoffZipcode = request.DropOffAddress.ZipCode,
+                    DropoffInstructions = request.DropOffInstructions,
+                    Item = request.Item
+                };
+
+                return View(requestVM);
             }
 
-            var request = _context.Requests
-                .Where(req => req.Id == id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
-
-            if (request == null)
-            {
-                return Content("The model was null with ID: "+id.ToString());
-            }
-
-            CreateRequestViewModel requestVM = new CreateRequestViewModel
-            {
-                Id = request.Id,
-                PickupStreetNumber = request.PickupAddress.StreetNumber,
-                PickupStreetName = request.PickupAddress.StreetName,
-                PickupCity = request.PickupAddress.City,
-                PickupState = request.PickupAddress.State,
-                PickupZipcode = request.PickupAddress.ZipCode,
-                PickupInstructions = request.PickUpInstructions,
-                DropoffStreetNumber = request.DropOffAddress.StreetNumber,
-                DropoffStreetName = request.DropOffAddress.StreetName,
-                DropoffCity = request.DropOffAddress.City,
-                DropoffState = request.DropOffAddress.State,
-                DropoffZipcode = request.DropOffAddress.ZipCode,
-                DropoffInstructions = request.DropOffInstructions,
-                Item = request.Item
-            };
-
-            return View(requestVM);
+            return Content("Please log in to use this feature");
         }
 
         public IActionResult Update(int? id)
         {
-            RequestModel request = _context.Requests
-                .Where(r => r.Id == id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
-
-            if (request == null)
-                return Content("Request with given id does not exist.");
-
-            CreateRequestViewModel requestVM = new CreateRequestViewModel
+            if (User.Identity.IsAuthenticated)
             {
-                Id = request.Id,
-                PickupStreetNumber = request.PickupAddress.StreetNumber,
-                PickupStreetName = request.PickupAddress.StreetName,
-                PickupCity = request.PickupAddress.City,
-                PickupState = request.PickupAddress.State,
-                PickupZipcode = request.PickupAddress.ZipCode,
-                PickupInstructions = request.PickUpInstructions,
-                DropoffStreetNumber = request.DropOffAddress.StreetNumber,
-                DropoffStreetName = request.DropOffAddress.StreetName,
-                DropoffCity = request.DropOffAddress.City,
-                DropoffState = request.DropOffAddress.State,
-                DropoffZipcode = request.DropOffAddress.ZipCode,
-                DropoffInstructions = request.DropOffInstructions,
-                Item = request.Item
-            };
+                RequestModel request = _context.Requests
+                    .Where(r => r.Id == id)
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .FirstOrDefault();
 
-            return View(requestVM);
+                if (request == null)
+                    return Content("Request with given id does not exist.");
+
+                CreateRequestViewModel requestVM = new CreateRequestViewModel
+                {
+                    Id = request.Id,
+                    PickupStreetNumber = request.PickupAddress.StreetNumber,
+                    PickupStreetName = request.PickupAddress.StreetName,
+                    PickupCity = request.PickupAddress.City,
+                    PickupState = request.PickupAddress.State,
+                    PickupZipcode = request.PickupAddress.ZipCode,
+                    PickupInstructions = request.PickUpInstructions,
+                    DropoffStreetNumber = request.DropOffAddress.StreetNumber,
+                    DropoffStreetName = request.DropOffAddress.StreetName,
+                    DropoffCity = request.DropOffAddress.City,
+                    DropoffState = request.DropOffAddress.State,
+                    DropoffZipcode = request.DropOffAddress.ZipCode,
+                    DropoffInstructions = request.DropOffInstructions,
+                    Item = request.Item
+                };
+
+                return View(requestVM);
+            }
+
+            return Content("Please log in to use this feature");
         }
 
         [HttpPost]
         public IActionResult Update(CreateRequestViewModel request)
         {
-            RequestModel existingRequest = _context.Requests
-                .Where(r => r.Id == request.Id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
+            if (User.Identity.IsAuthenticated)
+            {
+                RequestModel existingRequest = _context.Requests
+                    .Where(r => r.Id == request.Id)
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .FirstOrDefault();
 
-            existingRequest.PickupAddress.StreetNumber = request.PickupStreetNumber;
-            existingRequest.PickupAddress.StreetName = request.PickupStreetName;
-            existingRequest.PickupAddress.City = request.PickupCity;
-            existingRequest.PickupAddress.State = request.PickupState;
-            existingRequest.PickupAddress.ZipCode = request.PickupZipcode;
-            existingRequest.DropOffAddress.StreetNumber = request.DropoffStreetNumber;
-            existingRequest.DropOffAddress.StreetName = request.DropoffStreetName;
-            existingRequest.DropOffAddress.City = request.DropoffCity;
-            existingRequest.DropOffAddress.State = request.DropoffState;
-            existingRequest.DropOffAddress.ZipCode = request.DropoffZipcode;
-            existingRequest.Item = request.Item;
-            existingRequest.PickUpInstructions = request.PickupInstructions;
-            existingRequest.DropOffInstructions = request.DropoffInstructions;
+                existingRequest.PickupAddress.StreetNumber = request.PickupStreetNumber;
+                existingRequest.PickupAddress.StreetName = request.PickupStreetName;
+                existingRequest.PickupAddress.City = request.PickupCity;
+                existingRequest.PickupAddress.State = request.PickupState;
+                existingRequest.PickupAddress.ZipCode = request.PickupZipcode;
+                existingRequest.DropOffAddress.StreetNumber = request.DropoffStreetNumber;
+                existingRequest.DropOffAddress.StreetName = request.DropoffStreetName;
+                existingRequest.DropOffAddress.City = request.DropoffCity;
+                existingRequest.DropOffAddress.State = request.DropoffState;
+                existingRequest.DropOffAddress.ZipCode = request.DropoffZipcode;
+                existingRequest.Item = request.Item;
+                existingRequest.PickUpInstructions = request.PickupInstructions;
+                existingRequest.DropOffInstructions = request.DropoffInstructions;
 
-            _context.Update<RequestModel>(existingRequest);
-            _context.SaveChanges();
+                _context.Update<RequestModel>(existingRequest);
+                _context.SaveChanges();
 
-            return RedirectToAction("ConfirmUpdate");
+                return RedirectToAction("ConfirmUpdate");
+            }
+
+            return Content("Please log in to use this feature");
         }
 
         public IActionResult ConfirmUpdate()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+
+            return Content("Please log in to use this feature");
         }
 
         public IActionResult ReadUser()
         {
-            List<RequestModel> requests = _context.Requests
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .ToList();
-
-            List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
-            foreach (RequestModel model in requests)
+            if (User.Identity.IsAuthenticated)
             {
-                requestsView.Add(new CreateRequestViewModel(model));
+                List<RequestModel> requests = _context.Requests
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .ToList();
+
+                List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
+                foreach (RequestModel model in requests)
+                {
+                    requestsView.Add(new CreateRequestViewModel(model));
+                }
+                return View(requestsView);
             }
-            return View(requestsView);
+
+            return Content("Please log in to use this feature");
         }
-      
     }
 }
