@@ -1,5 +1,4 @@
-﻿@using System.Security.Claims;
-@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
+﻿@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
 
 @{
     ViewData["Title"] = "ReadUser";
@@ -28,25 +27,23 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @if (item.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)) {
-                <tr>
-                    <td>
-                        @item.Item
-                    </td>
-                    <td>
-                        @item.PickupCity
-                    </td>
-                    <td>
-                        @item.DropoffCity
+            <tr>
+                <td>
+                    @item.Item
+                </td>
+                <td>
+                    @item.PickupCity
+                </td>
+                <td>
+                    @item.DropoffCity
                   
-                    </td>
-                    <td>
-                        <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

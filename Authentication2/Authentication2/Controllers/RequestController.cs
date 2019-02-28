@@ -86,6 +86,7 @@ namespace Authentication2.Controllers
                 RequestModel request = new RequestModel
                 {
                     UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Status = "Awaiting Driver",
                     PickupAddress = new Identity.Address
                     {
                         StreetNumber = model.PickupStreetNumber,
@@ -263,7 +264,8 @@ namespace Authentication2.Controllers
                 List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
                 foreach (RequestModel model in requests)
                 {
-                    requestsView.Add(new CreateRequestViewModel(model));
+                    if(model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)) 
+                        requestsView.Add(new CreateRequestViewModel(model));
                 }
                 return View(requestsView);
             }
