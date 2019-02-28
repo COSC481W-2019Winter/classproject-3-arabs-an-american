@@ -21,6 +21,9 @@
             <th>
                 DropOff Address
             </th>
+            <th>
+                Status
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,7 +39,9 @@
                 </td>
                 <td>
                     @item.DropoffCity
-                  
+                </td>
+                <td>
+                    @item.Status
                 </td>
                 <td>
                     <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
