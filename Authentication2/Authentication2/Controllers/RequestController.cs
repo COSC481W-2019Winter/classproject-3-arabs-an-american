@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -65,6 +66,7 @@ namespace Authentication2.Controllers
             //TODO: create req model from the view model
             RequestModel request = new RequestModel
             {
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 PickupAddress = new Identity.Address
                 {
                     StreetNumber = model.PickupStreetNumber,

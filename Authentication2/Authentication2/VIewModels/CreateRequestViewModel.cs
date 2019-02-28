@@ -15,6 +15,9 @@ namespace Authentication2.VIewModels
         public CreateRequestViewModel(RequestModel model)
         {
             Id = model.Id;
+            UserId = model.UserId;
+            DriverId = model.DriverId;
+            Status = model.Status;
             PickupStreetName = model.PickupAddress.StreetName;
             PickupCity = model.PickupAddress.City;
             PickupState = model.PickupAddress.State;
@@ -31,6 +34,9 @@ namespace Authentication2.VIewModels
         }
 
         public int Id { get; set; }
+        public string UserId { get; set; }
+        public string DriverId { get; set; }
+        public string Status { get; set; }
         public string PickupStreetName { get; set; }
         public string PickupCity { get; set; }
         public string PickupState { get; set; }
