@@ -4,6 +4,9 @@
 
 <form method="post" action='@Url.Action("Update","Request")'>
     @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.DriverId)
+    @Html.HiddenFor(m => m.Status)
     <table>
         <tr><th><h3>Pickup</h3></th></tr>
         <tr>
@@ -11,7 +14,7 @@
             <td colspan="2">Street Name</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(m => m.PickupStreetNumber, "Street Number", new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.PickupStreetNumber, new { @class = "form-control" })</td>
             <td colspan="2">@Html.TextBoxFor(m => m.PickupStreetName, new { @class = "form-control" })</td>
         </tr>
         <tr>

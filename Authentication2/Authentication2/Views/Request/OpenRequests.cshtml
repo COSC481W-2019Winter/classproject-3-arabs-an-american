@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
+
+@{
+    ViewData["Title"] = "OpenRequests";
+}
+
+<h1>Open Requests</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Item
+            </th>
+            <th>
+                PickUp Address
+            </th>
+            <th>
+                DropOff Address
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Item
+                </td>
+                <td>
+                    @item.PickupCity
+                </td>
+                <td>
+                    @item.DropoffCity
+                </td>
+                <td>
+                    <a asp-action="PickupRequest" asp-route-id="@item.Id">Pickup Request</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
