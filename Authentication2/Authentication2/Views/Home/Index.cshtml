@@ -4,6 +4,15 @@
     ViewData["Title"] = "Home Page";
 }
 
+<form action="@Url.Action("Login", "Accounts")">
+    <button type="submit">Login</button>
+</form>
+<form action="@Url.Action("Signup", "Accounts")">
+    <button type="submit">Signup</button>
+</form>
+<!--
+<br><br>
+
 <a href="@Url.Action("IndexAsync","Accounts")">View all accounts currently registered (this is for development purposes only)</a>
 <br>
 <a href="@Url.Action("Delete","Request")">Delete</a>
@@ -16,4 +25,5 @@
 <a href="@Url.Action("Create","Request")">Go to create page(this is for development purposes only)</a>
 <br>
 <a href="@Url.Action("ReadUser","Request")">Go to Read page(this is for development purposes only)</a>
+-->
 

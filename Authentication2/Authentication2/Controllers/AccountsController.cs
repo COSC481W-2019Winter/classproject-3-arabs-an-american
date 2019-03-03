@@ -68,7 +68,7 @@ namespace Authentication2.Controllers
                     else
                         role = "None";
                     _signInManager.SignInAsync(user, true).Wait();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ReadUser", "Request");
                 }
 
                 else
@@ -114,7 +114,7 @@ namespace Authentication2.Controllers
                 if (roleResult.Succeeded)
                 {
                     _signInManager.SignInAsync(user, true);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ReadUser", "Request");
                 }
                 else
                 {
@@ -145,7 +145,7 @@ namespace Authentication2.Controllers
             IdentityResult updateResult = _userManager.UpdateAsync(user).Result;
             _signInManager.SignOutAsync().Wait();
             _signInManager.SignInAsync(user, true).Wait();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ReadUser", "Request");
         }
     }
 }
