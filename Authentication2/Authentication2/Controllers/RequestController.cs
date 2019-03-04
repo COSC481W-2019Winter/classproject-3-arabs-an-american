@@ -43,7 +43,6 @@ namespace Authentication2.Controllers
             return Content("Please log in to use this feature");
         }
 
-        [HttpPost]
         public  IActionResult ConfirmDelete(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -115,17 +114,16 @@ namespace Authentication2.Controllers
                 // save
                 _context.SaveChanges();
 
-                return RedirectToAction("ConfirmCreate", request);
+                return RedirectToAction("ConfirmCreate");
                 //return Content(model.Item);
             }
             return Content("Please log in to use this feature");
         }
 
-        public IActionResult ConfirmCreate(RequestModel model)
+        public IActionResult ConfirmCreate()
         {
             if (User.Identity.IsAuthenticated)
             {
-                CreateRequestViewModel request = new CreateRequestViewModel(model);
                 return View();
             }
 
