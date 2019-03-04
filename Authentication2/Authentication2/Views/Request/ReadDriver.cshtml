@@ -1,14 +1,9 @@
 @model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
-
 @{
-    ViewData["Title"] = "ReadUser";
+    ViewData["Title"] = "ReadDriver";
 }
+<h1>Accepted Deliveries</h1>
 
-<h1>ReadUser</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn primary">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -44,9 +39,11 @@
                     @item.Status
                 </td>
                 <td>
-                    <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="ConfirmDelete" asp-route-id="@item.Id">Delete</a>
+                    @if (item.Status != "Delivered")
+                    {
+                        <a asp-action="UpdateStatus" asp-route-id="@item.Id">Update Status</a> 
+                    }
+                    <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> 
                 </td>
             </tr>
         }

@@ -29,7 +29,7 @@
             <td>
                 @Html.DisplayFor(m => m.DropoffStreetNumber, new { @class = "form-control" })
                 @Html.DisplayFor(m => m.DropoffStreetName, new { @class = "form-control" })
-            <td/>
+            <td />
         </tr>
         <tr>
             <td>
@@ -46,6 +46,8 @@
             <td>@Html.DisplayFor(m => m.Item, new { @class = "form-control" })</td>
         </tr>
     </table>
+
+    <a href="##" onClick="history.go(-1); return false;">Back</a>
 }
 else
 {

@@ -1,14 +1,11 @@
-@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
+﻿@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
 
 @{
-    ViewData["Title"] = "ReadUser";
+    ViewData["Title"] = "OpenRequests";
 }
 
-<h1>ReadUser</h1>
+<h1>Open Requests</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn primary">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -20,9 +17,6 @@
             </th>
             <th>
                 DropOff Address
-            </th>
-            <th>
-                Status
             </th>
             <th></th>
         </tr>
@@ -41,12 +35,7 @@
                     @item.DropoffCity
                 </td>
                 <td>
-                    @item.Status
-                </td>
-                <td>
-                    <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="ConfirmDelete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="PickupRequest" asp-route-id="@item.Id">Accept Request</a>
                 </td>
             </tr>
         }

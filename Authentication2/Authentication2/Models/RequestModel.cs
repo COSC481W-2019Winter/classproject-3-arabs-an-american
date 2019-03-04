@@ -8,7 +8,9 @@ namespace Authentication2.Models
     public class RequestModel
     {
         public int Id{get;set;}
-
+        public string UserId { get; set; }
+        public string DriverId { get; set; }
+        public string Status { get; set; }
 
         [ForeignKey("PickupAddress")]
         public int PickupAddressId { get; set; }
