@@ -1,0 +1,48 @@
+@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
+@{
+    ViewData["Title"] = "ReadDriver";
+}
+<h1>Deliverys picked up</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Item
+            </th>
+            <th>
+                PickUp Address
+            </th>
+            <th>
+                DropOff Address
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Item
+                </td>
+                <td>
+                    @item.PickupCity
+                </td>
+                <td>
+                    @item.DropoffCity
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    <a asp-action="Complete" asp-route-id="@item.Id">Complete Delivery</a> 
+                    <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
