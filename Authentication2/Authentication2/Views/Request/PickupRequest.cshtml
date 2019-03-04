@@ -1,6 +1,6 @@
 ﻿@model CreateRequestViewModel
 
-<h1>Pickup Request</h1>
+<h1>Accept Request</h1>
 
 <form method="post" action='@Url.Action("PickupRequest","Request")'>
     @Html.HiddenFor(m => m.Id)
@@ -61,5 +61,5 @@
         </tr>
     </table>
 
-    <input type="submit" value="Pickup Request">
+    <input type="submit" value="Accept Request">
 </form>

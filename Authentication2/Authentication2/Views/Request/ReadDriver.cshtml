@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "ReadDriver";
 }
-<h1>Deliverys picked up</h1>
+<h1>Accepted Deliveries</h1>
 
 <table class="table">
     <thead>
@@ -39,7 +39,10 @@
                     @item.Status
                 </td>
                 <td>
-                    <a asp-action="Complete" asp-route-id="@item.Id">Complete Delivery</a> 
+                    @if (item.Status != "Delivered")
+                    {
+                        <a asp-action="UpdateStatus" asp-route-id="@item.Id">Update Status</a> 
+                    }
                     <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> 
                 </td>
             </tr>
