@@ -283,8 +283,7 @@ namespace Authentication2.Controllers
         }
 
 	public IActionResult ReadDriver()
- {
-            
+    {
 		if (User.Identity.IsAuthenticated)
             {
                 List<RequestModel> requests = _context.Requests
@@ -300,7 +299,6 @@ namespace Authentication2.Controllers
                 }
                 return View(requestsView);
             }
-
             return Content("Please log in to use this feature");
         }
 
