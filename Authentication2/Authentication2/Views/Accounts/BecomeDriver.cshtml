@@ -9,23 +9,29 @@
 
     <label asp-for="CarMake">CarMake</label>
     <input asp-for="CarMake" />
+    <span asp-validation-for="CarMake" class="text-danger"></span>
     <br />
 
     <label asp-for="CarColor">CarColor</label>
     <input asp-for="CarColor" />
+    <span asp-validation-for="CarColor" class="text-danger"></span>
     <br />
 
     <label asp-for="CarModel">CarModel</label>
     <input asp-for="CarModel" />
+    <span asp-validation-for="CarModel" class="text-danger"></span>
     <br />
 
     <label asp-for="CarYear">CarYear</label>
     <input asp-for="CarYear" />
+    <span asp-validation-for="CarYear" class="text-danger"></span>
     <br />
 
     <label asp-for="CarLicensePlate">Car License Plate</label>
     <input asp-for="CarLicensePlate" />
+    <span asp-validation-for="CarLicensePlate" class="text-danger"></span>
     <br />
 
-   <input type="submit" value="Become a Driver"/>
+    <input type="submit" value="Become a Driver" />
+    <div asp-validation-summary="All" class="text-danger"></div>
 </form>

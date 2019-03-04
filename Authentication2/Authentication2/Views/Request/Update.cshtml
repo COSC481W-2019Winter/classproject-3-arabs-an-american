@@ -14,8 +14,15 @@
             <td colspan="2">Street Name</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(m => m.PickupStreetNumber, new { @class = "form-control" })</td>
-            <td colspan="2">@Html.TextBoxFor(m => m.PickupStreetName, new { @class = "form-control" })</td>
+            <td>
+                <input asp-for="PickupStreetNumber" class="form-control" />
+                <span asp-validation-for="PickupStreetNumber" class="text-danger"></span>
+            </td>
+
+            <td colspan="2">
+                <input asp-for="PickupStreetName" class="form-control" />
+                <span asp-validation-for="PickupStreetName" class="text-danger"></span>
+            </td>
         </tr>
         <tr>
             <td>City</td>
@@ -23,15 +30,28 @@
             <td>Zipcode</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(m => m.PickupCity, new { @class = "form-control" })</td>
-            <td>@Html.TextBoxFor(m => m.PickupState, new { @class = "form-control" })</td>
-            <td>@Html.TextBoxFor(m => m.PickupZipcode, new { @class = "form-control" })</td>
+            <td>
+                <input asp-for="PickupCity" class="form-control" />
+                <span asp-validation-for="PickupCity" class="text-danger"></span>
+            </td>
+            <td>
+                <input asp-for="PickupState" class="form-control" />
+                <span asp-validation-for="PickupState" class="text-danger"></span>
+            </td>
+            <td>
+                <input asp-for="PickupZipcode" class="form-control" />
+                <span asp-validation-for="PickupZipcode" class="text-danger"></span>
+
+            </td>
         </tr>
         <tr>
             <td>Instructions</td>
         </tr>
         <tr>
-            <td colspan="3">@Html.TextBoxFor(m => m.PickupInstructions, new { @class = "form-control" })</td>
+            <td colspan="3">
+                <input asp-for="PickupInstructions" class="form-control" />
+                <span asp-validation-for="PickupInstructions" class="text-danger"></span>
+            </td>
         </tr>
         <tr><th><h3>Dropoff</h3></th></tr>
         <tr>
@@ -39,8 +59,14 @@
             <td colspan="2">Street Name</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(m => m.DropoffStreetNumber, new { @class = "form-control" })</td>
-            <td colspan="2">@Html.TextBoxFor(m => m.DropoffStreetName, new { @class = "form-control" })</td>
+            <td>
+                <input asp-for="DropoffStreetNumber" class="form-control" />
+                <span asp-validation-for="DropoffStreetNumber" class="text-danger"></span>
+            </td>
+            <td colspan="2">
+                <input asp-for="DropoffStreetName" class="form-control" />
+                <span asp-validation-for="DropoffStreetName" class="text-danger"></span>
+            </td>
         </tr>
         <tr>
             <td>City</td>
@@ -48,24 +74,36 @@
             <td>Zipcode</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(m => m.DropoffCity, new { @class = "form-control" })</td>
-            <td>@Html.TextBoxFor(m => m.DropoffState, new { @class = "form-control" })</td>
-            <td>@Html.TextBoxFor(m => m.DropoffZipcode, new { @class = "form-control" })</td>
+            <td>
+                <input asp-for="DropoffCity" class="form-control" />
+                <span asp-validation-for="DropoffCity" class="text-danger"></span>
+            </td>
+            <td>
+                <input asp-for="DropoffState" class="form-control" />
+                <span asp-validation-for="DropoffState" class="text-danger"></span>
+            </td>
+            <td>
+                <input asp-for="DropoffZipcode" class="form-control" />
+                <span asp-validation-for="DropoffZipcode" class="text-danger"></span>
+            </td>
         </tr>
         <tr>
             <td>Instructions</td>
         </tr>
         <tr>
-            <td colspan="3">@Html.TextBoxFor(m => m.DropoffInstructions, new { @class = "form-control" })</td>
+            <td colspan="3"> <input asp-for="PickupStreetNumber" class="form-control" /></td>
         </tr>
         <tr><th><h3>Item</h3></th></tr>
         <tr>
             <td>Item</td>
         </tr>
         <tr>
-            <td colspan="3">@Html.TextBoxFor(m => m.Item, new { @class = "form-control" })</td>
+            <td colspan="3">
+                <input asp-for="Item" class="form-control" />
+                <span asp-validation-for="Item" class="text-danger"></span>
+            </td>
         </tr>
     </table>
-
     <input type="submit" value="Update">
+    <div asp-validation-summary="All" class="text-danger"></div>
 </form>

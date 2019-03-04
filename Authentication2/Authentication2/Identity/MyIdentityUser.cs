@@ -12,7 +12,6 @@ namespace Authentication2.Identity
         // UNENCRYPTED PASSWORD FOR DEVELOPMENT PURPOSES ONLY
         // so we dont have to remember passwords
         public string Password { get; set; }
-
         public Address Address { get; set; }
         public string CarMake { get; set; }
         public string CarModel { get; set; }

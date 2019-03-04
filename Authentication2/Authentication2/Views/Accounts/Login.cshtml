@@ -1,12 +1,20 @@
-﻿
+﻿@model SignUpViewModel
 @{
     ViewData["Title"] = "Login";
 }
 
 <h1>Login</h1>
 
-<form action="@Url.Action("Login", "Accounts")" method="post">
-    <input type="text" placeholder="username" name="username"/>
-    <input type="text" placeholder="password" name="password"/>
+<form asp-action="Login" asp-controller="Accounts">
+    <label asp-for="Username">UserName</label>
+    <input asp-for="Username" />
+    <span asp-validation-for="Username" class="text-danger"></span>
+    <br />
+    <label asp-for="Password">Password</label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password" class="text-danger"></span>
+    <br />
+
     <button type="submit">Login</button>
+    <div asp-validation-summary="All" class="text-danger"></div>
 </form>
