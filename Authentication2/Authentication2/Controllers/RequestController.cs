@@ -34,6 +34,7 @@ namespace Authentication2.Controllers
 
             return Content("Please log in to use this feature");
         }
+
         public IActionResult Delete()
         {
             if (User.Identity.IsAuthenticated)
@@ -114,17 +115,19 @@ namespace Authentication2.Controllers
                 // save
                 _context.SaveChanges();
 
-                return RedirectToAction("ConfirmCreate");
+                return RedirectToAction("ConfirmCreate", request);
                 //return Content(model.Item);
             }
-
             return Content("Please log in to use this feature");
         }
 
-        public IActionResult ConfirmCreate()
+        public IActionResult ConfirmCreate(RequestModel model)
         {
             if (User.Identity.IsAuthenticated)
+            {
+                CreateRequestViewModel request = new CreateRequestViewModel(model);
                 return View();
+            }
 
             return Content("Please log in to use this feature");
         }

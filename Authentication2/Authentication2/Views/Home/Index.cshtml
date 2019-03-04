@@ -1,9 +1,16 @@
-﻿@model List<MyIdentityUser>
+@model List<MyIdentityUser>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
+<form action="@Url.Action("Login", "Accounts")">
+    <button type="submit">Login</button>
+</form>
+<form action="@Url.Action("Signup", "Accounts")">
+    <button type="submit">Signup</button>
+</form>
+<!--
 <a href="@Url.Action("IndexAsync","Accounts")">View all accounts currently registered (this is for development purposes only)</a>
 <br>
 @if (User.IsInRole("User"))
@@ -27,4 +34,5 @@
     <br>
     <a href="@Url.Action("ReadDriver", "Request")">Go to read driver page(this is for development purposes only)</a>
 }
+-->
 
