@@ -54,7 +54,7 @@ namespace Authentication2.Controllers
             return Content("Please log in to use this feature");
         }     
         
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -62,13 +62,18 @@ namespace Authentication2.Controllers
                 {
                     return Content("id is not workig");
                 }
-                var request = await _context.Requests.FindAsync(id);
+                var request = _context.Requests
+                    .Where(req => req.Id == id)
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .FirstOrDefault();
                 if (request != null)
                 {
                     _context.Requests.Remove(request);
-                    await _context.SaveChangesAsync();
-                    //return RedirectToAction(nameof(Index));
-                    return Content("Request with id is deleted: " + id);
+                     _context.SaveChanges();
+                    ViewBag.id = id;
+                    ViewBag.request = new CreateRequestViewModel(request);
+                    return View();
                 }
                 return Content("ID does not exist: " + id);
             }

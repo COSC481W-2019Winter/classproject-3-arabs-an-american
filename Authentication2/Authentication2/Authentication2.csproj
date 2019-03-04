@@ -17,4 +17,8 @@
     <Compile Remove="VIewModels\UserViewModel.cs" />
     <Compile Remove="VIewModels\DriverViewModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="DeleteConfirmed.cshtml" />
+    <Content Remove="Index.cshtml" />
+  </ItemGroup>
 </Project>
