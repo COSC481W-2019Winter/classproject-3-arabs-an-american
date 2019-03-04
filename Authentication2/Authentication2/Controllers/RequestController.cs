@@ -155,26 +155,7 @@ namespace Authentication2.Controllers
                     return Content("The model was null with ID: " + id.ToString());
                 }
 
-                CreateRequestViewModel requestVM = new CreateRequestViewModel
-                {
-                    Id = request.Id,
-                    UserId = request.UserId,
-                    DriverId = request.DriverId,
-                    Status = request.Status,
-                    PickupStreetNumber = request.PickupAddress.StreetNumber,
-                    PickupStreetName = request.PickupAddress.StreetName,
-                    PickupCity = request.PickupAddress.City,
-                    PickupState = request.PickupAddress.State,
-                    PickupZipcode = request.PickupAddress.ZipCode,
-                    PickupInstructions = request.PickUpInstructions,
-                    DropoffStreetNumber = request.DropOffAddress.StreetNumber,
-                    DropoffStreetName = request.DropOffAddress.StreetName,
-                    DropoffCity = request.DropOffAddress.City,
-                    DropoffState = request.DropOffAddress.State,
-                    DropoffZipcode = request.DropOffAddress.ZipCode,
-                    DropoffInstructions = request.DropOffInstructions,
-                    Item = request.Item
-                };
+                CreateRequestViewModel requestVM = new CreateRequestViewModel(request);
 
                 return View(requestVM);
             }
