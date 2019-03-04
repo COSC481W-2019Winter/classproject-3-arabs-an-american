@@ -282,6 +282,28 @@ namespace Authentication2.Controllers
             return Content("Please log in to use this feature");
         }
 
+	public IActionResult ReadDriver()
+ {
+            
+		if (User.Identity.IsAuthenticated)
+            {
+                List<RequestModel> requests = _context.Requests
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .ToList();
+
+                List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
+                foreach (RequestModel model in requests)
+                {
+                    if (model.DriverId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                        requestsView.Add(new CreateRequestViewModel(model));
+                }
+                return View(requestsView);
+            }
+
+            return Content("Please log in to use this feature");
+        }
+
         public IActionResult OpenRequests()
         {
             if (User.Identity.IsAuthenticated && User.IsInRole("Driver"))
