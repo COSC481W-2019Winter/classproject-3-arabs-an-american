@@ -6,16 +6,24 @@
 
 <a href="@Url.Action("IndexAsync","Accounts")">View all accounts currently registered (this is for development purposes only)</a>
 <br>
-<a href="@Url.Action("Delete","Request")">Delete</a>
+@if (User.IsInRole("User"))
+{
+<a href="@Url.Action("Delete", "Request")">Delete</a>
 <br>
-<a href="@Url.Action("ViewByID","Request")">ViewByID</a>
+<a href="@Url.Action("ViewByID", "Request")">ViewByID</a>
 <br>
-<a href="@Url.Action("Update","Request")">Go to update page (this is for development purposes only)</a>
+<a href="@Url.Action("Update", "Request")">Go to update page (this is for development purposes only)</a>
 
 <br>
-<a href="@Url.Action("Create","Request")">Go to create page(this is for development purposes only)</a>
+<a href="@Url.Action("Create", "Request")">Go to create page(this is for development purposes only)</a>
+<br />
+
+<a href="@Url.Action("ReadUser", "Request")">Go to Read page(this is for development purposes only)</a>
 <br>
-<a href="@Url.Action("ReadUser","Request")">Go to Read page(this is for development purposes only)</a>
-<br>
-<a href="@Url.Action("OpenRequests","Request")">Go to Open Requests page(this is for development purposes only)</a>
+}
+@if (User.IsInRole("Driver"))
+{
+    <a href="@Url.Action("OpenRequests", "Request")">Go to Open Requests page(this is for development purposes only)</a>
+    <a href="@Url.Action("ReadDriver", "Request")">Go to read driver page(this is for development purposes only)</a>
+}
 
