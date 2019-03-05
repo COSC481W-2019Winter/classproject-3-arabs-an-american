@@ -8,11 +8,12 @@
     
 ## Controllers:
    * AccountsController.cs
-   * RequestsController.cs
+   * HomeController.cs
+   * RequestController.cs
     
 ## View Models:
    * SignUpViewModel.cs
-   * LoginViewModel.cs
+   * AccountsViewModel.cs
    * BecomeDriverViewModel.cs
    * CreateRequestViewModel.cs
 
@@ -20,9 +21,10 @@
    #### 1. Shared:
    * Layout.cshtml
    #### 2. General Views:
-   * Home.cshtml
+   * Index.cshtml
+   * Privacy.cshtml
    #### 3. Account Views:
-   * SignUpView.cshtml
+   * Signup.cshtml
    * LoginView.cshtml
    * ProfileView.cshtml
    * BecomeDriverView.cshtml
