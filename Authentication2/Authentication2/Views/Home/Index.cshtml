@@ -1,7 +1,43 @@
-﻿@model List<MyIdentityUser>
+@model List<MyIdentityUser>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<a href="@Url.Action("IndexAsync","Accounts")">View all accounts currently registered (this is for development purposes only)</a>
+@if (!User.Identity.IsAuthenticated)
+{
+    <form action="@Url.Action("Login", "Accounts")">
+        <button type="submit">Login</button>
+    </form>
+    <form action="@Url.Action("Signup", "Accounts")">
+        <button type="submit">Signup</button>
+    </form>
+}
+else
+{
+    <a href="@Url.Action("IndexAsync", "Accounts")">View all accounts currently registered (this is for development purposes only)</a>
+    <br>
+    @if (User.IsInRole("User"))
+    {
+        <a href="@Url.Action("Delete", "Request")">Delete</a>
+        <br>
+        <a href="@Url.Action("ViewByID", "Request")">ViewByID</a>
+        <br>
+        <a href="@Url.Action("Update", "Request")">Go to update page (this is for development purposes only)</a>
+
+        <br>
+        <a href="@Url.Action("Create", "Request")">Go to create page(this is for development purposes only)</a>
+        <br />
+
+        <a href="@Url.Action("ReadUser", "Request")">Go to Read page(this is for development purposes only)</a>
+        <br>
+    }
+    @if (User.IsInRole("Driver"))
+    {
+        <a href="@Url.Action("OpenRequests", "Request")">Go to Open Requests page(this is for development purposes only)</a>
+        <br>
+        <a href="@Url.Action("ReadDriver", "Request")">Go to read driver page(this is for development purposes only)</a>
+    }
+}
+
+

@@ -1,0 +1,45 @@
+﻿@model CreateRequestViewModel
+
+<h1>Update Status</h1>
+
+<form method="post" action='@Url.Action("UpdateStatus","Request")'>
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.DriverId)
+    @Html.HiddenFor(m => m.Status)
+    @Html.HiddenFor(m => m.PickupStreetNumber)
+    @Html.HiddenFor(m => m.PickupStreetName)
+    @Html.HiddenFor(m => m.PickupCity)
+    @Html.HiddenFor(m => m.PickupState)
+    @Html.HiddenFor(m => m.PickupZipcode)
+    @Html.HiddenFor(m => m.PickupInstructions)
+    @Html.HiddenFor(m => m.DropoffStreetNumber)
+    @Html.HiddenFor(m => m.DropoffStreetName)
+    @Html.HiddenFor(m => m.DropoffCity)
+    @Html.HiddenFor(m => m.DropoffState)
+    @Html.HiddenFor(m => m.DropoffZipcode)
+    @Html.HiddenFor(m => m.DropoffInstructions)
+    @Html.HiddenFor(m => m.Item)
+
+    @{
+        var status = Model.Status;
+        var newStatus = "";
+    }
+
+    @if (status == "Accepted By Driver")
+    {
+        newStatus = "Awaiting Pickup";
+    }
+    @if (status == "Awaiting Pickup")
+    {
+        newStatus = "Out for Delivery";
+    }
+    @if (status == "Out for Delivery")
+    {
+        newStatus = "Delivered";
+    }
+
+    <p>Update status from "@status" to "@newStatus"?</p>
+
+    <input type="submit" value="Update Status">
+</form>

@@ -1,0 +1,54 @@
+@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
+
+@{
+    ViewData["Title"] = "ReadUser";
+}
+
+<h1>ReadUser</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Item
+            </th>
+            <th>
+                PickUp Address
+            </th>
+            <th>
+                DropOff Address
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Item
+                </td>
+                <td>
+                    @item.PickupCity
+                </td>
+                <td>
+                    @item.DropoffCity
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="ConfirmDelete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
