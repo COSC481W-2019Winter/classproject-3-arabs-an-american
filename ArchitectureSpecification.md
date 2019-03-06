@@ -1,15 +1,16 @@
 # List of components:
 -------------------------------------------------
 ## Models:
-   * MyDbContext.cs
-   * AccountModel.cs
-   * RequestModel.cs
+   * MyIdentityContext.cs
    * AddressModel.cs
+   * MyIdentityUser.cs
+   * RequestModel.cs
     
 ## Controllers:
    * AccountsController.cs
    * HomeController.cs
    * RequestController.cs
+   * AddressController.cs
     
 ## View Models:
    * SignUpViewModel.cs
@@ -19,7 +20,7 @@
 
 ## Views:
    #### 1. Shared:
-   * Layout.cshtml
+   * _Layout.cshtml
    #### 2. General Views:
    * Index.cshtml
    * Privacy.cshtml
@@ -27,16 +28,22 @@
    * Index.cshtml
    * Signup.cshtml
    * Login.cshtml
-   * Register.cshtml
-   * RegisterUser.cshtml
-   * RegisterDriver.cshtml
    * BecomeDriver.cshtml
    #### 4.Request Views:
-   * CreateRequestView.cshtml
-   * EditRequestView.cshtml
-   * DeleteRequestView.cshtml
-   * ViewRequestView.cshtml
-   * ViewAllRequestsView.cshtml
+   * Create.cshtml
+   * ConfirmCreate.cshtml
+   * Update.cshtml
+   * ConfirmUpdate.cshtml
+   * Delete.cshtml
+   * ConfirmDelete.cshtml
+   * DeleteConfirmed.cshtml
+   * ViewByID.cshtml
+   * ReadUser.cshtml
+   * ReadDriver.cshtml
+   * OpenRequests.cshtml
+   * PickupRequest.cshtml
+   * ConfirmPickup.cshtml
+   * UpdateStatus.cshtml
         
 ## Identity:
    * UserManager.cs
@@ -44,9 +51,9 @@
    * RoleManager.cs
        
 -------------------------------------------------
-## MyDbContext:
+## MyIdentityContext:
 This class represents our data access layer. it extends the IdentityDbContext class.
-An instance of this class allow us to retreive and store accounts, requests, and addresses in the databse.
+An instance of this class allow us to retrieve and store accounts, requests, and addresses in the database.
 
 ### Properties:
 Name | Type | Description
@@ -83,10 +90,10 @@ ZipCode | int |The user's zip code
 ### Connectors:
    Both accounts and requests models will have a navigational properties for addresses.
    In the RequestModel we need 2 addresses for pick up and drop off. so we will have 2 navigational properties.
-   In the AccountModel we need the address of the user, so we will have one navigational property.
+   In the MyIdentityUser we need the address of the user, so we will have one navigational property.
 
 -------------------------------------------------
-## AccountModel: 
+## MyIdentityUser: 
 An object from class represents an account and encapsulates data about the account.
 Note we will be using the same class for both users and driver. If the account is not a driver,
 driver specific fields will be null and the Account role will be set to "User".
@@ -112,7 +119,7 @@ CarLicensePlate|String | The driver's car's license plate
 Getters and setters for all properties.
     
 ### Connectors:
-An instance of the MyDbContext class will retreive and store objects of the AccountModel type.
+An instance of the MyIdentityContext class will retrieve and store objects of the MyIdentityUser type.
 
 -------------------------------------------------
 ## RequestModel: 
@@ -122,7 +129,13 @@ An object from this class represents a request and encapsulates data about a spe
 
 Name |Type|Description
 ---- |----|-----------
+Id|int|The id number of the request
+UserId|String|The id of the user who created the request
+DriverId|String|The id of the driver of the request
+Status|String|The current status of the request
+PickupAddressId|int|The id of the PickupAddress
 PickupAddress|Address|The pickup address of the request
+DropoffAddressId|int|The id of the DropoffAddress
 DropoffAddress |Address|The dropoff address of the request
 Item | String | The name of the item
 PickupInstructions | String |Optional instructions for pickup
@@ -132,7 +145,7 @@ DropoffInstructions|String |Optional instructions for drop off
 Getters and setters for all properties.
 
 ### Connectors:
-An instance of the MyDbContext will retrieve and store objects of the RequestModel Type.
+An instance of the MyIdentityContext will retrieve and store objects of the RequestModel Type.
 
 -------------------------------------------------
 
@@ -143,22 +156,23 @@ This class will contain all the action methods related to accounts, like signing
 
 Name|Type |Description
 ----|---- |-----------
-_context | MyDbContext|an instance of the data access layer class MyDbContext
+_context | MyIdentityContext|an instance of the data access layer class MyIdentityContext
 _signinManager | SignInManager | an instance of the SignInManager class
 _roleManager | RoleManager | an instance of the RoleManager class
+_userManager | UserManager | an instance of the UserManager class
 
 ### Functionalities:
 
 Name |Parameters|Return|Behavior
 ---- |----------|------|--------
-Constructor|MyDbContext,SignInManager,RoleManager|Instance|Widens the scope of the parameters            
-Signup (GET)|None|SignupView | Just returns the signup page.
+Constructor|MyIdentityContext,SignInManager,RoleManager,UserManager|Instance|Widens the scope of the parameters            
+Signup (GET)|None|View | Just returns the signup page.
 Signup (POST)|SignUpViewModel|HomePage|Creates a new account and redirect to homepage
-Login (GET) |None|LoginView|Just returns the LoginView
-Login (POST)|LoginViewModel|HomePage |Checks if the user exist or not, and redirect to appropriate page                      
+Login (GET) |None|View|Just returns the LoginView
+Login (POST)|String username, String password|HomePage |Checks if the user exist or not, and redirect to appropriate page                      
 Logout (GET)|None |HomePage |Logs the user out
-Driver(GET)|None|BecomeDriverView |Just returns the BecomeDriver form
-Driver(POST)|BecomeDriverViewModel |HomePage |Populates the driver fields in the user account and adds the "Driver" role to the account.
+BecomeDriver(GET)|None|View |Just returns the BecomeDriver form
+BecomeDriver(POST)|BecomeDriverViewModel |HomePage |Populates the driver fields in the user account and adds the "Driver" role to the account.
                                                         
 
 ### Connectors:
@@ -168,15 +182,36 @@ When the user navigates to a specific route in the accounts controller like /acc
 
 ## RequestController:
 This class will contain all the action methods related to requests. Creating them, deleting them, updating them, getting a list of them, etc..
-    
+
+### Properties:
+
+Name|Type |Description
+----|---- |-----------
+_context | MyIdentityContext|an instance of the data access layer class MyIdentityContext
+
+### Functionalities:
+ 
 Name|Parameters|Return|Behavior
 ----|----------|------|--------
-Get(GET)|int id |ViewRequestView |Uses the data access layer to look up the specified                                                                           request using the provided id
-Delete(GET)|int id |DeleteRequestView|shows the confirm delete page
-Delete(POST)|RequestModel| HomePage | Deletes the request from the database
-Edit (GET)|int id |EditRequestView |Shows the edit request page populating the appropriate fields to edit                     
-Edit(POST)|RequestModel|HomePage|Updates the request in the database with the changes
-All(GET)|None|ViewAllRequestsView|Looks up all the requests in the database
+Constructor|MyIdentityContext|Instance|Widens the scope of the parameter
+Create (GET)|None|View|Returns the Create View
+Create (POST)|CreateRequestViewModel|ConfirmCreate|Creates a request using data entered by the user, stores it in the database, and returns the ConfirmCreate method
+ConfirmCreate (GET)|None|View|Returns the ConfirmCreate View
+ViewByID(GET)|int id |View |Uses the data access layer to look up the specified request using the provided id
+Delete(GET)|None|View|Returns the Delete View
+ConfirmDelete(GET)|int id|View| Returns the ConfirmDelete View
+DeleteConfirmed(GET)|int id|View|Deletes the request with the given id and returns the DeleteConfirmed View
+Update (GET)|int id |View |Shows the update request page populating the appropriate fields to edit                     
+Update (POST)|CreateRequestViewModel|ConfirmUpdate|Updates the request in the database with the changes and returns the ConfirmUpdate method
+ConfirmUpdate (GET)|None|View|Returns the ConfirmUpdate View
+ReadUser (GET)|None|View|Looks up all the requests in the database with the authenticated user's UserId
+ReadDriver (GET)|None|View|Looks up all the requests in the database with the authenticated driver's DriverId
+OpenRequests (GET)|None|View|Looks up all the requests in the database that do not have a DriverId yet
+UpdateStatus (GET)|int id|View|Returns the UpdateStatus View
+UpdateStatus (POST)|CreateRequestViewModel|ReadDriver|Updates the requests' status to the next applicable status and returns the ReadDriver method
+PickupRequest (GET)|int id|View|Returns the PickupRequest View
+PickupRequest (POST)|CreateRequestViewModel|ConfirmPickup|Sets the currently authenticated user's UserId as the DriverId on the provided request and returns the ConfirmPickup method
+ConfirmPickup (GET)|None|View|Returns the ConfirmPickup View
 
 -------------------------------------------------
 ## SignUpViewModel:
@@ -237,8 +272,8 @@ This type will statically bind to the BecomeDriver.cshtml page making it a stron
     
 -------------------------------------------------    
 ### CreateRequestViewModel:
-An instnace of this class represents the view model of the create request page.
-We use this class to do client side validation. The form won go through unless its valid.
+An instance of this class represents the view model of the create request page.
+We use this class to do client side validation. The form won't go through unless its valid.
     
 Name|Type|Description|Attribute Decorators
 ----|----|-----------|--------------------

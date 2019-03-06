@@ -27,7 +27,6 @@ namespace Authentication2.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
             _identityContext = identityContext;
-            _signInManager = signInManager;
         }
         public async Task<IActionResult> IndexAsync()
         {
