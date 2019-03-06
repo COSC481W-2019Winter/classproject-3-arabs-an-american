@@ -24,10 +24,13 @@
    * Index.cshtml
    * Privacy.cshtml
    #### 3. Account Views:
+   * Index.cshtml
    * Signup.cshtml
-   * LoginView.cshtml
-   * ProfileView.cshtml
-   * BecomeDriverView.cshtml
+   * Login.cshtml
+   * Register.cshtml
+   * RegisterUser.cshtml
+   * RegisterDriver.cshtml
+   * BecomeDriver.cshtml
    #### 4.Request Views:
    * CreateRequestView.cshtml
    * EditRequestView.cshtml
