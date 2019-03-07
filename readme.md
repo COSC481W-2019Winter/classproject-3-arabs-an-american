@@ -10,9 +10,9 @@
 
     Manager: Anas Milhem
 		Assistant: Sean Leonard
-	Marketing: Zafer Zhourdaji
+	Marketing: Sean Leonard
 		Assistant: Anas Milhem
-	Design: Sean Leonard
+	Design: Zafer Zhourdaji
 		Assistant: Zafer Zhourdaji
 	Engineering: Gavin Maier-Denk
 		Assistant: Josh Thonnisssen
