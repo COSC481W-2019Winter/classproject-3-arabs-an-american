@@ -84,6 +84,12 @@ namespace Authentication2
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
+
+                routes.MapRoute(
+                    name:"Areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

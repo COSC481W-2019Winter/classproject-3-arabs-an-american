@@ -67,14 +67,21 @@ namespace Authentication2.Controllers
                     else
                         role = "None";
                     _signInManager.SignInAsync(user, true).Wait();
-                    return RedirectToAction("ReadUser", "Request");
+                    if (roles.Contains("Driver")){
+                        return RedirectToAction("Open", "Request", new { area = "Driver" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("List", "Request", new { area = "User" });
+                    }
                 }
-
+                //TODO: dont return content
                 else
                 {
                     return Content("Failed to login");
                 }
             }
+            //TODO: dont return content
             else
             {
                 return Content("Failed to login. User doesnt exist");

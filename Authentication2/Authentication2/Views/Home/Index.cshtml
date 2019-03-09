@@ -4,16 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@if (!User.Identity.IsAuthenticated)
-{
-    <form action="@Url.Action("Login", "Accounts")">
-        <button type="submit">Login</button>
-    </form>
-    <form action="@Url.Action("Signup", "Accounts")">
-        <button type="submit">Signup</button>
-    </form>
-}
-else
+@if (User.Identity.IsAuthenticated)
 {
     <a href="@Url.Action("IndexAsync", "Accounts")">View all accounts currently registered (this is for development purposes only)</a>
     <br>
