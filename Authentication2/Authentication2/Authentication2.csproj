@@ -22,12 +22,8 @@
     <Content Remove="Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\" />
-    <Folder Include="Areas\Driver\" />
     <Folder Include="Areas\User\" />
     <Folder Include="Areas\Driver\Controllers\" />
-    <Folder Include="Areas\Driver\Views\" />
-    <Folder Include="Areas\Driver\Views\Request\" />
     <Folder Include="Areas\User\Controllers\" />
     <Folder Include="Areas\User\Views\" />
     <Folder Include="Areas\User\Views\Request\" />

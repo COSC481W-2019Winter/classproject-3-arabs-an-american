@@ -109,7 +109,7 @@ namespace Authentication2.Areas.Driver.Controllers
                 _context.Update(existingRequest);
                 _context.SaveChanges();
 
-                return RedirectToAction("ReadDriver");
+                return RedirectToAction("List");
             }
             //TODO: dont return content. Use authorize attribute to redirect to log in page
             return Content("Please log in as a driver to use this feature");

@@ -15,8 +15,8 @@ namespace Authentication2.Controllers
     {
 
         private readonly MyIdentityContext _context;
-        
-         public RequestController(MyIdentityContext context)
+
+        public RequestController(MyIdentityContext context)
         {
             _context = context;
         }
@@ -42,7 +42,7 @@ namespace Authentication2.Controllers
             return Content("Please log in to use this feature");
         }
 
-        public  IActionResult ConfirmDelete(int id)
+        public IActionResult ConfirmDelete(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -51,8 +51,8 @@ namespace Authentication2.Controllers
             }
 
             return Content("Please log in to use this feature");
-        }     
-        
+        }
+
         public IActionResult DeleteConfirmed(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -69,7 +69,7 @@ namespace Authentication2.Controllers
                 if (request != null)
                 {
                     _context.Requests.Remove(request);
-                     _context.SaveChanges();
+                    _context.SaveChanges();
                     ViewBag.id = id;
                     ViewBag.request = new CreateRequestViewModel(request);
                     return View();
@@ -79,7 +79,7 @@ namespace Authentication2.Controllers
 
             return Content("Please log in to use this feature");
         }
-       
+
 
         [HttpPost]
         public IActionResult Create(CreateRequestViewModel model)
@@ -259,7 +259,7 @@ namespace Authentication2.Controllers
                 List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
                 foreach (RequestModel model in requests)
                 {
-                    if(model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)) 
+                    if (model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                         requestsView.Add(new CreateRequestViewModel(model));
                 }
                 return View(requestsView);
@@ -268,9 +268,9 @@ namespace Authentication2.Controllers
             return Content("Please log in to use this feature");
         }
 
-	    public IActionResult ReadDriver()
+        public IActionResult ReadDriver()
         {
-		    if (User.Identity.IsAuthenticated && User.IsInRole("Driver"))
+            if (User.Identity.IsAuthenticated && User.IsInRole("Driver"))
             {
                 List<RequestModel> requests = _context.Requests
                     .Include(req => req.DropOffAddress)
@@ -342,11 +342,11 @@ namespace Authentication2.Controllers
                 var status = request.Status;
                 var newStatus = status;
 
-                if(status == "Accepted By Driver")
+                if (status == "Accepted By Driver")
                     newStatus = "Awaiting Pickup";
-                else if(status == "Awaiting Pickup")
+                else if (status == "Awaiting Pickup")
                     newStatus = "Out for Delivery";
-                else if(status == "Out for Delivery")
+                else if (status == "Out for Delivery")
                     newStatus = "Delivered";
 
                 existingRequest.UserId = request.UserId;
@@ -446,7 +446,7 @@ namespace Authentication2.Controllers
                     .Include(req => req.DropOffAddress)
                     .Include(req => req.PickupAddress)
                     .FirstOrDefault();
-                
+
                 existingRequest.UserId = request.UserId;
                 existingRequest.DriverId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 existingRequest.Status = "Accepted By Driver";

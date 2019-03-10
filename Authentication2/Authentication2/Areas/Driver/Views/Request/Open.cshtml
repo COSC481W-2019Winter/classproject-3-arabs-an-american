@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
 
 @{
-    ViewData["Title"] = "OpenRequests";
+    ViewData["Title"] = "Open";
 }
 
 <h1>Open Requests</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
 
 <table class="table">
     <thead>
