@@ -136,7 +136,7 @@ namespace Authentication2.Areas.Driver.Controllers
             return Content("Please log in as a driver to use this feature");
         }
 
-        public IActionResult PickupRequest(int? id)
+        public IActionResult Pickup(int? id)
         {
             if (User.Identity.IsAuthenticated && User.IsInRole("Driver"))
             {

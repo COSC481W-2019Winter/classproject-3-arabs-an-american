@@ -5,9 +5,7 @@
 }
 
 <h1>Open Requests</h1>
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
+
 
 <table class="table">
     <thead>
@@ -38,7 +36,7 @@
                     @item.DropoffCity
                 </td>
                 <td>
-                    <a asp-action="PickupRequest" asp-route-id="@item.Id">Accept Request</a>
+                    <a asp-action="Pickup" asp-route-id="@item.Id">Accept Request</a>
                 </td>
             </tr>
         }

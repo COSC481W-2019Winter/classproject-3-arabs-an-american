@@ -4,17 +4,14 @@
     ViewData["Title"] = "List";
 }
 
-@if (User.IsInRole("User"))
+@if (User.Identity.IsAuthenticated && User.IsInRole("User") && !User.IsInRole("Driver"))
 {
     <h1>Your Created Deliverys</h1>
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Create New</a>
-    </p>
 }
-else
-{
-    <h1>Accepted Deliverys</h1>
-}
+    <h1>Accepeted Deliveries</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
 
 <table class="table">
     <thead>
