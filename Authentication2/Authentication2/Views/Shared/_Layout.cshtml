@@ -39,6 +39,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Welcome @User.Identity.Name</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="User" asp-controller="Request" asp-action="List">My Requests</a>
+                            </li>
                             if (!User.IsInRole("Driver"))
                             {
                                 <li class="nav-item">
@@ -47,14 +50,14 @@
                             }
                             else
                             {
-                                <li class="nav-item">
+                                <!--<li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">You are a driver!</a>
-                                </li>
+                                </li>-->
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Driver" asp-controller="Request" asp-action="Open">Open Requests</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="User" asp-controller="Request" asp-action="List">Accepted Requests</a>
+                                    <a class="nav-link text-dark" asp-area="Driver" asp-controller="Request" asp-action="AcceptedRequests">Accepted Requests</a>
                                 </li>
                             }
                             <li class="nav-item">

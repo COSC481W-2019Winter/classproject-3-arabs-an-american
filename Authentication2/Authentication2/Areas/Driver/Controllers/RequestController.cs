@@ -27,6 +27,26 @@ namespace Authentication2.Areas.Driver.Controllers
             return View();
         }
 
+        public IActionResult AcceptedRequests()
+        {
+            if (User.Identity.IsAuthenticated && User.IsInRole("Driver"))
+            {
+                List<RequestModel> requests = _context.Requests
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .ToList();
+
+                List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
+                foreach (RequestModel model in requests)
+                {
+                    if (model.DriverId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                        requestsView.Add(new CreateRequestViewModel(model));
+                }
+                return View(requestsView);
+            }
+            return Content("Please log in as a driver to use this feature");
+        }
+
         public IActionResult UpdateStatus(int? id)
         {
             if (User.Identity.IsAuthenticated && User.IsInRole("Driver"))
@@ -109,7 +129,7 @@ namespace Authentication2.Areas.Driver.Controllers
                 _context.Update(existingRequest);
                 _context.SaveChanges();
 
-                return RedirectToAction("List");
+                return RedirectToAction("AcceptedRequests");
             }
             //TODO: dont return content. Use authorize attribute to redirect to log in page
             return Content("Please log in as a driver to use this feature");
