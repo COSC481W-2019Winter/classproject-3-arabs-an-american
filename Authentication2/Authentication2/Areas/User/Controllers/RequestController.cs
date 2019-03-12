@@ -1,7 +1,9 @@
 using Authentication2.DataAccessLayer;
+using Authentication2.Identity;
 using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +18,8 @@ namespace Authentication2.Areas.Controllers
     {
 
         private readonly MyIdentityContext _context;
-        
-         public RequestController(MyIdentityContext context)
+
+        public RequestController(MyIdentityContext context)
         {
             _context = context;
         }
@@ -43,7 +45,7 @@ namespace Authentication2.Areas.Controllers
             return Content("Please log in to use this feature");
         }
 
-        public  IActionResult ConfirmDelete(int id)
+        public IActionResult ConfirmDelete(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -52,8 +54,8 @@ namespace Authentication2.Areas.Controllers
             }
 
             return Content("Please log in to use this feature");
-        }     
-        
+        }
+
         public IActionResult DeleteConfirmed(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -70,7 +72,7 @@ namespace Authentication2.Areas.Controllers
                 if (request != null)
                 {
                     _context.Requests.Remove(request);
-                     _context.SaveChanges();
+                    _context.SaveChanges();
                     ViewBag.id = id;
                     ViewBag.request = new CreateRequestViewModel(request);
                     return View();
@@ -80,7 +82,7 @@ namespace Authentication2.Areas.Controllers
 
             return Content("Please log in to use this feature");
         }
-       
+
 
         [HttpPost]
         public IActionResult Create(CreateRequestViewModel model)
@@ -197,6 +199,23 @@ namespace Authentication2.Areas.Controllers
                     Item = request.Item
                 };
 
+                var addresses = _context.Addresses
+                    .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                    .ToList();
+                //new AddressController(_context).GetAll(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var response = new List<SelectListItem>
+                {
+                };
+
+                foreach (Address address in addresses)
+                {
+                    response.Add(new SelectListItem
+                    {
+                        Value = address.Id.ToString(),
+                        Text = address.StreetNumber + " " + address.StreetName,
+                    });
+                }
+                ViewBag.addresses = response;
                 return View(requestVM);
             }
 
@@ -260,7 +279,7 @@ namespace Authentication2.Areas.Controllers
                 List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
                 foreach (RequestModel model in requests)
                 {
-                    if(model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)) 
+                    if (model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                         requestsView.Add(new CreateRequestViewModel(model));
                 }
                 return View(requestsView);

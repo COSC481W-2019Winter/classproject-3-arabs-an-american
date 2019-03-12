@@ -8,7 +8,12 @@
     @Html.HiddenFor(m => m.DriverId)
     @Html.HiddenFor(m => m.Status)
     <table>
-        <tr><th><h3>Pickup</h3></th></tr>
+        <tr>
+            <th><h3>Pickup</h3></th>
+            <td>
+                @Html.DropDownList("addresses")
+            </td>
+        </tr>
         <tr>
             <td>Street Number</td>
             <td colspan="2">Street Name</td>
