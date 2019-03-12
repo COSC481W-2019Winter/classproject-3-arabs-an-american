@@ -1,6 +1,6 @@
-@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
+﻿@model IEnumerable<Authentication2.VIewModels.CreateRequestViewModel>
 @{
-    ViewData["Title"] = "ReadDriver";
+    ViewData["Title"] = "AcceptedRequests";
 }
 <h1>Accepted Deliveries</h1>
 
@@ -41,9 +41,9 @@
                 <td>
                     @if (item.Status != "Delivered")
                     {
-                        <a asp-action="UpdateStatus" asp-route-id="@item.Id">Update Status</a> 
+                        <a asp-action="UpdateStatus" asp-route-id="@item.Id">Update Status</a>
                     }
-                    <a asp-action="ViewByID" asp-route-id="@item.Id">Details</a> 
+                    <a asp-area="User" asp-action="Detail" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }

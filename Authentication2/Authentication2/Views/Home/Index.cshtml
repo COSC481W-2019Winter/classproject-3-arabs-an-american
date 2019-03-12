@@ -4,16 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@if (!User.Identity.IsAuthenticated)
-{
-    <form action="@Url.Action("Login", "Accounts")">
-        <button type="submit">Login</button>
-    </form>
-    <form action="@Url.Action("Signup", "Accounts")">
-        <button type="submit">Signup</button>
-    </form>
-}
-else
+@if (User.Identity.IsAuthenticated)
 {
     <a href="@Url.Action("IndexAsync", "Accounts")">View all accounts currently registered (this is for development purposes only)</a>
     <br>
@@ -27,17 +18,17 @@ else
         <a href="@Url.Action("Update", "Request")">Go to update page (this is for development purposes only)</a>-->
 
         <br>
-        <a href="@Url.Action("Create", "Request")">Go to create page(this is for development purposes only)</a>
+        <a asp-area="User" asp-controller="Request" asp-action="Create">Go to create page(this is for development purposes only)</a>
         <br />
 
-        <a href="@Url.Action("ReadUser", "Request")">Go to Read page(this is for development purposes only)</a>
+        <a asp-area="User" asp-controller="Request" asp-action="List">Go to Read page(this is for development purposes only)</a>
         <br>
     }
     @if (User.IsInRole("Driver"))
     {
-        <a href="@Url.Action("OpenRequests", "Request")">Go to Open Requests page(this is for development purposes only)</a>
+        <a asp-area="Driver" asp-controller="Request" asp-action="Open">Go to Open Requests page(this is for development purposes only)</a>
         <br>
-        <a href="@Url.Action("ReadDriver", "Request")">Go to read driver page(this is for development purposes only)</a>
+        <a asp-area="Driver" asp-controller="Request" asp-action="AcceptedRequests">Go to the Accepted Requests page(this is for development purposes only)</a>
     }
 }
 
