@@ -193,21 +193,24 @@ namespace Authentication2.Areas.Controllers
                 {
                     pickUpAddressList.Add(new SelectListItem
                     {
-                        Value = address.Id.ToString(),
-                        Text = address.StreetNumber + " " + address.StreetName,
+                        Value = address.StreetNumber,
+                        Text = address.StreetName,
                         Selected = address.Id == request.PickupAddress.Id ? true : false
                     });
 
                     dropOffAddressList.Add(new SelectListItem
                     {
-                        Value = address.Id.ToString(),
-                        Text = address.StreetNumber + " " + address.StreetName,
+                        Value = address.StreetNumber,
+                        Text = address.StreetName,
                         Selected = address.Id == request.DropOffAddress.Id ? true : false
                     });
                 }
 
+                Address[] addressArray = addresses.ToArray();
+
                 ViewBag.pickUpAddressList = pickUpAddressList;
                 ViewBag.dropOffAddressList = dropOffAddressList;
+                ViewData["AddressArray"] = addressArray;
                 return View(requestVM);
             }
 

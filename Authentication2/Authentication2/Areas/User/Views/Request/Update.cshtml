@@ -2,7 +2,7 @@
 
 <h1>Update Request</h1>
 
-<form method="post" action='@Url.Action("Update","Request")'>
+<form method="post" action='@Url.Action("Update", "Request")'>
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.UserId)
     @Html.HiddenFor(m => m.DriverId)
@@ -11,7 +11,7 @@
         <tr>
             <th><h3>Pickup</h3></th>
             <td>
-                @Html.DropDownList("pickUpAddressList", null, new { @id = "pickUpAddressList" })
+                @Html.DropDownList("pickUpAddressList", null, new { @id = "pickUpAddressList", onchange = "Pickup()" })
             </td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
         <tr>
             <th><h3>Dropoff</h3></th>
             <td>
-                @Html.DropDownList("dropOffAddressList")
+                @Html.DropDownList("dropOffAddressList", null, new { @id = "dropOffAddressList", onchange = "MyFunction()" })
             </td>
         </tr>
         <tr>
@@ -120,3 +120,47 @@
     <input type="submit" value="Update">
     <div asp-validation-summary="All" class="text-danger"></div>
 </form>
+
+<script type="text/javascript">
+    function MyFunction() {
+        //var addresses = ViewData["AddressArray"];
+        var e = document.getElementById("dropOffAddressList");
+        //var strUser = parseInt(e.options[e.selectedIndex].value);
+
+        document.getElementById("DropoffStreetNumber").value = e.options[e.selectedIndex].value;
+        document.getElementById("DropoffStreetName").value = e.options[e.selectedIndex].text;
+        /*
+        for(var address in addresses){
+            if(address.Id == strUser)
+            {
+                document.getElementById("PickupStreetNumber").value = address.StreetNumber;
+                document.getElementById("PickupStreetName").value = address.StreetName;
+                document.getElementById("PickupCity").value = address.City;
+                document.getElementById("PickupState").value = address.State;
+                document.getElementById("PickupZipcode").value = address.ZipCode;
+            }
+        }
+        */
+    }
+
+    function Pickup() {
+        //var addresses = ViewData["AddressArray"];
+        var e = document.getElementById("pickUpAddressList");
+        //var strUser = parseInt(e.options[e.selectedIndex].value);
+
+        document.getElementById("PickupStreetNumber").value = e.options[e.selectedIndex].value;
+        document.getElementById("PickupStreetName").value = e.options[e.selectedIndex].text;
+        /*
+        for(var address in addresses){
+            if(address.Id == strUser)
+            {
+                document.getElementById("PickupStreetNumber").value = address.StreetNumber;
+                document.getElementById("PickupStreetName").value = address.StreetName;
+                document.getElementById("PickupCity").value = address.City;
+                document.getElementById("PickupState").value = address.State;
+                document.getElementById("PickupZipcode").value = address.ZipCode;
+            }
+        }
+        */
+    }
+</script>
