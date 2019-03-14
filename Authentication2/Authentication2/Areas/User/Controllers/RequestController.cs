@@ -32,7 +32,63 @@ namespace Authentication2.Areas.Controllers
         public IActionResult Create()
         {
             if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.addressList = GetAddressList();
                 return View();
+            }
+
+            return Content("Please log in to use this feature");
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateRequestViewModel model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                RequestModel request = new RequestModel
+                {
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Status = "Awaiting Driver",
+                    PickupAddress = new Identity.Address
+                    {
+                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        StreetNumber = model.PickupStreetNumber,
+                        StreetName = model.PickupStreetName,
+                        City = model.PickupCity,
+                        State = model.PickupState,
+                        ZipCode = model.PickupZipcode
+                    },
+                    DropOffAddress = new Identity.Address
+                    {
+                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        StreetNumber = model.DropoffStreetNumber,
+                        StreetName = model.DropoffStreetName,
+                        City = model.DropoffCity,
+                        State = model.DropoffState,
+                        ZipCode = model.DropoffZipcode
+                    },
+                    Item = model.Item,
+                    PickUpInstructions = model.PickupInstructions,
+                    DropOffInstructions = model.DropoffInstructions,
+                };
+
+                // add to the context
+                _context.Add(request);
+
+                // save
+                _context.SaveChanges();
+
+                return RedirectToAction("ConfirmCreate");
+            }
+            return Content("Please log in to use this feature");
+        }
+
+        public IActionResult ConfirmCreate()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
 
             return Content("Please log in to use this feature");
         }
@@ -83,62 +139,6 @@ namespace Authentication2.Areas.Controllers
             return Content("Please log in to use this feature");
         }
 
-
-        [HttpPost]
-        public IActionResult Create(CreateRequestViewModel model)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                //TODO: create req model from the view model
-                RequestModel request = new RequestModel
-                {
-                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    Status = "Awaiting Driver",
-                    PickupAddress = new Identity.Address
-                    {
-                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        StreetNumber = model.PickupStreetNumber,
-                        StreetName = model.PickupStreetName,
-                        City = model.PickupCity,
-                        State = model.PickupState,
-                        ZipCode = model.PickupZipcode
-                    },
-                    DropOffAddress = new Identity.Address
-                    {
-                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        StreetNumber = model.DropoffStreetNumber,
-                        StreetName = model.DropoffStreetName,
-                        City = model.DropoffCity,
-                        State = model.DropoffState,
-                        ZipCode = model.DropoffZipcode
-                    },
-                    Item = model.Item,
-                    PickUpInstructions = model.PickupInstructions,
-                    DropOffInstructions = model.DropoffInstructions,
-                };
-
-                // add to the context
-                _context.Add(request);
-
-                // save
-                _context.SaveChanges();
-
-                return RedirectToAction("ConfirmCreate");
-                //return Content(model.Item);
-            }
-            return Content("Please log in to use this feature");
-        }
-
-        public IActionResult ConfirmCreate()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-
-            return Content("Please log in to use this feature");
-        }
-
         public IActionResult Detail(int? id)
         {
             if (User.Identity.IsAuthenticated)
@@ -180,32 +180,13 @@ namespace Authentication2.Areas.Controllers
                 if (request == null)
                     return Content("Request with given id does not exist.");
 
-                CreateRequestViewModel requestVM = new CreateRequestViewModel
-                {
-                    Id = request.Id,
-                    UserId = request.UserId,
-                    DriverId = request.DriverId,
-                    Status = request.Status,
-                    PickupStreetNumber = request.PickupAddress.StreetNumber,
-                    PickupStreetName = request.PickupAddress.StreetName,
-                    PickupCity = request.PickupAddress.City,
-                    PickupState = request.PickupAddress.State,
-                    PickupZipcode = request.PickupAddress.ZipCode,
-                    PickupInstructions = request.PickUpInstructions,
-                    DropoffStreetNumber = request.DropOffAddress.StreetNumber,
-                    DropoffStreetName = request.DropOffAddress.StreetName,
-                    DropoffCity = request.DropOffAddress.City,
-                    DropoffState = request.DropOffAddress.State,
-                    DropoffZipcode = request.DropOffAddress.ZipCode,
-                    DropoffInstructions = request.DropOffInstructions,
-                    Item = request.Item
-                };
-                /*
+                CreateRequestViewModel requestVM = new CreateRequestViewModel(request);
+
                 var addresses = _context.Addresses
                     .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     .ToList();
                 //new AddressController(_context).GetAll(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var pickUpAddressList = new List<SelectListItem>{};
+                var pickUpAddressList = new List<SelectListItem> { };
                 var dropOffAddressList = new List<SelectListItem> { };
 
                 foreach (Address address in addresses)
@@ -224,8 +205,9 @@ namespace Authentication2.Areas.Controllers
                         Selected = address.Id == request.DropOffAddress.Id ? true : false
                     });
                 }
+
                 ViewBag.pickUpAddressList = pickUpAddressList;
-                ViewBag.dropOffAddressList = dropOffAddressList;*/
+                ViewBag.dropOffAddressList = dropOffAddressList;
                 return View(requestVM);
             }
 
@@ -296,6 +278,34 @@ namespace Authentication2.Areas.Controllers
             }
 
             return Content("Please log in to use this feature");
+        }
+
+        private List<SelectListItem> GetAddressList()
+        {
+            var addresses = _context.Addresses
+                .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToList();
+
+            var addressList = new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Text = "Saved Addresses",
+                    Value = "0",
+                    Selected = true
+                }
+            };
+
+            foreach (Address address in addresses)
+            {
+                addressList.Add(new SelectListItem
+                {
+                    Value = address.Id.ToString(),
+                    Text = address.StreetNumber + " " + address.StreetName,
+                });
+            }
+
+            return addressList;
         }
 
     }

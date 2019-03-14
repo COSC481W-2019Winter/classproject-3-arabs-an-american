@@ -6,7 +6,14 @@
 <form method="post" action="@Url.Action("Create","Request")">
     @Html.HiddenFor(m => m.Id)
     <table>
-        <tr><th><h3>Pickup</h3></th></tr>
+        <tr>
+            <th><h3>Pickup</h3></th>
+            <td>@Html.DropDownList("addressList")</td>
+            <td><button class="btn btn-primary dropdown-toggle" id="addressList" type="button" data-toggle="dropdown">
+                Saved Addresses
+            <span class="caret"></span>
+</button></td>
+        </tr>
         <tr>
             <td>Street Number</td>
             <td colspan="2">Street Name</td>
@@ -51,7 +58,10 @@
                 <span asp-validation-for="PickupInstructions" class="text-danger"></span>
             </td>
         </tr>
-        <tr><th><h3>Dropoff</h3></th></tr>
+        <tr>
+            <th><h3>Dropoff</h3></th>
+            <td>@Html.DropDownList("addressList")</td>
+        </tr>
         <tr>
             <td>Street Number</td>
             <td colspan="2">Street Name</td>
