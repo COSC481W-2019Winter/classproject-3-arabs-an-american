@@ -11,7 +11,7 @@
         <tr>
             <th><h3>Pickup</h3></th>
             <td>
-                @Html.DropDownList("addresses")
+                @Html.DropDownList("pickUpAddressList", null, new { @id = "pickUpAddressList" })
             </td>
         </tr>
         <tr>
@@ -58,7 +58,12 @@
                 <span asp-validation-for="PickupInstructions" class="text-danger"></span>
             </td>
         </tr>
-        <tr><th><h3>Dropoff</h3></th></tr>
+        <tr>
+            <th><h3>Dropoff</h3></th>
+            <td>
+                @Html.DropDownList("dropOffAddressList")
+            </td>
+        </tr>
         <tr>
             <td>Street Number</td>
             <td colspan="2">Street Name</td>

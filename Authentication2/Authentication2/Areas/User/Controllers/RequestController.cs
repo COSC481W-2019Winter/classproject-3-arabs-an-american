@@ -96,6 +96,7 @@ namespace Authentication2.Areas.Controllers
                     Status = "Awaiting Driver",
                     PickupAddress = new Identity.Address
                     {
+                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                         StreetNumber = model.PickupStreetNumber,
                         StreetName = model.PickupStreetName,
                         City = model.PickupCity,
@@ -104,6 +105,7 @@ namespace Authentication2.Areas.Controllers
                     },
                     DropOffAddress = new Identity.Address
                     {
+                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                         StreetNumber = model.DropoffStreetNumber,
                         StreetName = model.DropoffStreetName,
                         City = model.DropoffCity,
@@ -198,24 +200,32 @@ namespace Authentication2.Areas.Controllers
                     DropoffInstructions = request.DropOffInstructions,
                     Item = request.Item
                 };
-
+                /*
                 var addresses = _context.Addresses
                     .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     .ToList();
                 //new AddressController(_context).GetAll(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var response = new List<SelectListItem>
-                {
-                };
+                var pickUpAddressList = new List<SelectListItem>{};
+                var dropOffAddressList = new List<SelectListItem> { };
 
                 foreach (Address address in addresses)
                 {
-                    response.Add(new SelectListItem
+                    pickUpAddressList.Add(new SelectListItem
                     {
                         Value = address.Id.ToString(),
                         Text = address.StreetNumber + " " + address.StreetName,
+                        Selected = address.Id == request.PickupAddress.Id ? true : false
+                    });
+
+                    dropOffAddressList.Add(new SelectListItem
+                    {
+                        Value = address.Id.ToString(),
+                        Text = address.StreetNumber + " " + address.StreetName,
+                        Selected = address.Id == request.DropOffAddress.Id ? true : false
                     });
                 }
-                ViewBag.addresses = response;
+                ViewBag.pickUpAddressList = pickUpAddressList;
+                ViewBag.dropOffAddressList = dropOffAddressList;*/
                 return View(requestVM);
             }
 
