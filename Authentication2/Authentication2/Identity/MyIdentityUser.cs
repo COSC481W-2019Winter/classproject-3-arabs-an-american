@@ -23,6 +23,7 @@ namespace Authentication2.Identity
 
     public class Address
     {
+        public string UserId { get; set; }
         public int Id { get; set; }
         public string StreetNumber { get; set; }
         public string StreetName { get; set; }

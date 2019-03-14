@@ -1,7 +1,9 @@
 using Authentication2.DataAccessLayer;
+using Authentication2.Identity;
 using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +18,8 @@ namespace Authentication2.Areas.Controllers
     {
 
         private readonly MyIdentityContext _context;
-        
-         public RequestController(MyIdentityContext context)
+
+        public RequestController(MyIdentityContext context)
         {
             _context = context;
         }
@@ -30,70 +32,26 @@ namespace Authentication2.Areas.Controllers
         public IActionResult Create()
         {
             if (User.Identity.IsAuthenticated)
-                return View();
-
-            return Content("Please log in to use this feature");
-        }
-
-        public IActionResult Delete()
-        {
-            if (User.Identity.IsAuthenticated)
-                return View();
-
-            return Content("Please log in to use this feature");
-        }
-
-        public  IActionResult ConfirmDelete(int id)
-        {
-            if (User.Identity.IsAuthenticated)
             {
-                ViewBag.id = id;
+                ViewBag.addressList = GetAddressList();
                 return View();
             }
 
             return Content("Please log in to use this feature");
-        }     
-        
-        public IActionResult DeleteConfirmed(int id)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (id == 0)
-                {
-                    return Content("id is not workig");
-                }
-                var request = _context.Requests
-                    .Where(req => req.Id == id)
-                    .Include(req => req.DropOffAddress)
-                    .Include(req => req.PickupAddress)
-                    .FirstOrDefault();
-                if (request != null)
-                {
-                    _context.Requests.Remove(request);
-                     _context.SaveChanges();
-                    ViewBag.id = id;
-                    ViewBag.request = new CreateRequestViewModel(request);
-                    return View();
-                }
-                return Content("ID does not exist: " + id);
-            }
-
-            return Content("Please log in to use this feature");
         }
-       
 
         [HttpPost]
         public IActionResult Create(CreateRequestViewModel model)
         {
             if (User.Identity.IsAuthenticated)
             {
-                //TODO: create req model from the view model
                 RequestModel request = new RequestModel
                 {
                     UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                     Status = "Awaiting Driver",
                     PickupAddress = new Identity.Address
                     {
+                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                         StreetNumber = model.PickupStreetNumber,
                         StreetName = model.PickupStreetName,
                         City = model.PickupCity,
@@ -102,6 +60,7 @@ namespace Authentication2.Areas.Controllers
                     },
                     DropOffAddress = new Identity.Address
                     {
+                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                         StreetNumber = model.DropoffStreetNumber,
                         StreetName = model.DropoffStreetName,
                         City = model.DropoffCity,
@@ -120,7 +79,6 @@ namespace Authentication2.Areas.Controllers
                 _context.SaveChanges();
 
                 return RedirectToAction("ConfirmCreate");
-                //return Content(model.Item);
             }
             return Content("Please log in to use this feature");
         }
@@ -130,6 +88,52 @@ namespace Authentication2.Areas.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 return View();
+            }
+
+            return Content("Please log in to use this feature");
+        }
+
+        public IActionResult Delete()
+        {
+            if (User.Identity.IsAuthenticated)
+                return View();
+
+            return Content("Please log in to use this feature");
+        }
+
+        public IActionResult ConfirmDelete(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.id = id;
+                return View();
+            }
+
+            return Content("Please log in to use this feature");
+        }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (id == 0)
+                {
+                    return Content("id is not workig");
+                }
+                var request = _context.Requests
+                    .Where(req => req.Id == id)
+                    .Include(req => req.DropOffAddress)
+                    .Include(req => req.PickupAddress)
+                    .FirstOrDefault();
+                if (request != null)
+                {
+                    _context.Requests.Remove(request);
+                    _context.SaveChanges();
+                    ViewBag.id = id;
+                    ViewBag.request = new CreateRequestViewModel(request);
+                    return View();
+                }
+                return Content("ID does not exist: " + id);
             }
 
             return Content("Please log in to use this feature");
@@ -176,27 +180,37 @@ namespace Authentication2.Areas.Controllers
                 if (request == null)
                     return Content("Request with given id does not exist.");
 
-                CreateRequestViewModel requestVM = new CreateRequestViewModel
-                {
-                    Id = request.Id,
-                    UserId = request.UserId,
-                    DriverId = request.DriverId,
-                    Status = request.Status,
-                    PickupStreetNumber = request.PickupAddress.StreetNumber,
-                    PickupStreetName = request.PickupAddress.StreetName,
-                    PickupCity = request.PickupAddress.City,
-                    PickupState = request.PickupAddress.State,
-                    PickupZipcode = request.PickupAddress.ZipCode,
-                    PickupInstructions = request.PickUpInstructions,
-                    DropoffStreetNumber = request.DropOffAddress.StreetNumber,
-                    DropoffStreetName = request.DropOffAddress.StreetName,
-                    DropoffCity = request.DropOffAddress.City,
-                    DropoffState = request.DropOffAddress.State,
-                    DropoffZipcode = request.DropOffAddress.ZipCode,
-                    DropoffInstructions = request.DropOffInstructions,
-                    Item = request.Item
-                };
+                CreateRequestViewModel requestVM = new CreateRequestViewModel(request);
 
+                var addresses = _context.Addresses
+                    .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                    .ToList();
+                //new AddressController(_context).GetAll(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var pickUpAddressList = new List<SelectListItem> { };
+                var dropOffAddressList = new List<SelectListItem> { };
+
+                foreach (Address address in addresses)
+                {
+                    pickUpAddressList.Add(new SelectListItem
+                    {
+                        Value = address.StreetNumber,
+                        Text = address.StreetName,
+                        Selected = address.Id == request.PickupAddress.Id ? true : false
+                    });
+
+                    dropOffAddressList.Add(new SelectListItem
+                    {
+                        Value = address.StreetNumber,
+                        Text = address.StreetName,
+                        Selected = address.Id == request.DropOffAddress.Id ? true : false
+                    });
+                }
+
+                Address[] addressArray = addresses.ToArray();
+
+                ViewBag.pickUpAddressList = pickUpAddressList;
+                ViewBag.dropOffAddressList = dropOffAddressList;
+                ViewData["AddressArray"] = addressArray;
                 return View(requestVM);
             }
 
@@ -260,13 +274,41 @@ namespace Authentication2.Areas.Controllers
                 List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
                 foreach (RequestModel model in requests)
                 {
-                    if(model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)) 
+                    if (model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                         requestsView.Add(new CreateRequestViewModel(model));
                 }
                 return View(requestsView);
             }
 
             return Content("Please log in to use this feature");
+        }
+
+        private List<SelectListItem> GetAddressList()
+        {
+            var addresses = _context.Addresses
+                .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToList();
+
+            var addressList = new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Text = "Saved Addresses",
+                    Value = "0",
+                    Selected = true
+                }
+            };
+
+            foreach (Address address in addresses)
+            {
+                addressList.Add(new SelectListItem
+                {
+                    Value = address.Id.ToString(),
+                    Text = address.StreetNumber + " " + address.StreetName,
+                });
+            }
+
+            return addressList;
         }
 
     }
