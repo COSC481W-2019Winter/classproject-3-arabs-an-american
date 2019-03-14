@@ -200,7 +200,7 @@ namespace Authentication2.Areas.Controllers
                     DropoffInstructions = request.DropOffInstructions,
                     Item = request.Item
                 };
-                /*
+                
                 var addresses = _context.Addresses
                     .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     .ToList();
@@ -225,7 +225,7 @@ namespace Authentication2.Areas.Controllers
                     });
                 }
                 ViewBag.pickUpAddressList = pickUpAddressList;
-                ViewBag.dropOffAddressList = dropOffAddressList;*/
+                ViewBag.dropOffAddressList = dropOffAddressList;
                 return View(requestVM);
             }
 
