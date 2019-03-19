@@ -185,31 +185,23 @@ namespace Authentication2.Areas.Controllers
                 var addresses = _context.Addresses
                     .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     .ToList();
-                //new AddressController(_context).GetAll(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var pickUpAddressList = new List<SelectListItem> { };
-                var dropOffAddressList = new List<SelectListItem> { };
+
+                var addressList = new List<SelectListItem> { new SelectListItem {Text = "--Select Address--", Value = "Default", Selected = true } };
 
                 foreach (Address address in addresses)
                 {
-                    pickUpAddressList.Add(new SelectListItem
+                    addressList.Add(new SelectListItem
                     {
-                        Value = address.StreetNumber,
-                        Text = address.StreetName,
-                        Selected = address.Id == request.PickupAddress.Id ? true : false
-                    });
+                        Value = address.Id.ToString(),
+                        Text = address.StreetNumber+" "+address.StreetName+", "+address.City,
 
-                    dropOffAddressList.Add(new SelectListItem
-                    {
-                        Value = address.StreetNumber,
-                        Text = address.StreetName,
-                        Selected = address.Id == request.DropOffAddress.Id ? true : false
                     });
                 }
 
-                Address[] addressArray = addresses.ToArray();
+                Address [] addressArray = addresses.ToArray();
 
-                ViewBag.pickUpAddressList = pickUpAddressList;
-                ViewBag.dropOffAddressList = dropOffAddressList;
+                ViewBag.AddressList = addressList;
+                ViewData["Addresses"] = addresses;
                 ViewData["AddressArray"] = addressArray;
                 return View(requestVM);
             }
