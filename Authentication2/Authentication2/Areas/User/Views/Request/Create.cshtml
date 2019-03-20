@@ -8,11 +8,7 @@
     <table>
         <tr>
             <th><h3>Pickup</h3></th>
-            <td>@Html.DropDownList("addressList")</td>
-            <td><button class="btn btn-primary dropdown-toggle" id="addressList" type="button" data-toggle="dropdown">
-                Saved Addresses
-            <span class="caret"></span>
-</button></td>
+            <td>@Html.DropDownList("addressList", null, new { @id = "pickupAddressList", onchange = "FillPickup()" })</td>
         </tr>
         <tr>
             <td>Street Number</td>
@@ -60,7 +56,7 @@
         </tr>
         <tr>
             <th><h3>Dropoff</h3></th>
-            <td>@Html.DropDownList("addressList")</td>
+            <td>@Html.DropDownList("addressList", null, new { @id = "dropoffAddressList", onchange = "FillDropoff()" })</td>
         </tr>
         <tr>
             <td>Street Number</td>
@@ -118,3 +114,38 @@
     <input type="submit" value="Create">
     <div asp-validation-summary="All" class="text-danger"></div>
 </form>
+
+<script type="text/javascript">
+    var addresses = @Json.Serialize(ViewData["addresses"]);
+
+    function FillPickup() {
+        var box = document.getElementById("pickupAddressList");
+        var selValue = parseInt(box.options[box.selectedIndex].value);
+
+        for (var i = 0; i < addresses.length; i++) {
+            if (addresses[i].id == selValue) {
+                document.getElementById("PickupStreetNumber").value = addresses[i].streetNumber;
+                document.getElementById("PickupStreetName").value = addresses[i].streetName;
+                document.getElementById("PickupCity").value = addresses[i].city;
+                document.getElementById("PickupState").value = addresses[i].state;
+                document.getElementById("PickupZipcode").value = addresses[i].zipCode;
+            }
+        }
+    }
+
+    function FillDropoff()
+    {
+        var box = document.getElementById("dropoffAddressList");
+        var selValue = box.options[box.selectedIndex].value;
+
+        for (var i = 0; i < addresses.length; i++) {
+            if (addresses[i].id == selValue) {
+                document.getElementById("DropoffStreetNumber").value = addresses[i].streetNumber;
+                document.getElementById("DropoffStreetName").value = addresses[i].streetName;
+                document.getElementById("DropoffCity").value = addresses[i].city;
+                document.getElementById("DropoffState").value = addresses[i].state;
+                document.getElementById("DropoffZipcode").value = addresses[i].zipCode;
+            }
+        }
+    }
+</script>

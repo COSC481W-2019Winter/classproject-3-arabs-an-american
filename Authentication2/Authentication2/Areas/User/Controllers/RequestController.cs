@@ -34,6 +34,11 @@ namespace Authentication2.Areas.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.addressList = GetAddressList();
+                ViewData["addresses"] = _context.Addresses
+                    .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                    .ToList()
+                    .ToArray();
+
                 return View();
             }
 
@@ -186,23 +191,11 @@ namespace Authentication2.Areas.Controllers
                     .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     .ToList();
 
-                var addressList = new List<SelectListItem> { new SelectListItem {Text = "--Select Address--", Value = "Default", Selected = true } };
-
-                foreach (Address address in addresses)
-                {
-                    addressList.Add(new SelectListItem
-                    {
-                        Value = address.Id.ToString(),
-                        Text = address.StreetNumber+" "+address.StreetName+", "+address.City,
-
-                    });
-                }
-
                 Address [] addressArray = addresses.ToArray();
 
-                ViewBag.AddressList = addressList;
-                ViewData["Addresses"] = addresses;
+                ViewBag.AddressList = GetAddressList();
                 ViewData["AddressArray"] = addressArray;
+
                 return View(requestVM);
             }
 
@@ -285,7 +278,7 @@ namespace Authentication2.Areas.Controllers
             {
                 new SelectListItem
                 {
-                    Text = "Saved Addresses",
+                    Text = "Select Address",
                     Value = "0",
                     Selected = true
                 }
@@ -296,7 +289,11 @@ namespace Authentication2.Areas.Controllers
                 addressList.Add(new SelectListItem
                 {
                     Value = address.Id.ToString(),
-                    Text = address.StreetNumber + " " + address.StreetName,
+                    Text = address.StreetNumber + " " 
+                        + address.StreetName + ", "
+                        + address.City + ", "
+                        + address.State + " "
+                        + address.ZipCode,
                 });
             }
 
