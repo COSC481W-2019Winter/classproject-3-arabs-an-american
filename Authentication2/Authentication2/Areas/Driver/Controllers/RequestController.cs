@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Authentication2.Areas.Driver.Controllers
 {
     [Area("Driver")]
+    [Authorize(Roles = "Driver")]
     public class RequestController : Controller
     {
 

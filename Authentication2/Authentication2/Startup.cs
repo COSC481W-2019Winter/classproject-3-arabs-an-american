@@ -61,8 +61,8 @@ namespace Authentication2
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Accounts/Login");
 
-            
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
