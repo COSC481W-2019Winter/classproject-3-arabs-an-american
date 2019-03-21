@@ -291,7 +291,8 @@ namespace Authentication2.Areas.Controllers
             {
                 request.DropOffAddressId = _context.Addresses
                     .Where(
-                        x => x.StreetNumber == model.DropoffStreetNumber
+                        x => x.UserId == request.UserId
+                        && x.StreetNumber == model.DropoffStreetNumber
                         && x.StreetName == model.DropoffStreetName
                         && x.City == model.DropoffCity
                         && x.State == model.DropoffState
@@ -325,7 +326,8 @@ namespace Authentication2.Areas.Controllers
             {
                 request.PickupAddressId = _context.Addresses
                     .Where(
-                        x => x.StreetNumber == model.PickupStreetNumber
+                        x => x.UserId == request.UserId
+                        && x.StreetNumber == model.PickupStreetNumber
                         && x.StreetName == model.PickupStreetName
                         && x.City == model.PickupCity
                         && x.State == model.PickupState
