@@ -4,6 +4,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="JSON" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.2" />
@@ -16,6 +17,7 @@
   <ItemGroup>
     <Compile Remove="VIewModels\UserViewModel.cs" />
     <Compile Remove="VIewModels\DriverViewModel.cs" />
+    <Compile Remove="Controllers\RequestController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="DeleteConfirmed.cshtml" />

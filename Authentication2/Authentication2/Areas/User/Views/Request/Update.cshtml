@@ -11,7 +11,7 @@
         <tr>
             <th><h3>Pickup</h3></th>
             <td>
-                @Html.DropDownList("pickUpAddressList", null, new { @id = "pickUpAddressList", onchange = "Pickup()" })
+                @Html.DropDownList("AddressList", null, new { @id = "pickUpAddressList", onchange = "FillFields(1)" })
             </td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
         <tr>
             <th><h3>Dropoff</h3></th>
             <td>
-                @Html.DropDownList("dropOffAddressList", null, new { @id = "dropOffAddressList", onchange = "MyFunction()" })
+                @Html.DropDownList("AddressList", null, new { @id = "dropOffAddressList", onchange = "FillFields(2)" })
             </td>
         </tr>
         <tr>
@@ -122,45 +122,35 @@
 </form>
 
 <script type="text/javascript">
-    function MyFunction() {
-        //var addresses = ViewData["AddressArray"];
-        var e = document.getElementById("dropOffAddressList");
-        //var strUser = parseInt(e.options[e.selectedIndex].value);
+    function FillFields(x) {
+        var addresses = @Json.Serialize(ViewData["AddressArray"]);
+        var test = addresses[0].id;
+        if (x == 1) {
+            var box = document.getElementById("pickUpAddressList");
+            var selValue = parseInt(box.options[box.selectedIndex].value);
 
-        document.getElementById("DropoffStreetNumber").value = e.options[e.selectedIndex].value;
-        document.getElementById("DropoffStreetName").value = e.options[e.selectedIndex].text;
-        /*
-        for(var address in addresses){
-            if(address.Id == strUser)
-            {
-                document.getElementById("PickupStreetNumber").value = address.StreetNumber;
-                document.getElementById("PickupStreetName").value = address.StreetName;
-                document.getElementById("PickupCity").value = address.City;
-                document.getElementById("PickupState").value = address.State;
-                document.getElementById("PickupZipcode").value = address.ZipCode;
+            for (var i = 0; i < addresses.length; i++) {
+                if (addresses[i].id == selValue) {
+                    document.getElementById("PickupStreetNumber").value = addresses[i].streetNumber;
+                    document.getElementById("PickupStreetName").value = addresses[i].streetName;
+                    document.getElementById("PickupCity").value = addresses[i].city;
+                    document.getElementById("PickupState").value = addresses[i].state;
+                    document.getElementById("PickupZipcode").value = addresses[i].zipCode;
+                }
+            }
+        } else if (x == 2) {
+            var box = document.getElementById("dropOffAddressList");
+            var selValue = box.options[box.selectedIndex].value;
+
+            for (var i = 0; i < addresses.length; i++) {
+                if (addresses[i].id == selValue) {
+                    document.getElementById("DropoffStreetNumber").value = addresses[i].streetNumber;
+                    document.getElementById("DropoffStreetName").value = addresses[i].streetName;
+                    document.getElementById("DropoffCity").value = addresses[i].city;
+                    document.getElementById("DropoffState").value = addresses[i].state;
+                    document.getElementById("DropoffZipcode").value = addresses[i].zipCode;
+                }
             }
         }
-        */
-    }
-
-    function Pickup() {
-        //var addresses = ViewData["AddressArray"];
-        var e = document.getElementById("pickUpAddressList");
-        //var strUser = parseInt(e.options[e.selectedIndex].value);
-
-        document.getElementById("PickupStreetNumber").value = e.options[e.selectedIndex].value;
-        document.getElementById("PickupStreetName").value = e.options[e.selectedIndex].text;
-        /*
-        for(var address in addresses){
-            if(address.Id == strUser)
-            {
-                document.getElementById("PickupStreetNumber").value = address.StreetNumber;
-                document.getElementById("PickupStreetName").value = address.StreetName;
-                document.getElementById("PickupCity").value = address.City;
-                document.getElementById("PickupState").value = address.State;
-                document.getElementById("PickupZipcode").value = address.ZipCode;
-            }
-        }
-        */
     }
 </script>

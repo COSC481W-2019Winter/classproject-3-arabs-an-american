@@ -34,6 +34,11 @@ namespace Authentication2.Areas.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.addressList = GetAddressList();
+                ViewData["addresses"] = _context.Addresses
+                    .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                    .ToList()
+                    .ToArray();
+
                 return View();
             }
 
@@ -49,28 +54,13 @@ namespace Authentication2.Areas.Controllers
                 {
                     UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                     Status = "Awaiting Driver",
-                    PickupAddress = new Identity.Address
-                    {
-                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        StreetNumber = model.PickupStreetNumber,
-                        StreetName = model.PickupStreetName,
-                        City = model.PickupCity,
-                        State = model.PickupState,
-                        ZipCode = model.PickupZipcode
-                    },
-                    DropOffAddress = new Identity.Address
-                    {
-                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        StreetNumber = model.DropoffStreetNumber,
-                        StreetName = model.DropoffStreetName,
-                        City = model.DropoffCity,
-                        State = model.DropoffState,
-                        ZipCode = model.DropoffZipcode
-                    },
                     Item = model.Item,
                     PickUpInstructions = model.PickupInstructions,
                     DropOffInstructions = model.DropoffInstructions,
                 };
+
+                UpdatePickupAddress(model, request);
+                UpdateDropoffAddress(model, request);
 
                 // add to the context
                 _context.Add(request);
@@ -82,6 +72,7 @@ namespace Authentication2.Areas.Controllers
             }
             return Content("Please log in to use this feature");
         }
+
 
         public IActionResult ConfirmCreate()
         {
@@ -185,32 +176,12 @@ namespace Authentication2.Areas.Controllers
                 var addresses = _context.Addresses
                     .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     .ToList();
-                //new AddressController(_context).GetAll(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var pickUpAddressList = new List<SelectListItem> { };
-                var dropOffAddressList = new List<SelectListItem> { };
 
-                foreach (Address address in addresses)
-                {
-                    pickUpAddressList.Add(new SelectListItem
-                    {
-                        Value = address.StreetNumber,
-                        Text = address.StreetName,
-                        Selected = address.Id == request.PickupAddress.Id ? true : false
-                    });
+                Address [] addressArray = addresses.ToArray();
 
-                    dropOffAddressList.Add(new SelectListItem
-                    {
-                        Value = address.StreetNumber,
-                        Text = address.StreetName,
-                        Selected = address.Id == request.DropOffAddress.Id ? true : false
-                    });
-                }
-
-                Address[] addressArray = addresses.ToArray();
-
-                ViewBag.pickUpAddressList = pickUpAddressList;
-                ViewBag.dropOffAddressList = dropOffAddressList;
+                ViewBag.AddressList = GetAddressList();
                 ViewData["AddressArray"] = addressArray;
+
                 return View(requestVM);
             }
 
@@ -218,34 +189,27 @@ namespace Authentication2.Areas.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(CreateRequestViewModel request)
+        public IActionResult Update(CreateRequestViewModel model)
         {
             if (User.Identity.IsAuthenticated)
             {
-                RequestModel existingRequest = _context.Requests
-                    .Where(r => r.Id == request.Id)
+                RequestModel request = _context.Requests
+                    .Where(r => r.Id == model.Id)
                     .Include(req => req.DropOffAddress)
                     .Include(req => req.PickupAddress)
                     .FirstOrDefault();
 
-                existingRequest.UserId = request.UserId;
-                existingRequest.DriverId = request.DriverId;
-                existingRequest.Status = request.Status;
-                existingRequest.PickupAddress.StreetNumber = request.PickupStreetNumber;
-                existingRequest.PickupAddress.StreetName = request.PickupStreetName;
-                existingRequest.PickupAddress.City = request.PickupCity;
-                existingRequest.PickupAddress.State = request.PickupState;
-                existingRequest.PickupAddress.ZipCode = request.PickupZipcode;
-                existingRequest.DropOffAddress.StreetNumber = request.DropoffStreetNumber;
-                existingRequest.DropOffAddress.StreetName = request.DropoffStreetName;
-                existingRequest.DropOffAddress.City = request.DropoffCity;
-                existingRequest.DropOffAddress.State = request.DropoffState;
-                existingRequest.DropOffAddress.ZipCode = request.DropoffZipcode;
-                existingRequest.Item = request.Item;
-                existingRequest.PickUpInstructions = request.PickupInstructions;
-                existingRequest.DropOffInstructions = request.DropoffInstructions;
+                request.UserId = model.UserId;
+                request.DriverId = model.DriverId;
+                request.Status = model.Status;
+                request.Item = model.Item;
+                request.PickUpInstructions = model.PickupInstructions;
+                request.DropOffInstructions = model.DropoffInstructions;
 
-                _context.Update<RequestModel>(existingRequest);
+                UpdatePickupAddress(model, request);
+                UpdateDropoffAddress(model, request);
+
+                _context.Update<RequestModel>(request);
                 _context.SaveChanges();
 
                 return RedirectToAction("ConfirmUpdate");
@@ -293,7 +257,7 @@ namespace Authentication2.Areas.Controllers
             {
                 new SelectListItem
                 {
-                    Text = "Saved Addresses",
+                    Text = "Select Address",
                     Value = "0",
                     Selected = true
                 }
@@ -304,11 +268,85 @@ namespace Authentication2.Areas.Controllers
                 addressList.Add(new SelectListItem
                 {
                     Value = address.Id.ToString(),
-                    Text = address.StreetNumber + " " + address.StreetName,
+                    Text = address.StreetNumber + " " 
+                        + address.StreetName + ", "
+                        + address.City + ", "
+                        + address.State + " "
+                        + address.ZipCode,
                 });
             }
 
             return addressList;
+        }
+
+        private void UpdateDropoffAddress(CreateRequestViewModel model, RequestModel request)
+        {
+            if (_context.Addresses.Any(
+                                x => x.UserId == request.UserId
+                                && x.StreetNumber == model.DropoffStreetNumber
+                                && x.StreetName == model.DropoffStreetName
+                                && x.City == model.DropoffCity
+                                && x.State == model.DropoffState
+                                && x.ZipCode == model.DropoffZipcode))
+            {
+                request.DropOffAddressId = _context.Addresses
+                    .Where(
+                        x => x.UserId == request.UserId
+                        && x.StreetNumber == model.DropoffStreetNumber
+                        && x.StreetName == model.DropoffStreetName
+                        && x.City == model.DropoffCity
+                        && x.State == model.DropoffState
+                        && x.ZipCode == model.DropoffZipcode)
+                    .FirstOrDefault()
+                    .Id;
+            }
+            else
+            {
+                request.DropOffAddress = new Identity.Address
+                {
+                    UserId = request.UserId,
+                    StreetNumber = model.DropoffStreetNumber,
+                    StreetName = model.DropoffStreetName,
+                    City = model.DropoffCity,
+                    State = model.DropoffState,
+                    ZipCode = model.DropoffZipcode
+                };
+            }
+        }
+
+        private void UpdatePickupAddress(CreateRequestViewModel model, RequestModel request)
+        {
+            if (_context.Addresses.Any(
+                                x => x.UserId == request.UserId
+                                && x.StreetNumber == model.PickupStreetNumber
+                                && x.StreetName == model.PickupStreetName
+                                && x.City == model.PickupCity
+                                && x.State == model.PickupState
+                                && x.ZipCode == model.PickupZipcode))
+            {
+                request.PickupAddressId = _context.Addresses
+                    .Where(
+                        x => x.UserId == request.UserId
+                        && x.StreetNumber == model.PickupStreetNumber
+                        && x.StreetName == model.PickupStreetName
+                        && x.City == model.PickupCity
+                        && x.State == model.PickupState
+                        && x.ZipCode == model.PickupZipcode)
+                    .FirstOrDefault()
+                    .Id;
+            }
+            else
+            {
+                request.PickupAddress = new Identity.Address
+                {
+                    UserId = request.UserId,
+                    StreetNumber = model.PickupStreetNumber,
+                    StreetName = model.PickupStreetName,
+                    City = model.PickupCity,
+                    State = model.PickupState,
+                    ZipCode = model.PickupZipcode
+                };
+            }
         }
 
     }
