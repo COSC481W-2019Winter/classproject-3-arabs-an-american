@@ -27,22 +27,33 @@ namespace Authentication2.DataAccessLayer
 
         public void AddRequest(RequestModel request)
         {
-            throw new NotImplementedException();
+            Add(request);
+
+            SaveChanges();
         }
 
         public RequestModel GetRequestById(int id)
         {
-            throw new NotImplementedException();
+            return Requests
+                .Where(req => req.Id == id)
+                .Include(req => req.DropOffAddress)
+                .Include(req => req.PickupAddress)
+                .FirstOrDefault();
         }
 
         public List<RequestModel> GetRequests()
         {
-            throw new NotImplementedException();
+            return Requests
+                .Include(req => req.DropOffAddress)
+                .Include(req => req.PickupAddress)
+                .ToList();
         }
 
         public List<Address> GetUserAddresses(string id)
         {
-            throw new NotImplementedException();
+            return Addresses
+                .Where(x => x.UserId == id)
+                .ToList();
         }
 
         public Address GetAddressById(int id)
@@ -50,24 +61,43 @@ namespace Authentication2.DataAccessLayer
             throw new NotImplementedException();
         }
 
-        public void RemoveRequest(RequestModel requestModel)
+        public void RemoveRequest(RequestModel request)
         {
-            throw new NotImplementedException();
+            Requests.Remove(request);
+
+            SaveChanges();
         }
 
         public void UpdateRequest(RequestModel request)
         {
-            throw new NotImplementedException();
+            Update(request);
+
+            SaveChanges();
         }
 
         public bool IfExistingAddress(Address address)
         {
-            throw new NotImplementedException();
+            return Addresses.Any(
+                x => x.UserId == address.UserId
+                && x.StreetNumber == address.StreetNumber
+                && x.StreetName == address.StreetName
+                && x.City == address.City
+                && x.State == address.State
+                && x.ZipCode == address.ZipCode);
         }
 
         public int GetAddressId(Address address)
         {
-            throw new NotImplementedException();
+            return Addresses
+                .Where(
+                    x => x.UserId == address.UserId
+                    && x.StreetNumber == address.StreetNumber
+                    && x.StreetName == address.StreetName
+                    && x.City == address.City
+                    && x.State == address.State
+                    && x.ZipCode == address.ZipCode)
+                .FirstOrDefault()
+                .Id;
         }
     }
 }

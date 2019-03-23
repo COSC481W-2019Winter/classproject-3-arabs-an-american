@@ -18,9 +18,9 @@ namespace Authentication2.Areas.Controllers
     public class RequestController : Controller
     {
 
-        private readonly MyIdentityContext _context;
+        private readonly IDbContext _context;
 
-        public RequestController(MyIdentityContext context)
+        public RequestController(IDbContext context)
         {
             _context = context;
         }
@@ -33,9 +33,8 @@ namespace Authentication2.Areas.Controllers
         public IActionResult Create()
         {
             ViewBag.addressList = GetAddressList();
-            ViewData["addresses"] = _context.Addresses
-                .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
-                .ToList()
+            ViewData["addresses"] = _context
+                .GetUserAddresses(User.FindFirstValue(ClaimTypes.NameIdentifier))
                 .ToArray();
 
             return View();
@@ -46,7 +45,7 @@ namespace Authentication2.Areas.Controllers
         {
             RequestModel request = new RequestModel
             {
-                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                UserId = model.UserId,//User.FindFirstValue(ClaimTypes.NameIdentifier),
                 Status = "Awaiting Driver",
                 Item = model.Item,
                 PickUpInstructions = model.PickupInstructions,
@@ -57,10 +56,7 @@ namespace Authentication2.Areas.Controllers
             UpdateDropoffAddress(model, request);
 
             // add to the context
-            _context.Add(request);
-
-            // save
-            _context.SaveChanges();
+            _context.AddRequest(request);
 
             return RedirectToAction("ConfirmCreate", new CreateRequestViewModel(request));
         }
@@ -83,11 +79,7 @@ namespace Authentication2.Areas.Controllers
             if (id == 0)
                 return Content("Not a valid ID");
 
-            var request = _context.Requests
-                .Where(req => req.Id == id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
+            var request = _context.GetRequestById(id);
 
             ViewBag.request = new CreateRequestViewModel(request);
 
@@ -99,16 +91,11 @@ namespace Authentication2.Areas.Controllers
             if (id == 0)
                 return Content("Not a valid ID");
 
-            var request = _context.Requests
-                .Where(req => req.Id == id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
+            var request = _context.GetRequestById(id);
 
             if (request != null)
             {
-                _context.Requests.Remove(request);
-                _context.SaveChanges();
+                _context.RemoveRequest(request);
 
                 return RedirectToAction("List");
             }
@@ -116,18 +103,9 @@ namespace Authentication2.Areas.Controllers
             return Content("ID does not exist: " + request.Id);
         }
 
-        public IActionResult Detail(int? id)
+        public IActionResult Detail(int id)
         {
-            if (id == null)
-            {
-                return View();
-            }
-
-            var request = _context.Requests
-                .Where(req => req.Id == id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
+            var request = _context.GetRequestById(id);
 
             if (request == null)
             {
@@ -139,22 +117,17 @@ namespace Authentication2.Areas.Controllers
             return View(requestVM);
         }
 
-        public IActionResult Update(int? id)
+        public IActionResult Update(int id)
         {
-            RequestModel request = _context.Requests
-                .Where(r => r.Id == id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
+            RequestModel request = _context.GetRequestById(id);
 
             if (request == null)
                 return Content("Request with given id does not exist.");
 
             CreateRequestViewModel requestVM = new CreateRequestViewModel(request);
 
-            var addresses = _context.Addresses
-                .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
-                .ToList();
+            var addresses = _context
+                .GetUserAddresses(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             Address[] addressArray = addresses.ToArray();
 
@@ -167,11 +140,7 @@ namespace Authentication2.Areas.Controllers
         [HttpPost]
         public IActionResult Update(CreateRequestViewModel model)
         {
-            RequestModel request = _context.Requests
-                .Where(r => r.Id == model.Id)
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .FirstOrDefault();
+            RequestModel request = _context.GetRequestById(model.Id);
 
             request.UserId = model.UserId;
             request.DriverId = model.DriverId;
@@ -183,8 +152,7 @@ namespace Authentication2.Areas.Controllers
             UpdatePickupAddress(model, request);
             UpdateDropoffAddress(model, request);
 
-            _context.Update<RequestModel>(request);
-            _context.SaveChanges();
+            _context.UpdateRequest(request);
 
             return RedirectToAction("ConfirmUpdate", new CreateRequestViewModel(request));
         }
@@ -198,10 +166,7 @@ namespace Authentication2.Areas.Controllers
 
         public IActionResult List()
         {
-            List<RequestModel> requests = _context.Requests
-                .Include(req => req.DropOffAddress)
-                .Include(req => req.PickupAddress)
-                .ToList();
+            List<RequestModel> requests = _context.GetRequests();
 
             List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
             foreach (RequestModel model in requests)
@@ -214,8 +179,7 @@ namespace Authentication2.Areas.Controllers
 
         private List<SelectListItem> GetAddressList()
         {
-            var addresses = _context.Addresses
-                .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            var addresses = _context.GetUserAddresses(User.FindFirstValue(ClaimTypes.NameIdentifier))
                 .ToList();
 
             var addressList = new List<SelectListItem>
@@ -246,24 +210,18 @@ namespace Authentication2.Areas.Controllers
 
         private void UpdateDropoffAddress(CreateRequestViewModel model, RequestModel request)
         {
-            if (_context.Addresses.Any(
-                                x => x.UserId == request.UserId
-                                && x.StreetNumber == model.DropoffStreetNumber
-                                && x.StreetName == model.DropoffStreetName
-                                && x.City == model.DropoffCity
-                                && x.State == model.DropoffState
-                                && x.ZipCode == model.DropoffZipcode))
+            var address = new Address
             {
-                request.DropOffAddressId = _context.Addresses
-                    .Where(
-                        x => x.UserId == request.UserId
-                        && x.StreetNumber == model.DropoffStreetNumber
-                        && x.StreetName == model.DropoffStreetName
-                        && x.City == model.DropoffCity
-                        && x.State == model.DropoffState
-                        && x.ZipCode == model.DropoffZipcode)
-                    .FirstOrDefault()
-                    .Id;
+                UserId = request.UserId,
+                StreetNumber = model.DropoffStreetNumber,
+                StreetName = model.DropoffStreetName,
+                City = model.DropoffCity,
+                State = model.DropoffState,
+                ZipCode = model.DropoffZipcode
+            };
+            if (_context.IfExistingAddress(address))
+            {
+                request.DropOffAddressId = _context.GetAddressId(address);
             }
             else
             {
@@ -281,24 +239,18 @@ namespace Authentication2.Areas.Controllers
 
         private void UpdatePickupAddress(CreateRequestViewModel model, RequestModel request)
         {
-            if (_context.Addresses.Any(
-                                x => x.UserId == request.UserId
-                                && x.StreetNumber == model.PickupStreetNumber
-                                && x.StreetName == model.PickupStreetName
-                                && x.City == model.PickupCity
-                                && x.State == model.PickupState
-                                && x.ZipCode == model.PickupZipcode))
+            var address = new Address
             {
-                request.PickupAddressId = _context.Addresses
-                    .Where(
-                        x => x.UserId == request.UserId
-                        && x.StreetNumber == model.PickupStreetNumber
-                        && x.StreetName == model.PickupStreetName
-                        && x.City == model.PickupCity
-                        && x.State == model.PickupState
-                        && x.ZipCode == model.PickupZipcode)
-                    .FirstOrDefault()
-                    .Id;
+                UserId = request.UserId,
+                StreetNumber = model.PickupStreetNumber,
+                StreetName = model.PickupStreetName,
+                City = model.PickupCity,
+                State = model.PickupState,
+                ZipCode = model.PickupZipcode
+            };
+            if (_context.IfExistingAddress(address))
+            {
+                request.PickupAddressId = _context.GetAddressId(address);
             }
             else
             {
