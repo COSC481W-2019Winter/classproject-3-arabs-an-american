@@ -19,65 +19,60 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ship it</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> Ship It</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">  
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarsExample07">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
+
+
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Welcome @User.Identity.Name</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="User" asp-controller="Request" asp-action="List">My Requests</a>
-                            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="" asp-action="">Welcome @User.Identity.Name</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="User" asp-controller="Request" asp-action="List">My Requests</a>
+                    </li>
                             if (!User.IsInRole("Driver"))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="BecomeDriver">Become Driver</a>
-                                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="BecomeDriver">Become Driver</a>
+                    </li>
                             }
                             else
                             {
-                                <!--<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">You are a driver!</a>
-                                </li>-->
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Driver" asp-controller="Request" asp-action="Open">Open Requests</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Driver" asp-controller="Request" asp-action="AcceptedRequests">Accepted Requests</a>
-                                </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Driver" asp-controller="Request" asp-action="Open">Open Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Driver" asp-controller="Request" asp-action="AcceptedRequests">Accepted Requests</a>
+                    </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Logout">Logout</a>
-                            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Logout">Logout</a>
+                    </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Signup">Signup!</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
-                            </li>
-
-                        }
-                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
+                    </li>
+                        } 
+                        </ul>
+                    </div>
                 </div>
-            </div>
         </nav>
     </header>
     <div class="container">
