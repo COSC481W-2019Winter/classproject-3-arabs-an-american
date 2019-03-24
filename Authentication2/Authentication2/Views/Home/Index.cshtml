@@ -3,324 +3,9 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<div class="container">
-    <!--Carousel Wrapper-->
-    <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-        <!--Indicators-->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-2" data-slide-to="1"></li>
-            <li data-target="#carousel-example-2" data-slide-to="2"></li>
-        </ol>
-        <!--/.Indicators-->
-        <!--Slides-->
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <div class="view">
-                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide">
-                    <div class="mask rgba-black-light"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Light mask</h3>
-                    <p>First text</p>
-                    <p> <a class="btn btn-lg btn-primary" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign up</a></a></p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <!--Mask color-->
-                <div class="view">
-                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide">
-                    <div class="mask rgba-black-strong"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Strong mask</h3>
-                    <p>Secondary text</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <!--Mask color-->
-                <div class="view">
-                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide">
-                    <div class="mask rgba-black-slight"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Slight mask</h3>
-                    <p>Third text</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Memes</a></p>
-                </div>
-            </div>
-        </div>
-        <!--/.Slides-->
-        <!--Controls-->
-        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-        <!--/.Controls-->
-    </div>
-
-    <!-- Section: Team v.1 -->
-    <section class="team-section text-center my-5">
-
-        <!-- Section heading -->
-        <h2 class="h1-responsive font-weight-bold my-5">Our amazing team</h2>
-        <!-- Section description -->
-        <p class="grey-text w-responsive mx-auto mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam
-            eum porro a pariatur veniam.
-        </p>
-
-        <!-- Grid row -->
-        <div class="row">
-
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
-                <div class="avatar mx-auto">
-                    <img src="" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Anas Milhem</h5>
-                <p class="text-uppercase blue-text"><strong>Graphic designer</strong></p>
-                <p class="grey-text">
-                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                    adipisci sed quia non numquam modi tempora eius.
-                </p>
-                <ul class="list-unstyled mb-0">
-                    <!-- Facebook -->
-                    <a class="p-2 fa-lg fb-ic">
-                        <i class="fab fa-facebook-f blue-text"> </i>
-                    </a>
-                    <!-- Twitter -->
-                    <a class="p-2 fa-lg tw-ic">
-                        <i class="fab fa-twitter blue-text"> </i>
-                    </a>
-                    <!-- Instagram -->
-                    <a class="p-2 fa-lg ins-ic">
-                        <i class="fab fa-instagram blue-text"> </i>
-                    </a>
-                </ul>
-            </div>
-            <!-- Grid column -->
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
-                <div class="avatar mx-auto">
-                    <img src="" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Josh Thonnisssen </h5>
-                <p class="text-uppercase blue-text"><strong>Web developer</strong></p>
-                <p class="grey-text">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem ipsa accusantium
-                    doloremque rem laudantium totam aperiam.
-                </p>
-                <ul class="list-unstyled mb-0">
-                    <!-- Facebook -->
-                    <a class="p-2 fa-lg fb-ic">
-                        <i class="fab fa-facebook-f blue-text"> </i>
-                    </a>
-                    <!-- Instagram -->
-                    <a class="p-2 fa-lg ins-ic">
-                        <i class="fab fa-instagram blue-text"> </i>
-                    </a>
-                </ul>
-            </div>
-            <!-- Grid column -->
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6 mb-md-0 mb-5">
-                <div class="avatar mx-auto">
-                    <img src="" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Zafer Zhourdaji</h5>
-                <p class="text-uppercase blue-text"><strong>Photographer</strong></p>
-                <p class="grey-text">
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                    mollit anim est fugiat nulla id eu laborum.
-                </p>
-                <ul class="list-unstyled mb-0">
-                    <!-- Facebook -->
-                    <a class="p-2 fa-lg fb-ic">
-                        <i class="fab fa-facebook-f blue-text"> </i>
-                    </a>
-                    <!-- Instagram -->
-                    <a class="p-2 fa-lg ins-ic">
-                        <i class="fab fa-instagram blue-text"> </i>
-                    </a>
-                    <!-- Dribbble -->
-                    <a class="p-2 fa-lg ins-ic">
-                        <i class="fab fa-dribbble blue-text"> </i>
-                    </a>
-                </ul>
-            </div>
-            <!-- Grid column -->
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6">
-                <div class="avatar mx-auto">
-                    <img src="" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Sean Leonard</h5>
-                <p class="text-uppercase blue-text"><strong>Backend developer</strong></p>
-                <p class="grey-text">
-                    Perspiciatis repellendus ad odit consequuntur, eveniet earum nisi qui consectetur
-                    totam officia voluptates perferendis voluptatibus aut.
-                </p>
-                <ul class="list-unstyled mb-0">
-                    <!-- Facebook -->
-                    <a class="p-2 fa-lg fb-ic">
-                        <i class="fab fa-facebook-f blue-text"> </i>
-                    </a>
-                    <!-- Github -->
-                    <a class="p-2 fa-lg ins-ic">
-                        <i class="fab fa-github blue-text"> </i>
-                    </a>
-                </ul>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="avatar mx-auto">
-                    <img src="" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Mohammad Mattar</h5>
-                <p class="text-uppercase blue-text"><strong>Backend developer</strong></p>
-                <p class="grey-text">
-                    Perspiciatis repellendus ad odit consequuntur, eveniet earum nisi qui consectetur
-                    totam officia voluptates perferendis voluptatibus aut.
-                </p>
-                <ul class="list-unstyled mb-0">
-                    <!-- Facebook -->
-                    <a class="p-2 fa-lg fb-ic">
-                        <i class="fab fa-facebook-f blue-text"> </i>
-                    </a>
-                    <!-- Github -->
-                    <a class="p-2 fa-lg ins-ic">
-                        <i class="fab fa-github blue-text"> </i>
-                    </a>
-                </ul>
-            </div>
-            <div class="col-lg- col-md-6">
-                <div class="avatar mx-auto">
-                    <img src="" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Gavin Maier-Denk</h5>
-                <p class="text-uppercase blue-text"><strong>Backend developer</strong></p>
-                <p class="grey-text">
-                    Perspiciatis repellendus ad odit consequuntur, eveniet earum nisi qui consectetur
-                    totam officia voluptates perferendis voluptatibus aut.
-                </p>
-                <ul class="list-unstyled mb-0">
-                    <!-- Facebook -->
-                    <a class="p-2 fa-lg fb-ic">
-                        <i class="fab fa-facebook-f blue-text"> </i>
-                    </a>
-                    <!-- Github -->
-                    <a class="p-2 fa-lg ins-ic">
-                        <i class="fab fa-github blue-text"> </i>
-                    </a>
-                </ul>
-            </div>
-            <!-- Grid column -->
-
-        </div>
-        <!-- Grid row -->
-
-    </section>
-    <!-- Section: Team v.1 -->
-
-</div>
 
 
 
-
-
-    <!--/.Carousel Wrapper-->
-    @*<div class="jumbotron">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item">
-                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#777" width="100%" height="100%"></rect></svg>
-                        <div class="container">
-                            <div class="carousel-caption text-left">
-                                <h1>Example headline.</h1>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item active">
-                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#777" width="100%" height="100%"></rect></svg>
-                        <div class="container">
-                            <div class="carousel-caption">
-                                <h1>Another example headline.</h1>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#777" width="100%" height="100%"></rect></svg>
-                        <div class="container">
-                            <div class="carousel-caption text-right">
-                                <h1>One more for good measure.</h1>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
-    *@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*
 @if (User.Identity.IsAuthenticated)
 {
     <a href="@Url.Action("IndexAsync", "Accounts")">View all accounts currently registered (this is for development purposes only)</a>
@@ -348,21 +33,62 @@
         <a asp-area="Driver" asp-controller="Request" asp-action="AcceptedRequests">Go to the Accepted Requests page(this is for development purposes only)</a>
     }
 }
-*@
 
+ @*<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 font-weight-normal">Ship It</h1>
+        <p class="lead font-weight-normal">The Best Universal Delivery Service</p>
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign Up</a>
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>*@ 
 
-@*<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">Ship It</h1>
-            <p class="lead font-weight-normal">The Best Universal Delivery Service</p>
-            <a class="btn btn-outline-secondary" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign Up</a>
+</head>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#777" width="100%" height="100%"></rect></svg>
+                    <div class="container">
+                        <div class="carousel-caption text-left">
+                            <h1>Example headline.</h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item active">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#777" width="100%" height="100%"></rect></svg>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Another example headline.</h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#777" width="100%" height="100%"></rect></svg>
+                    <div class="container">
+                        <div class="carousel-caption text-right">
+                            <h1>One more for good measure.</h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-    </div>*@
-
-
-
-
-
-
