@@ -4,11 +4,9 @@ using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Authentication2.Areas.Controllers
@@ -17,7 +15,6 @@ namespace Authentication2.Areas.Controllers
     [Authorize]
     public class RequestController : Controller
     {
-
         private readonly IDbContext _context;
 
         public RequestController(IDbContext context)
@@ -45,7 +42,7 @@ namespace Authentication2.Areas.Controllers
         {
             RequestModel request = new RequestModel
             {
-                UserId = model.UserId,//User.FindFirstValue(ClaimTypes.NameIdentifier),
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 Status = "Awaiting Driver",
                 Item = model.Item,
                 PickUpInstructions = model.PickupInstructions,
@@ -60,7 +57,6 @@ namespace Authentication2.Areas.Controllers
 
             return RedirectToAction("ConfirmCreate", new CreateRequestViewModel(request));
         }
-
 
         public IActionResult ConfirmCreate(CreateRequestViewModel request)
         {
@@ -179,8 +175,7 @@ namespace Authentication2.Areas.Controllers
 
         private List<SelectListItem> GetAddressList()
         {
-            var addresses = _context.GetUserAddresses(User.FindFirstValue(ClaimTypes.NameIdentifier))
-                .ToList();
+            var addresses = _context.GetUserAddresses(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var addressList = new List<SelectListItem>
             {
@@ -225,7 +220,7 @@ namespace Authentication2.Areas.Controllers
             }
             else
             {
-                request.DropOffAddress = new Identity.Address
+                request.DropOffAddress = new Address
                 {
                     UserId = request.UserId,
                     StreetNumber = model.DropoffStreetNumber,
