@@ -118,13 +118,15 @@
                     <h5 class="card-title text-center">Sign In</h5>
                     <form class="form-signin" asp-controller="Accounts">
                         <div class="form-label-group">
-                            <input asp-for="Username"class="form-control" placeholder="Username" required autofocus>
+                            <input asp-for="Username" class="form-control" placeholder="Username" required autofocus>
                             <label asp-for="Username">Username</label>
+                            <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
 
                         <div class="form-label-group">
                             <input asp-for="Password" type="password" class="form-control" placeholder="Password" required>
                             <label asp-for="Password">Password</label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
                         <div class="custom-control custom-checkbox mb-3">
