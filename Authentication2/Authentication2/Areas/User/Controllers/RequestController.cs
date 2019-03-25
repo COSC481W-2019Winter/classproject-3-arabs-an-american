@@ -173,7 +173,7 @@ namespace Authentication2.Areas.Controllers
             return View(requestsView);
         }
 
-        private List<SelectListItem> GetAddressList()
+        public List<SelectListItem> GetAddressList()
         {
             var addresses = _context.GetUserAddresses(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -203,7 +203,7 @@ namespace Authentication2.Areas.Controllers
             return addressList;
         }
 
-        private void UpdateDropoffAddress(CreateRequestViewModel model, RequestModel request)
+        public void UpdateDropoffAddress(CreateRequestViewModel model, RequestModel request)
         {
             var address = new Address
             {
@@ -232,7 +232,7 @@ namespace Authentication2.Areas.Controllers
             }
         }
 
-        private void UpdatePickupAddress(CreateRequestViewModel model, RequestModel request)
+        public void UpdatePickupAddress(CreateRequestViewModel model, RequestModel request)
         {
             var address = new Address
             {

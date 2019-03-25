@@ -317,8 +317,25 @@ namespace Tests
 
         [Fact]
         public void GetAddressList_Success()
-        {
+        {// Fails due to User.FindFirstValue(ClaimsTypes.NameIdentifier)
+            var contextMock = new Mock<IDbContext>();
+            var controller = new RequestController(contextMock.Object);
+            var modelMock = MockCreateRequestViewModel();
+            var addressMock = MockAddress();
+            var str = addressMock.StreetNumber + " " +
+                addressMock.StreetName + ", " +
+                addressMock.City + ", " +
+                addressMock.State + " " +
+                addressMock.ZipCode;
 
+            contextMock.Setup(x => x.GetUserAddresses(It.IsAny<string>()))
+                .Returns(new List<Address> { addressMock });
+
+            var response = controller.GetAddressList();
+
+            Assert.Equal(2, response.Count);
+            Assert.Equal("Select Address", response[0].Text);
+            Assert.Equal(str, response[1].Text);
         }
 
         [Fact]
@@ -332,7 +349,71 @@ namespace Tests
             contextMock.Setup(x => x.IfExistingAddress(It.IsAny<Address>())).Returns(true);
             contextMock.Setup(x => x.GetAddressId(It.IsAny<Address>())).Returns(1);
 
-            contextMock.Verify();
+            controller.UpdateDropoffAddress(modelMock, requestMock);
+
+            contextMock.Verify(x => x.GetAddressId(It.IsAny<Address>()), Times.Once());
+            Assert.Equal(1, requestMock.DropOffAddressId);
+        }
+
+        [Fact]
+        public void UpdateDropoffAddress_Success_Address_Not_Found()
+        {
+            var contextMock = new Mock<IDbContext>();
+            var controller = new RequestController(contextMock.Object);
+            var requestMock = MockRequestModel();
+            var modelMock = MockCreateRequestViewModel();
+
+            contextMock.Setup(x => x.IfExistingAddress(It.IsAny<Address>())).Returns(false);
+            contextMock.Setup(x => x.GetAddressId(It.IsAny<Address>())).Returns(1);
+
+            controller.UpdateDropoffAddress(modelMock, requestMock);
+
+            contextMock.Verify(x => x.GetAddressId(It.IsAny<Address>()), Times.Never());
+            Assert.Equal(requestMock.UserId, requestMock.DropOffAddress.UserId);
+            Assert.Equal(modelMock.DropoffStreetNumber, requestMock.DropOffAddress.StreetNumber);
+            Assert.Equal(modelMock.DropoffStreetName, requestMock.DropOffAddress.StreetName);
+            Assert.Equal(modelMock.DropoffCity, requestMock.DropOffAddress.City);
+            Assert.Equal(modelMock.DropoffState, requestMock.DropOffAddress.State);
+            Assert.Equal(modelMock.DropoffZipcode, requestMock.DropOffAddress.ZipCode);
+        }
+
+        [Fact]
+        public void UpdatePickupAddress_Success_Address_Found()
+        {
+            var contextMock = new Mock<IDbContext>();
+            var controller = new RequestController(contextMock.Object);
+            var requestMock = MockRequestModel();
+            var modelMock = MockCreateRequestViewModel();
+
+            contextMock.Setup(x => x.IfExistingAddress(It.IsAny<Address>())).Returns(true);
+            contextMock.Setup(x => x.GetAddressId(It.IsAny<Address>())).Returns(1);
+
+            controller.UpdatePickupAddress(modelMock, requestMock);
+
+            contextMock.Verify(x => x.GetAddressId(It.IsAny<Address>()), Times.Once());
+            Assert.Equal(1, requestMock.PickupAddressId);
+        }
+
+        [Fact]
+        public void UpdatePickupAddress_Success_Address_Not_Found()
+        {
+            var contextMock = new Mock<IDbContext>();
+            var controller = new RequestController(contextMock.Object);
+            var requestMock = MockRequestModel();
+            var modelMock = MockCreateRequestViewModel();
+
+            contextMock.Setup(x => x.IfExistingAddress(It.IsAny<Address>())).Returns(false);
+            contextMock.Setup(x => x.GetAddressId(It.IsAny<Address>())).Returns(1);
+
+            controller.UpdatePickupAddress(modelMock, requestMock);
+
+            contextMock.Verify(x => x.GetAddressId(It.IsAny<Address>()), Times.Never());
+            Assert.Equal(requestMock.UserId, requestMock.PickupAddress.UserId);
+            Assert.Equal(modelMock.PickupStreetNumber, requestMock.PickupAddress.StreetNumber);
+            Assert.Equal(modelMock.PickupStreetName, requestMock.PickupAddress.StreetName);
+            Assert.Equal(modelMock.PickupCity, requestMock.PickupAddress.City);
+            Assert.Equal(modelMock.PickupState, requestMock.PickupAddress.State);
+            Assert.Equal(modelMock.PickupZipcode, requestMock.PickupAddress.ZipCode);
         }
     }
 }
