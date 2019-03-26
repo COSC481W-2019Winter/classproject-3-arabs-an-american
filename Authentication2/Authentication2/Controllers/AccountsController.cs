@@ -4,6 +4,7 @@ using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
@@ -11,7 +12,6 @@ namespace Authentication2.Controllers
 {
     public class AccountsController : Controller
     {
-
         private readonly UserManager<MyIdentityUser> _userManager;
         private readonly SignInManager<MyIdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -28,6 +28,7 @@ namespace Authentication2.Controllers
             _roleManager = roleManager;
             _identityContext = identityContext;
         }
+
         public async Task<IActionResult> IndexAsync()
         {
             AccountsViewModel accountsViewModel = new AccountsViewModel();
@@ -67,7 +68,8 @@ namespace Authentication2.Controllers
                     else
                         role = "None";
                     _signInManager.SignInAsync(user, true).Wait();
-                    if (roles.Contains("Driver")){
+                    if (roles.Contains("Driver"))
+                    {
                         return RedirectToAction("Open", "Request", new { area = "Driver" });
                     }
                     else
@@ -120,6 +122,17 @@ namespace Authentication2.Controllers
                 if (roleResult.Succeeded)
                 {
                     _signInManager.SignInAsync(user, true);
+
+                    user = _userManager.FindByNameAsync(signUpViewModel.Username).Result;
+                    Address address = _identityContext.Addresses
+                         .Where(x => x.Id == user.AddressId)
+                         .FirstOrDefault();
+
+                    address.UserId = user.Id;
+
+                    _identityContext.Update<Address>(address);
+                    _identityContext.SaveChanges();
+
                     return RedirectToAction("List", "Request", new { area = "User" });
                 }
                 else

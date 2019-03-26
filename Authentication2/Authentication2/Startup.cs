@@ -40,6 +40,12 @@ namespace Authentication2
             services.AddDbContext<MyIdentityContext>(options =>
                     options.UseSqlite(connection));
 
+            var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+            optionsBuilder.UseSqlite(connection);
+            var db = new MyIdentityContext(optionsBuilder.Options);
+
+            services.AddSingleton<IDbContext>(db);
+
             services.AddIdentity<MyIdentityUser, IdentityRole>(options => {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
