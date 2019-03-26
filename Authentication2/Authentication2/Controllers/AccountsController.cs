@@ -12,7 +12,6 @@ namespace Authentication2.Controllers
 {
     public class AccountsController : Controller
     {
-
         private readonly UserManager<MyIdentityUser> _userManager;
         private readonly SignInManager<MyIdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -29,6 +28,7 @@ namespace Authentication2.Controllers
             _roleManager = roleManager;
             _identityContext = identityContext;
         }
+
         public async Task<IActionResult> IndexAsync()
         {
             AccountsViewModel accountsViewModel = new AccountsViewModel();
@@ -68,7 +68,8 @@ namespace Authentication2.Controllers
                     else
                         role = "None";
                     _signInManager.SignInAsync(user, true).Wait();
-                    if (roles.Contains("Driver")){
+                    if (roles.Contains("Driver"))
+                    {
                         return RedirectToAction("Open", "Request", new { area = "Driver" });
                     }
                     else
@@ -122,7 +123,6 @@ namespace Authentication2.Controllers
                 {
                     _signInManager.SignInAsync(user, true);
 
-                    //Test addition
                     user = _userManager.FindByNameAsync(signUpViewModel.Username).Result;
                     Address address = _identityContext.Addresses
                          .Where(x => x.Id == user.AddressId)
@@ -132,8 +132,6 @@ namespace Authentication2.Controllers
 
                     _identityContext.Update<Address>(address);
                     _identityContext.SaveChanges();
-
-                    // TO HERE
 
                     return RedirectToAction("List", "Request", new { area = "User" });
                 }
