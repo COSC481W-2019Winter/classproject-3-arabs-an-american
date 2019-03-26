@@ -123,22 +123,8 @@ namespace Authentication2.Areas.Driver.Controllers
         {
             RequestModel request = _context.GetRequestById(model.Id);
 
-            request.UserId = model.UserId;
             request.DriverId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             request.Status = "Accepted By Driver";
-            request.PickupAddress.StreetNumber = model.PickupStreetNumber;
-            request.PickupAddress.StreetName = model.PickupStreetName;
-            request.PickupAddress.City = model.PickupCity;
-            request.PickupAddress.State = model.PickupState;
-            request.PickupAddress.ZipCode = model.PickupZipcode;
-            request.DropOffAddress.StreetNumber = model.DropoffStreetNumber;
-            request.DropOffAddress.StreetName = model.DropoffStreetName;
-            request.DropOffAddress.City = model.DropoffCity;
-            request.DropOffAddress.State = model.DropoffState;
-            request.DropOffAddress.ZipCode = model.DropoffZipcode;
-            request.Item = model.Item;
-            request.PickUpInstructions = model.PickupInstructions;
-            request.DropOffInstructions = model.DropoffInstructions;
 
             _context.UpdateRequest(request);
 
