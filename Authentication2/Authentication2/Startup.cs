@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Authentication2.DataAccessLayer;
+﻿using Authentication2.DataAccessLayer;
 using Authentication2.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.InteropServices;
 
 namespace Authentication2
 {
@@ -25,7 +20,7 @@ namespace Authentication2
         }
 
         public IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = "";
@@ -46,7 +41,8 @@ namespace Authentication2
 
             services.AddSingleton<IDbContext>(db);
 
-            services.AddIdentity<MyIdentityUser, IdentityRole>(options => {
+            services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
+            {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
                 options.Password.RequireNonAlphanumeric = false;
@@ -56,7 +52,10 @@ namespace Authentication2
                 .AddEntityFrameworkStores<MyIdentityContext>();
 
 
-            
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Accounts/BecomeDriver");
+            });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -70,8 +69,8 @@ namespace Authentication2
             services.ConfigureApplicationCookie(options => options.LoginPath = "/Accounts/Login");
 
         }
-        
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             UserManager<MyIdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
@@ -92,7 +91,7 @@ namespace Authentication2
             {
 
                 routes.MapRoute(
-                    name:"Areas",
+                    name: "Areas",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
 
