@@ -12,6 +12,8 @@ namespace Authentication2.Controllers
 {
     public class AccountsController : Controller
     {
+        //TODO: remove all these references.
+        // this layer shouldnt know anything about the database
         private readonly UserManager<MyIdentityUser> _userManager;
         private readonly SignInManager<MyIdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
