@@ -1,7 +1,14 @@
-<p>Are you sure you want to delete request with id @ViewBag.id?</p>
-<form method="post" action='@Url.Action("DeleteConfirmed","Request")'>
-    <input type="hidden" name="id" value=@ViewBag.id>
-<input type="submit" value="Confirm Delete" >
-</form>
 
-
+<div class="card">            
+<div class="card-header">Deleting item...</div>
+    <div class="card-body">
+        <p>Are you sure you want to delete request with id @ViewBag.id?</p>
+        <form method="post" action='@Url.Action("DeleteConfirmed","Request")'>
+            <input type="hidden" name="id" value=@ViewBag.id>
+            <button class="btn btn-danger text-uppercase" type="submit">Confirm Delete</button>
+            <button class="btn btn-primary" href="##" onClick="history.go(-1); return false;">Back</button>
+        </form>
+        </div>
+    <br />
+    <div class="card-footer"></div>
+</div>
