@@ -24,20 +24,20 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.Item
-                </td>
-                <td>
-                    @item.PickupCity
-                </td>
-                <td>
-                    @item.DropoffCity
-                </td>
-                <td>
-                    <a asp-action="Pickup" asp-route-id="@item.Id">Accept Request</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.Item
+            </td>
+            <td>
+                @item.PickupStreetNumber @item.PickupStreetName, @item.PickupCity, @item.PickupState @item.PickupZipcode
+            </td>
+            <td>
+                @item.DropoffStreetNumber @item.DropoffStreetName, @item.DropoffCity, @item.DropoffState @item.DropoffZipcode
+            </td>
+            <td>
+                <a asp-action="Pickup" asp-route-id="@item.Id">Accept Request</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

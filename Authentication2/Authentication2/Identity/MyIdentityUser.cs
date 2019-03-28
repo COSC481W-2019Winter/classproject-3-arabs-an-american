@@ -18,7 +18,7 @@ namespace Authentication2.Identity
         public string CarColor { get; set; }
         public string CarYear { get; set; }
         public string LicensePlate { get; set; }
-
+        public int AddressId { get; set; }
     }
 
     public class Address

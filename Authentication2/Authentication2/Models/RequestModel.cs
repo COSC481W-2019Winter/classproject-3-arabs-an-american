@@ -7,6 +7,36 @@ namespace Authentication2.Models
 {
     public class RequestModel
     {
+        public RequestModel() { }
+        public RequestModel(CreateRequestViewModel request) 
+        {
+            Id = request.Id;
+            UserId = request.UserId;
+            DriverId = request.DriverId;
+            Status = request.Status;
+            PickupAddress = new Address
+            {
+                UserId = request.UserId,
+                StreetNumber = request.PickupStreetName,
+                StreetName = request.PickupStreetName,
+                City = request.PickupCity,
+                State = request.PickupState,
+                ZipCode = request.PickupZipcode
+            };
+            DropOffAddress = new Address
+            {
+                UserId = request.UserId,
+                StreetNumber = request.DropoffStreetName,
+                StreetName = request.DropoffStreetName,
+                City = request.DropoffCity,
+                State = request.DropoffState,
+                ZipCode = request.DropoffZipcode
+            };
+            Item = request.Item;
+            PickUpInstructions = request.PickupInstructions;
+            DropOffInstructions = request.DropoffInstructions;
+    }
+
         public int Id{get;set;}
         public string UserId { get; set; }
         public string DriverId { get; set; }
