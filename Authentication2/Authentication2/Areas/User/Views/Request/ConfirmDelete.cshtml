@@ -1,4 +1,53 @@
-<p>Are you sure you want to delete request:</p>
+<h3>Are you sure you want to delete this request:</h3>
+<p><br /></p>
+<h5>Details</h5>
+<hr />
+<table>
+
+    <tr>
+        <td width="250px">Item to be Delivered:</td>
+        <td>@ViewBag.request.Item</td>
+    </tr>
+
+    <tr>
+        <td><br /></td>
+    </tr>
+
+    <tr>
+        <td valign="top">Pickup Address:</td>
+        <td>
+            @ViewBag.request.PickupStreetNumber @ViewBag.request.PickupStreetName <br />
+            @ViewBag.request.PickupCity, @ViewBag.request.PickupState @ViewBag.request.PickupZipcode
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">Instruction for Pickup:</td>
+        <td>@ViewBag.request.PickupInstructions</td>
+    </tr>
+
+    <tr>
+        <td><br /></td>
+    </tr>
+
+    <tr>
+        <td valign="top">Dropoff Address:</td>
+        <td>
+            @ViewBag.request.DropoffStreetNumber @ViewBag.request.DropoffStreetName <br />
+            @ViewBag.request.DropoffCity, @ViewBag.request.DropoffState @ViewBag.request.DropoffZipcode
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">Instructions at dropoff:</td>
+        <td>@ViewBag.request.DropoffInstructions</td>
+    </tr>
+
+</table>
+
+
+<!--
+    
 <table>
     <tr>
         <th><h6>Pickup Address</h6></th>
@@ -30,56 +79,58 @@
     <tr>
         <td>Instructions</td>
     </tr>
-    <tr>
-        <td style="font-size:150%;" colspan="3">
-            @ViewBag.request.PickupInstructions
-        </td>
-    </tr>
-    <tr>
-        <th><h3>Dropoff</h3></th>
-    </tr>
-    <tr>
-        <td>Street Address</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffStreetNumber @ViewBag.request.DropoffStreetName
-        </td>
-    </tr>
-    <tr>
-        <td>City</td>
-        <td>State</td>
-        <td>Zipcode</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffCity
-        </td>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffState
-        </td>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffZipcode
-        </td>
-    </tr>
-    <tr>
-        <td>Instructions</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffInstructions
-        </td>
-    </tr>
-    <tr><th><h3>Item</h3></th></tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.Item
-        </td>
-    </tr>
+<tr>
+    <td style="font-size:150%;" colspan="3">
+        @ViewBag.request.PickupInstructions
+    </td>
+</tr>
+<tr>
+    <th><h3>Dropoff</h3></th>
+</tr>
+<tr>
+    <td>Street Address</td>
+</tr>
+<tr>
+    <td style="font-size:150%;">
+        @ViewBag.request.DropoffStreetNumber @ViewBag.request.DropoffStreetName
+    </td>
+</tr>
+<tr>
+    <td>City</td>
+    <td>State</td>
+    <td>Zipcode</td>
+</tr>
+<tr>
+    <td style="font-size:150%;">
+        @ViewBag.request.DropoffCity
+    </td>
+    <td style="font-size:150%;">
+        @ViewBag.request.DropoffState
+    </td>
+<td style="font-size:150%;">
+    @ViewBag.request.DropoffZipcode
+</td>
+</tr>
+<tr>
+    <td>Instructions</td>
+</tr>
+<tr>
+    <td style="font-size:150%;">
+        @ViewBag.request.DropoffInstructions
+    </td>
+</tr>
+<tr><th><h3>Item</h3></th></tr>
+<tr>
+    <td style="font-size:150%;">
+        @ViewBag.request.Item
+    </td>
+</tr>
 </table>
 
+-->
+<p><br /></p>
 <form method="post" action='@Url.Action("DeleteConfirmed","Request", new RequestModel(@ViewBag.request))'>
-    <input type="submit" value="Confirm Delete" >
+    <input type="submit" value="Confirm Delete">
 </form>
 
 
