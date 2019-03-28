@@ -1,65 +1,70 @@
 ﻿@model CreateRequestViewModel
 
-<h1>Accept Request</h1>
-
-<form method="post" action='@Url.Action("PickupRequest","Request")'>
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.UserId)
-    @Html.HiddenFor(m => m.DriverId)
-    @Html.HiddenFor(m => m.Status)
-    @Html.HiddenFor(m => m.PickupStreetNumber)
-    @Html.HiddenFor(m => m.PickupStreetName)
-    @Html.HiddenFor(m => m.PickupCity)
-    @Html.HiddenFor(m => m.PickupState)
-    @Html.HiddenFor(m => m.PickupZipcode)
-    @Html.HiddenFor(m => m.PickupInstructions)
-    @Html.HiddenFor(m => m.DropoffStreetNumber)
-    @Html.HiddenFor(m => m.DropoffStreetName)
-    @Html.HiddenFor(m => m.DropoffCity)
-    @Html.HiddenFor(m => m.DropoffState)
-    @Html.HiddenFor(m => m.DropoffZipcode)
-    @Html.HiddenFor(m => m.DropoffInstructions)
-    @Html.HiddenFor(m => m.Item)
-    <table>
-        <tr><th><h3>Pickup</h3></th></tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(m => m.PickupStreetNumber, new { @class = "form-control" })
-                @Html.DisplayFor(m => m.PickupStreetName, new { @class = "form-control" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(m => m.PickupCity, new { @class = "form-control" })
-                @Html.DisplayFor(m => m.PickupState, new { @class = "form-control" })
-                @Html.DisplayFor(m => m.PickupZipcode, new { @class = "form-control" })
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayFor(m => m.PickupInstructions, new { @class = "form-control" })</td>
-        </tr>
-        <tr><th><h3>Dropoff</h3></th></tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(m => m.DropoffStreetNumber, new { @class = "form-control" })
-                @Html.DisplayFor(m => m.DropoffStreetName, new { @class = "form-control" })
-            <td />
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(m => m.DropoffCity, new { @class = "form-control" })
-                @Html.DisplayFor(m => m.DropoffState, new { @class = "form-control" })
-                @Html.DisplayFor(m => m.DropoffZipcode, new { @class = "form-control" })
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayFor(m => m.DropoffInstructions, new { @class = "form-control" })</td>
-        </tr>
-        <tr><th><h3>Item</h3></th></tr>
-        <tr>
-            <td>@Html.DisplayFor(m => m.Item, new { @class = "form-control" })</td>
-        </tr>
-    </table>
-
-    <input type="submit" value="Accept Request">
-</form>
+<div class="card">
+<div class="card-header"><h1>Accept Request</h1></div>
+    <div class="card-body">
+        <form method="post" action='@Url.Action("PickupRequest","Request")'>
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.DriverId)
+            @Html.HiddenFor(m => m.Status)
+            @Html.HiddenFor(m => m.PickupStreetNumber)
+            @Html.HiddenFor(m => m.PickupStreetName)
+            @Html.HiddenFor(m => m.PickupCity)
+            @Html.HiddenFor(m => m.PickupState)
+            @Html.HiddenFor(m => m.PickupZipcode)
+            @Html.HiddenFor(m => m.PickupInstructions)
+            @Html.HiddenFor(m => m.DropoffStreetNumber)
+            @Html.HiddenFor(m => m.DropoffStreetName)
+            @Html.HiddenFor(m => m.DropoffCity)
+            @Html.HiddenFor(m => m.DropoffState)
+            @Html.HiddenFor(m => m.DropoffZipcode)
+            @Html.HiddenFor(m => m.DropoffInstructions)
+            @Html.HiddenFor(m => m.Item)
+            <table>
+                <tr><th><h3>Pickup</h3></th></tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.PickupStreetNumber, new { @class = "form-control" })
+                        @Html.DisplayFor(m => m.PickupStreetName, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.PickupCity, new { @class = "form-control" })
+                        @Html.DisplayFor(m => m.PickupState, new { @class = "form-control" })
+                        @Html.DisplayFor(m => m.PickupZipcode, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(m => m.PickupInstructions, new { @class = "form-control" })</td>
+                </tr>
+                <tr><th><h3>Dropoff</h3></th></tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.DropoffStreetNumber, new { @class = "form-control" })
+                        @Html.DisplayFor(m => m.DropoffStreetName, new { @class = "form-control" })
+                    <td />
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.DropoffCity, new { @class = "form-control" })
+                        @Html.DisplayFor(m => m.DropoffState, new { @class = "form-control" })
+                        @Html.DisplayFor(m => m.DropoffZipcode, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(m => m.DropoffInstructions, new { @class = "form-control" })</td>
+                </tr>
+                <tr><th><h3>Item</h3></th></tr>
+                <tr>
+                    <td>@Html.DisplayFor(m => m.Item, new { @class = "form-control" })</td>
+                </tr>
+            </table>
+            <br />
+            <button class="btn btn-success text-uppercase" type="submit">Accept Request</button>
+            <button class="btn btn-primary" href="##" onClick="history.go(-1); return false;">Back</button>
+        </form>
+        </div>
+    <div class="card-footer"></div>
+</div>

@@ -152,52 +152,49 @@
 
                         <form method="post" action="@Url.Action("Create","Request")">
                             @Html.HiddenFor(m => m.Id)
-                            <table class="col-md-12">
+                            <table>
                                 <tr>
                                     <th><h3>Pickup</h3></th>
                                     <td>@Html.DropDownList("addressList", null, new { @id = "pickupAddressList", onchange = "FillPickup()" })</td>
                                 </tr>
-                                <tr>
-                                    <td>Street Number</td>
-                                    <td colspan="2">Street Name</td>
-                                </tr>
+                                <tr> </tr>
                                 <tr>
                                     <td class="form-label-group">
-                                        <input asp-for="PickupStreetNumber" class="form-control" placeholder="Username" />
+                                        <input asp-for="PickupStreetNumber" class="form-control" placeholder="Street Number" />
+                                        <label asp-for="PickupStreetNumber">Street Number</label>
                                         <span asp-validation-for="PickupStreetNumber" class="text-danger"></span>
                                     </td>
 
-                                    <td class="form-label-group">
-                                        <input asp-for="PickupStreetName" class="form-control" />
+                                    <td class="form-label-group" colspan="2">
+                                        <input asp-for="PickupStreetName" class="form-control" placeholder="Street Name"/>
+                                        <label asp-for="PickupStreetName">Street Name</label>
                                         <span asp-validation-for="PickupStreetName" class="text-danger"></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>City</td>
-                                    <td>State</td>
-                                    <td>Zipcode</td>
-                                </tr>
+                                <tr></tr>
                                 <tr>
                                     <td class="form-label-group">
-                                        <input asp-for="PickupCity" class="form-control" />
+                                        <input asp-for="PickupCity" class="form-control" placeholder="City"/>
+                                        <label asp-for="PickupCity">City</label>
                                         <span asp-validation-for="PickupCity" class="text-danger"></span>
                                     </td>
                                     <td class="form-label-group">
-                                        <input asp-for="PickupState" class="form-control" />
+                                        <input asp-for="PickupState" class="form-control" placeholder="State"/>
+                                        <label asp-for="PickupState">State</label>
                                         <span asp-validation-for="PickupState" class="text-danger"></span>
                                     </td>
                                     <td class="form-label-group">
-                                        <input asp-for="PickupZipcode" class="form-control" />
+                                        <input asp-for="PickupZipcode" class="form-control" placeholder="Zipcode"/>
+                                        <label asp-for="PickupZipcode">Zipcode</label>
                                         <span asp-validation-for="PickupZipcode" class="text-danger"></span>
 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Instructions</td>
-                                </tr>
+                                <tr></tr>
                                 <tr>
                                     <td class="form-label-group" colspan="3">
-                                        <input asp-for="PickupInstructions" class="form-control" />
+                                        <input asp-for="PickupInstructions" class="form-control" placeholder="Instructions"/>
+                                        <label asp-for="PickupInstructions">Instructions</label>
                                         <span asp-validation-for="PickupInstructions" class="text-danger"></span>
                                     </td>
                                 </tr>
@@ -205,55 +202,51 @@
                                     <th><h3>Dropoff</h3></th>
                                     <td>@Html.DropDownList("addressList", null, new { @id = "dropoffAddressList", onchange = "FillDropoff()" })</td>
                                 </tr>
-                                <tr>
-                                    <td>Street Number</td>
-                                    <td colspan="2">Street Name</td>
-                                </tr>
+                                <tr> </tr>
                                 <tr>
                                     <td class="form-label-group">
-                                        <input asp-for="DropoffStreetNumber" class="form-control" />
+                                        <input asp-for="DropoffStreetNumber" class="form-control" placeholder="Street Number"/>
+                                        <label asp-for="DropoffStreetNumber">Street Number</label>
                                         <span asp-validation-for="DropoffStreetNumber" class="text-danger"></span>
                                     </td>
                                     <td class="form-label-group" colspan="2">
-                                        <input asp-for="DropoffStreetName" class="form-control" />
+                                        <input asp-for="DropoffStreetName" class="form-control" placeholder="Street Name"/>
+                                        <label asp-for="DropoffStreetName">Street Name</label>
                                         <span asp-validation-for="DropoffStreetName" class="text-danger"></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>City</td>
-                                    <td>State</td>
-                                    <td>Zipcode</td>
-                                </tr>
+                                <tr></tr>
                                 <tr>
                                     <td class="form-label-group">
-                                        <input asp-for="DropoffCity" class="form-control" />
+                                        <input asp-for="DropoffCity" class="form-control" placeholder="City"/>
+                                        <label asp-for="DropoffCity">City</label>
                                         <span asp-validation-for="DropoffCity" class="text-danger"></span>
                                     </td>
                                     <td class="form-label-group">
-                                        <input asp-for="DropoffState" class="form-control" />
+                                        <input asp-for="DropoffState" class="form-control" placeholder="State"/>
+                                        <label asp-for="DropoffState">State</label>
                                         <span asp-validation-for="DropoffState" class="text-danger"></span>
                                     </td>
                                     <td class="form-label-group">
-                                        <input asp-for="DropoffZipcode" class="form-control" />
+                                        <input asp-for="DropoffZipcode" class="form-control" placeholder="Zipcode" />
+                                        <label asp-for="DropoffZipcode">Zipcode</label>
                                         <span asp-validation-for="DropoffZipcode" class="text-danger"></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Instructions</td>
-                                </tr>
+                                <tr></tr>
                                 <tr>
                                     <td class="form-label-group" colspan="3">
-                                        <input asp-for="DropoffInstructions" class="form-control" />
+                                        <input asp-for="DropoffInstructions" class="form-control" placeholder="Instructions"/>
+                                        <label asp-for="DropoffInstructions">Instructions</label>
                                         <span asp-validation-for="DropoffInstructions" class="text-danger"></span>
                                     </td>
                                 </tr>
                                 <tr><th><h3>Item</h3></th></tr>
-                                <tr>
-                                    <td>Item</td>
-                                </tr>
+                                <tr></tr>
                                 <tr>
                                     <td class="form-label-group" colspan="3">
-                                        <input asp-for="Item" class="form-control" />
+                                        <input asp-for="Item" class="form-control" placeholder="Item"/>
+                                        <label asp-for="Item">Item</label>
                                         <span asp-validation-for="Item" class="text-danger"></span>
                                     </td>
                                 </tr>
