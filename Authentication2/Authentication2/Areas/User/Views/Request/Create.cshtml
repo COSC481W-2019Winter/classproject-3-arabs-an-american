@@ -152,7 +152,7 @@
 
                         <form method="post" action="@Url.Action("Create","Request")">
                             @Html.HiddenFor(m => m.Id)
-                            <table class="col-md-12">
+                            <table>
                                 <tr>
                                     <th><h3>Pickup</h3></th>
                                     <td>@Html.DropDownList("addressList", null, new { @id = "pickupAddressList", onchange = "FillPickup()" })</td>
@@ -167,7 +167,7 @@
                                         <span asp-validation-for="PickupStreetNumber" class="text-danger"></span>
                                     </td>
 
-                                    <td class="form-label-group">
+                                    <td class="form-label-group" colspan="2">
                                         <input asp-for="PickupStreetName" class="form-control" />
                                         <span asp-validation-for="PickupStreetName" class="text-danger"></span>
                                     </td>
