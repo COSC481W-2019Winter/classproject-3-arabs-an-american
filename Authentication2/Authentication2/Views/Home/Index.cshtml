@@ -21,8 +21,8 @@
                 </div>
                 <div class="carousel-caption">
                     <h3 class="h3-responsive">On Demand Delivery</h3>
-                    <br/>
-                    <p> <a class="btn btn-lg btn-primary" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign up</a></a></p>
+                    <p>We make delivery fast and easy</p>
+                    <p> <a class="btn btn-lg btn-success" asp-action="About">Learn More</a></a></p>
                 </div>
             </div>
             <div class="carousel-item">
@@ -34,7 +34,7 @@
                 <div class="carousel-caption">
                     <h3 class="h3-responsive">Want to make more than $800 a week</h3>
                     <p>Sign up to be a driver</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <p><a class="btn btn-lg btn-success" asp-action="About">Learn More</a></p>
                 </div>
             </div>
         </div>
@@ -50,6 +50,19 @@
         </a>
         <!--/.Controls-->
     </div>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <table class="container" style="border-collapse: separate; border-spacing: 20px">
+            <tr>
+                <th class="text-right" style="width: 50%">
+                    <a asp-controller="Accounts" asp-action="Signup" class="btn btn-lg btn-success" style="width: 75%">Sign Up</a>
+                </th>
+                <th class="text-left" style="width: 50%">
+                    <a asp-controller="Accounts" asp-action="Login" class="btn btn-lg btn-success" style="width: 75%">Login</a>
+                </th>
+            </tr>
+        </table>
+    }
 </div>
 
 
