@@ -64,34 +64,3 @@
         </table>
     }
 </div>
-
-
-@*
-@if (User.Identity.IsAuthenticated)
-{
-    <a href="@Url.Action("IndexAsync", "Accounts")">View all accounts currently registered (this is for development purposes only)</a>
-    <br>
-    @if (User.IsInRole("User"))
-    {
-        <!--
-        <a href="@Url.Action("Delete", "Request")">Delete</a>
-        <br>
-        <a href="@Url.Action("ViewByID", "Request")">ViewByID</a>
-        <br>
-        <a href="@Url.Action("Update", "Request")">Go to update page (this is for development purposes only)</a>-->
-
-        <br>
-        <a asp-area="User" asp-controller="Request" asp-action="Create">Go to create page(this is for development purposes only)</a>
-        <br />
-
-        <a asp-area="User" asp-controller="Request" asp-action="List">Go to Read page(this is for development purposes only)</a>
-        <br>
-    }
-    @if (User.IsInRole("Driver"))
-    {
-        <a asp-area="Driver" asp-controller="Request" asp-action="Open">Go to Open Requests page(this is for development purposes only)</a>
-        <br>
-        <a asp-area="Driver" asp-controller="Request" asp-action="AcceptedRequests">Go to the Accepted Requests page(this is for development purposes only)</a>
-    }
-}
-*@
