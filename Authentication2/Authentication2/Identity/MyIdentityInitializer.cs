@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Authentication2.Identity
 {

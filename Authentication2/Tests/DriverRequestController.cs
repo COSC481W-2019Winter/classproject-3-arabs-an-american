@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Xunit;
+﻿using Xunit;
 using Moq;
 using Authentication2.DataAccessLayer;
 using Authentication2.Areas.Driver.Controllers;
@@ -33,7 +31,7 @@ namespace Tests
                 DropoffStreetNumber = "Dropoff Street",
                 DropoffStreetName = "Dropoff StreetName",
                 DropoffCity = "Dropoff City",
-                DropoffState = "Dropoff Stat",
+                DropoffState = "Dropoff State",
                 DropoffZipcode = 09876,
             };
         }
@@ -134,7 +132,7 @@ namespace Tests
 
         [Fact]
         public void AcceptedRequests_Success()
-        { //Fails due to User.FindFirstValue(ClaimType.NameIdentifier)
+        {
             var contextMock = new Mock<IDbContext>();
             var requestMock = MockRequestModel();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
@@ -180,7 +178,7 @@ namespace Tests
 
         [Fact]
         public void UpdateStatus_Database_Success()
-        { //Fails due to User.FindFirstValue(ClaimType.NameIdentifier)
+        {
             var contextMock = new Mock<IDbContext>();
             var controller = new RequestController(contextMock.Object);
             var requestMock = MockRequestModel();
@@ -264,7 +262,7 @@ namespace Tests
 
         [Fact]
         public void ConfirmPickup_Success()
-        { //Fails due to User.FindFirstValue(ClaimType.NameIdentifier)
+        {
             var contextMock = new Mock<IDbContext>();
             var controller = new RequestController(contextMock.Object);
 
