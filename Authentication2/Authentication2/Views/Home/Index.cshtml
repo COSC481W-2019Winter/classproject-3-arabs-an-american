@@ -21,8 +21,8 @@
                 </div>
                 <div class="carousel-caption">
                     <h3 class="h3-responsive">On Demand Delivery</h3>
-                    <br/>
-                    <p> <a class="btn btn-lg btn-primary" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign up</a></a></p>
+                    <p>We make delivery fast and easy</p>
+                    <p> <a class="btn btn-lg btn-success" asp-action="About">Learn More</a></a></p>
                 </div>
             </div>
             <div class="carousel-item">
@@ -34,7 +34,7 @@
                 <div class="carousel-caption">
                     <h3 class="h3-responsive">Want to make more than $800 a week</h3>
                     <p>Sign up to be a driver</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <p><a class="btn btn-lg btn-success" asp-action="About">Learn More</a></p>
                 </div>
             </div>
         </div>
@@ -50,135 +50,17 @@
         </a>
         <!--/.Controls-->
     </div>
-
-    <!-- Section: Team v.1 -->
-    <section class="team-section text-center my-5">
-
-        <!-- Section heading -->
-        <h2 class="h1-responsive font-weight-bold my-5">Meet the team</h2>
-        <!-- Section description -->
-       <!-- <p class="grey-text w-responsive mx-auto mb-5">
-
-        </p>-->
-
-        <!-- Grid row -->
-        <div class="row">
-
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
-                <div class="avatar mx-auto">
-                    <img src="~/images/anasjpg.jpg" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Anas Milhem</h5>
-                <p class="text-uppercase blue-text"><strong>Team Manager</strong></p>
-                <p class="grey-text">
-                    Currently Studying Computer Science with a minor in Marketing at Eastern Michigan University.
-                </p>
-            </div>
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
-                <div class="avatar mx-auto">
-                    <img src="~/images/JoshThonnissen_Bio.png" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Josh Thonnisssen </h5>
-                <p class="text-uppercase blue-text"><strong>Web developer</strong></p>
-                <p class="grey-text">
-                    Josh is a Navy veteran turned software developer, he served 11 years in the U.S. Navy Seabees 
-                    and is graduating from Eastern Michigan University with a degree in Computer Science.
-                    He spends his free time playing board games with his family and friends. 
-                    He welcomes new challenges and tries to enjoy life rather than work it. Oh yeah, and <b>GO BLUE!!!</b>
-                </p>
-            </div>
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6 mb-md-0 mb-5">
-                <div class="avatar mx-auto">
-                    <img src="~/images/zafer.jpg" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Zafer Zhourdaji</h5>
-                <p class="text-uppercase blue-text"><strong>Photographer</strong></p>
-                <p class="grey-text" >
-                    Zafer is graduating from Eastern Michigan University on April 2019 with his B.S. 
-                    in computer science. He is currently doing his software development internship. 
-                    He loves learning and exploring new interests, also currently learning piano.
-                </p>
-            </div>
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6">
-                <div class="avatar mx-auto">
-                    <img src="~/images/sean.jpg" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Sean Leonard</h5>
-                <p class="text-uppercase blue-text"><strong>Backend developer</strong></p>
-                <p class="grey-text">
-                    Sean is working towards his bachelors degree in computer science at Eastern Michigan University with
-                    a minor in simulation, animation, and gaming. He is looking forward to an internship with 
-                    Consumers Energy over the summer. Sean hopes to one day be a professional game developer.
-                </p>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="avatar mx-auto">
-                    <img src="~/images/mattar.jpg" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Mohammad Mattar</h5>
-                <p class="text-uppercase blue-text"><strong>FrontEnd Developer</strong></p>
-                <p class="grey-text">
-                   Mohammad is a computer science student at Eastern Michigan University, aspiring Javascript Developer and sports/game enthusist
-                   
-                </p>
-            </div>
-            <div class="col-lg- col-md-6">
-                <div class="avatar mx-auto">
-                    <img src="~/images/Gavin.jpg" class="rounded-circle z-depth-1"
-                         alt="Sample avatar">
-                </div>
-                <h5 class="font-weight-bold mt-4 mb-3">Gavin Maier-Denk</h5>
-                <p class="text-uppercase blue-text"><strong>Backend developer</strong></p>
-                <p class="grey-text">
-                    Gavin is a Computer Science major with a minor in Japanese Language. In the future he hopes to work abroad.
-                </p>
-            </div>
-            <!-- Grid column -->
-
-        </div>
-        <!-- Grid row -->
-
-    </section>
-    <!-- Section: Team v.1 -->
-
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <table class="container" style="border-collapse: separate; border-spacing: 20px">
+            <tr>
+                <th class="text-right" style="width: 50%">
+                    <a asp-controller="Accounts" asp-action="Signup" class="btn btn-lg btn-success" style="width: 75%">Sign Up</a>
+                </th>
+                <th class="text-left" style="width: 50%">
+                    <a asp-controller="Accounts" asp-action="Login" class="btn btn-lg btn-success" style="width: 75%">Login</a>
+                </th>
+            </tr>
+        </table>
+    }
 </div>
-
-
-@*
-@if (User.Identity.IsAuthenticated)
-{
-    <a href="@Url.Action("IndexAsync", "Accounts")">View all accounts currently registered (this is for development purposes only)</a>
-    <br>
-    @if (User.IsInRole("User"))
-    {
-        <!--
-        <a href="@Url.Action("Delete", "Request")">Delete</a>
-        <br>
-        <a href="@Url.Action("ViewByID", "Request")">ViewByID</a>
-        <br>
-        <a href="@Url.Action("Update", "Request")">Go to update page (this is for development purposes only)</a>-->
-
-        <br>
-        <a asp-area="User" asp-controller="Request" asp-action="Create">Go to create page(this is for development purposes only)</a>
-        <br />
-
-        <a asp-area="User" asp-controller="Request" asp-action="List">Go to Read page(this is for development purposes only)</a>
-        <br>
-    }
-    @if (User.IsInRole("Driver"))
-    {
-        <a asp-area="Driver" asp-controller="Request" asp-action="Open">Go to Open Requests page(this is for development purposes only)</a>
-        <br>
-        <a asp-area="Driver" asp-controller="Request" asp-action="AcceptedRequests">Go to the Accepted Requests page(this is for development purposes only)</a>
-    }
-}
-*@

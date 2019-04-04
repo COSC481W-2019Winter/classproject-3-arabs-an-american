@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Authentication2.Identity;
 using Authentication2.VIewModels;

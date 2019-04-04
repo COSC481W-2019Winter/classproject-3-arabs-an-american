@@ -223,6 +223,11 @@
                                 </tr>
                             </table>
                             <br />
+                            <script>
+                                function clicked(){
+                                    return confirm('If all changes appear correct, click "OK"\nOtherwise click "Cancel" to stay on this page');
+                                    }    
+                            </script>
                             <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Update</button>
                             <div asp-validation-summary="All" class="text-danger"></div>
                         </form>

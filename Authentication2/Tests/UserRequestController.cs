@@ -9,6 +9,8 @@ using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Tests
 {
@@ -83,8 +85,6 @@ namespace Tests
 
         private void CheckModelValues(CreateRequestViewModel expected, CreateRequestViewModel actual)
         {
-            Assert.Equal(expected.UserId,
-                actual.UserId);
             Assert.Equal(expected.Id,
                 actual.Id);
             Assert.Equal(expected.PickupStreetNumber,
@@ -122,9 +122,19 @@ namespace Tests
 
         [Fact]
         public void Create_LoadSuccess()
-        { //Test fails for call to GetAddressList() must fix User.FindFirstValue(ClaimTypes.NameIdentifier)
+        {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ClaimTypes.NameIdentifier, "1")
+            }));
+            var controller = new RequestController(contextMock.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = new DefaultHttpContext() { User = user }
+                }
+            };
 
             contextMock.Setup(x => x.GetUserAddresses(It.IsAny<string>()))
                 .Returns(new List<Address>
@@ -141,7 +151,17 @@ namespace Tests
         public void Create_Success()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ClaimTypes.NameIdentifier, "1")
+            }));
+            var controller = new RequestController(contextMock.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = new DefaultHttpContext() { User = user }
+                }
+            };
 
             contextMock.Setup(x => x.IfExistingAddress(It.IsAny<Address>())).Returns(false);
             contextMock.Setup(x => x.GetAddressId(It.IsAny<Address>())).Returns(2);
@@ -204,7 +224,7 @@ namespace Tests
 
             var response = controller.DeleteConfirmed(id);
 
-            Assert.IsType<ViewResult>(response);
+            Assert.IsType<RedirectToActionResult>(response);
         }
 
         [Theory]
@@ -244,12 +264,21 @@ namespace Tests
         [Theory]
         [InlineData(20)]
         public void Update_Success(int id)
-        { // Fails due to GetUserAddresses fix User.FindFirstValue(ClaimsTypes.NameIdentifier)
+        {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
-
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ClaimTypes.NameIdentifier, "1")
+            }));
+            var controller = new RequestController(contextMock.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = new DefaultHttpContext() { User = user }
+                }
+            };
             contextMock.Setup(x => x.GetRequestById(id)).Returns(requestMock);
             contextMock.Setup(x => x.GetUserAddresses(It.IsAny<string>()))
                 .Returns(new List<Address> { MockAddress() });
@@ -258,7 +287,7 @@ namespace Tests
             var result = response as ViewResult;
 
             Assert.IsType<ViewResult>(response);
-            // CheckModelValues(modelMock, result.ViewData.ElementAt<CreateRequestViewModel>(0));
+            CheckModelValues(modelMock, result.Model as CreateRequestViewModel);
         }
 
         [Fact]
@@ -302,24 +331,34 @@ namespace Tests
         public void List_Success()
         { // Fails due to GetUserAddresses fix User.FindFirstValue(ClaimsTypes.NameIdentifier)
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
-            var modelMock = MockCreateRequestViewModel();
+            var requestMock = MockRequestModel();
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ClaimTypes.NameIdentifier, requestMock.UserId)
+            }));
+            var controller = new RequestController(contextMock.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = new DefaultHttpContext() { User = user }
+                }
+            };
 
             contextMock.Setup(x => x.GetRequests())
-                .Returns(new List<RequestModel> { MockRequestModel() });
+                .Returns(new List<RequestModel> { requestMock });
 
             var response = controller.List();
             var result = response as ViewResult;
+            var list = result.Model as List<CreateRequestViewModel>;
 
             Assert.IsType<ViewResult>(response);
-            CheckModelValues(modelMock, result.Model as CreateRequestViewModel);
+            CheckModelValues(new CreateRequestViewModel(requestMock), list.ElementAt(0));
         }
 
         [Fact]
         public void GetAddressList_Success()
-        {// Fails due to User.FindFirstValue(ClaimsTypes.NameIdentifier)
+        {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
             var modelMock = MockCreateRequestViewModel();
             var addressMock = MockAddress();
             var str = addressMock.StreetNumber + " " +
@@ -327,6 +366,17 @@ namespace Tests
                 addressMock.City + ", " +
                 addressMock.State + " " +
                 addressMock.ZipCode;
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ClaimTypes.NameIdentifier, "1")
+            }));
+            var controller = new RequestController(contextMock.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = new DefaultHttpContext() { User = user }
+                }
+            };
 
             contextMock.Setup(x => x.GetUserAddresses(It.IsAny<string>()))
                 .Returns(new List<Address> { addressMock });

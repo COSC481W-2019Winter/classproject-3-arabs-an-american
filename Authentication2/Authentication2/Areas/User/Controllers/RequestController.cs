@@ -5,7 +5,6 @@ using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
@@ -74,6 +73,7 @@ namespace Authentication2.Areas.Controllers
         {
             if (id == 0)
                 return Content("Not a valid ID");
+                //return RedirectToPage("/Views/Shared/test");
 
             var request = _context.GetRequestById(id);
 

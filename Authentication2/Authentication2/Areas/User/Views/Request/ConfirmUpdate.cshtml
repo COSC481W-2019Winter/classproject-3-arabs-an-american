@@ -1,4 +1,4 @@
-<meta http-equiv="Refresh" content="3;url=../List" />
+<!--<meta http-equiv="Refresh" content="3;url=../List" />-->
 
 <h3>Request successfully updated.<br /></h3>
 <h5>Details</h5>
@@ -46,78 +46,8 @@
 
 </table>
 
-<!--
-
-<table>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.PickupStreetNumber @ViewBag.request.PickupStreetName
-        </td>
-    </tr>
-    <tr>
-        <td>City</td>
-        <td>State</td>
-        <td>Zipcode</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.PickupCity
-        </td>
-        <td style="font-size:150%;">
-            @ViewBag.request.PickupState
-        </td>
-        <td style="font-size:150%;">
-            @ViewBag.request.PickupZipcode
-        </td>
-    </tr>
-    <tr>
-    <td>Instructions</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;" colspan="3">
-            @ViewBag.request.PickupInstructions
-        </td>
-    </tr>
-    <tr>
-        <th><h3>Dropoff</h3></th>
-    </tr>
-    <tr>
-        <td>Street Address</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffStreetNumber @ViewBag.request.DropoffStreetName
-        </td>
-    </tr>
-    <tr>
-        <td>City</td>
-        <td>State</td>
-        <td>Zipcode</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffCity
-        </td>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffState
-        </td>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffZipcode
-        </td>
-    </tr>
-    <tr>
-        <td>Instructions</td>
-    </tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.DropoffInstructions
-        </td>
-    </tr>
-    <tr><th><h3>Item</h3></th></tr>
-    <tr>
-        <td style="font-size:150%;">
-            @ViewBag.request.Item
-        </td>
-    </tr>
-</table>
-        -->
+<form method="post" action='@Url.Action("List","Request")'>
+    <input type="hidden" name="id" value="@ViewBag.request.Id">
+    <button class="btn btn-primary" href="##" onClick="history.go(-1); return false;">Back</button>
+    <button class="btn btn-success text-uppercase" type="submit">Confirm</button>
+</form>
