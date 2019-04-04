@@ -20,7 +20,6 @@ Create an app that allows people to request deliveries and errands to be done by
 ###### Mandatory Requirements:
   * *A user should be able to create, read, update, display and delete a request.* 
      ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/RequestsHomepageScreenshot.png)
-    * Once a user enters the request page they should be required to submit their contact email and phone number. 
     * They should then be directed to another page to enter a mandatory pickup address along with optional field for special pickup instructions. They should also have a mandadtory field for delivery address and optional field for special delivery instructions. There should also be an optional link to open a window to upload images of receipts or order confirmations pertaining to the order or items the customer feels may be helpful for the driver.
    ![alt text](https://github.com/COSC481W-2019Winter/classproject-3-arabs-an-american/blob/master/src/common/images/DeliveryInfoScreenshot.png)
     * For each request a user shall be able to optionally select a desired delivery time.
