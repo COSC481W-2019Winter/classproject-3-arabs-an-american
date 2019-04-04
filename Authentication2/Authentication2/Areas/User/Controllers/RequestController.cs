@@ -73,6 +73,7 @@ namespace Authentication2.Areas.Controllers
         {
             if (id == 0)
                 return Content("Not a valid ID");
+                //return RedirectToPage("/Views/Shared/test");
 
             var request = _context.GetRequestById(id);
 

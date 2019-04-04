@@ -122,7 +122,7 @@ namespace Tests
 
         [Fact]
         public void Create_LoadSuccess()
-        { //Test fails for call to GetAddressList() must fix User.FindFirstValue(ClaimTypes.NameIdentifier)
+        {
             var contextMock = new Mock<IDbContext>();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
