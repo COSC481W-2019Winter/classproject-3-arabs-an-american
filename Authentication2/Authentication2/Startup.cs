@@ -50,7 +50,12 @@ namespace Authentication2
             else
             {
                 connection = Configuration.GetConnectionString("Deployed");
-                services.AddDbContext<MyIdentityContext>();
+                services.AddDbContext<MyIdentityContext>(options =>
+                    options.UseSqlServer(connection));
+                var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+                optionsBuilder.UseSqlServer(connection);
+                var db = new MyIdentityContext(optionsBuilder.Options);
+                services.AddSingleton<IDbContext>(db);
 
             }
 
