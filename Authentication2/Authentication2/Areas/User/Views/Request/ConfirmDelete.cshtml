@@ -1,58 +1,68 @@
-<div class="card">            
-<div class="card-header">Deleting item...</div>
-<div class="card-body">
-    <h5>Details</h5>
-    <hr />
-    <table>
+@using System.Security.Claims;
+<div class="card">
+    @if (ViewBag.request.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+    {
+        <div class="card-header">Deleting request...</div>
+        <div class="card-body">
+            <h5>Details</h5>
+            <hr />
+            <table>
 
-        <tr>
-            <td width="250px">Item to be Delivered:</td>
-            <td>@ViewBag.request.Item</td>
-        </tr>
+                <tr>
+                    <td width="250px">Item to be Delivered:</td>
+                    <td>@ViewBag.request.Item</td>
+                </tr>
 
-        <tr>
-            <td><br /></td>
-        </tr>
+                <tr>
+                    <td><br /></td>
+                </tr>
 
-        <tr>
-            <td valign="top">Pickup Address:</td>
-            <td>
-                @ViewBag.request.PickupStreetNumber @ViewBag.request.PickupStreetName <br />
-                @ViewBag.request.PickupCity, @ViewBag.request.PickupState @ViewBag.request.PickupZipcode
-            </td>
-        </tr>
+                <tr>
+                    <td valign="top">Pickup Address:</td>
+                    <td>
+                        @ViewBag.request.PickupStreetNumber @ViewBag.request.PickupStreetName <br />
+                        @ViewBag.request.PickupCity, @ViewBag.request.PickupState @ViewBag.request.PickupZipcode
+                    </td>
+                </tr>
 
-        <tr>
-            <td valign="top">Instruction for Pickup:</td>
-            <td>@ViewBag.request.PickupInstructions</td>
-        </tr>
+                <tr>
+                    <td valign="top">Instruction for Pickup:</td>
+                    <td>@ViewBag.request.PickupInstructions</td>
+                </tr>
 
-        <tr>
-            <td><br /></td>
-        </tr>
+                <tr>
+                    <td><br /></td>
+                </tr>
 
-        <tr>
-            <td valign="top">Dropoff Address:</td>
-            <td>
-                @ViewBag.request.DropoffStreetNumber @ViewBag.request.DropoffStreetName <br />
-                @ViewBag.request.DropoffCity, @ViewBag.request.DropoffState @ViewBag.request.DropoffZipcode
-            </td>
-        </tr>
+                <tr>
+                    <td valign="top">Dropoff Address:</td>
+                    <td>
+                        @ViewBag.request.DropoffStreetNumber @ViewBag.request.DropoffStreetName <br />
+                        @ViewBag.request.DropoffCity, @ViewBag.request.DropoffState @ViewBag.request.DropoffZipcode
+                    </td>
+                </tr>
 
-        <tr>
-            <td valign="top">Instructions at dropoff:</td>
-            <td>@ViewBag.request.DropoffInstructions</td>
-        </tr>
+                <tr>
+                    <td valign="top">Instructions at dropoff:</td>
+                    <td>@ViewBag.request.DropoffInstructions</td>
+                </tr>
 
-    </table>
-    <br />
-    <p>Are you sure you want to delete request?</p>
-    <form method="post" action='@Url.Action("DeleteConfirmed","Request")'>
-        <input type="hidden" name="id" value="@ViewBag.request.Id">
-        <button class="btn btn-danger text-uppercase" type="submit">Confirm Delete</button>
-        <button class="btn btn-primary" href="##" onClick="history.go(-1); return false;">Back</button>
-    </form>
-</div>
-    <br />
-    <div class="card-footer"></div>
+            </table>
+            <br />
+            <p>Are you sure you want to delete request?</p>
+            <form method="post" action='@Url.Action("DeleteConfirmed","Request")'>
+                <input type="hidden" name="id" value="@ViewBag.request.Id">
+                <button class="btn btn-danger text-uppercase" type="submit">Confirm Delete</button>
+                <button class="btn btn-primary" href="##" onClick="history.go(-1); return false;">Back</button>
+            </form>
+        </div>
+        <br />
+        <div class="card-footer"></div>
+    }
+    else
+    {
+        <div class="card-title text-center" style="color:red"><h1>This Request Does Not Belong To You</h1></div>
+        <br />
+        <button class="btn btn-primary btn-large btn-block" href="##" onClick="history.go(-1); return false;">Back</button>
+    }
 </div>
