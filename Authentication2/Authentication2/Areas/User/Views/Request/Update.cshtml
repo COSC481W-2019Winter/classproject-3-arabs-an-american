@@ -163,12 +163,12 @@
                                 <tr>
                                     <td class="form-label-group" colspan="3">
                                         <input asp-for="PickupInstructions" class="form-control" placeholder="Instructions" />
-                                        <label asp-for="PickupInstructions">Instructions</label>
+                                        <label asp-for="PickupInstructions">Instructions/Pickup Time</label>
                                         <span asp-validation-for="PickupInstructions" class="text-danger"></span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th><h3>Dropoff</h3></th>
+                                    <th><h3>Drop Off</h3></th>
                                     <td>
                                         @Html.DropDownList("AddressList", null, new { @id = "dropOffAddressList", onchange = "FillFields(2)" })
                                     </td>
@@ -208,7 +208,7 @@
                                 <tr>
                                     <td class="form-label-group" colspan="3">
                                         <input asp-for="DropoffInstructions" class="form-control" placeholder="Instructions"/>
-                                        <label asp-for="DropoffInstructions">Instructions</label>
+                                        <label asp-for="DropoffInstructions">Instructions/Drop Off Time</label>
                                         <span asp-validation-for="DropoffInstructions" class="text-danger"></span>
                                     </td>
                                 </tr>
