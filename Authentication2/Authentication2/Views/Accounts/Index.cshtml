@@ -1,32 +1,69 @@
-﻿@model AccountsViewModel
+﻿@model UserViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-
-<h2>Below is a list of accounts currently registered. This is for development purposes only.</h2>
-
-@if (Model.Accounts.Count == 0)
-{
-    <p>There are no accounts currently registered</p>
-}
-else
-{
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Role</th>
-        </tr>
-        @foreach (var user in Model.Accounts)
+<div class="card">
+    <div class="card-header"><h1>User Account</h1></div>
+    <div class="card-body">
+        @if (Model != null)
         {
-            <tr>
-                <td>@user.Username</td>
-                <td>@user.Password</td>
-                <td>@user.Role</td>
-            </tr>
+            <table>
+                <tr>
+                    <td width="250px" valign="top">
+                        Address:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Address.StreetNumber, new { @class = "form-control" })
+                        @Html.DisplayFor(m => m.Address.StreetName, new { @class = "form-control" })<br />
+                        @Html.DisplayFor(m => m.Address.City, new { @class = "form-control" }),
+                        @Html.DisplayFor(m => m.Address.State, new { @class = "form-control" }),
+                        @Html.DisplayFor(m => m.Address.ZipCode, new { @class = "form-control" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                </tr>
+
+            </table>
+            <hr />
+            <table>
+
+                <tr>
+                    <td valign="top">
+                        Email:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Email, new { @class = "form-control" })
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="250px" valign="top">
+                        Phone:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Phone, new { @class = "form-control" })
+                    </td>
+                </tr>
+            </table>
+            <hr />
+
+            <form asp-action="Update" asp-controller="Accounts">
+                @Html.HiddenFor(m => m.Email)
+                @Html.HiddenFor(m => m.Phone)
+                @Html.HiddenFor(m => m.Address.StreetNumber)
+                @Html.HiddenFor(m => m.Address.StreetName)
+                @Html.HiddenFor(m => m.Address.City)
+                @Html.HiddenFor(m => m.Address.State)
+                @Html.HiddenFor(m => m.Address.ZipCode)
+
+                <button class="btn btn btn-success btn-block text-uppercase" type="submit" style="width:150px">Edit Profile</button>
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </form>
         }
-    </table>
-}
+    </div>
+    <div class="card-footer"></div>
+</div>

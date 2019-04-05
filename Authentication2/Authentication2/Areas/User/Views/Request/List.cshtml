@@ -46,7 +46,7 @@
                 </td>
                 <td>
                     <a asp-action="Detail" asp-route-id="@item.Id">Details</a>
-                    @if (item.Status != "Delivered")
+                    @if (item.Status == "Awaiting Driver")
                     {
                         <a asp-action="Update" asp-route-id="@item.Id">Edit</a>
                         <a asp-action="ConfirmDelete" asp-route-id="@item.Id">Delete</a>

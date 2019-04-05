@@ -17,6 +17,7 @@
     <Compile Remove="VIewModels\UserViewModel.cs" />
     <Compile Remove="VIewModels\DriverViewModel.cs" />
     <Compile Remove="Controllers\RequestController.cs" />
+    <Compile Remove="VIewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="DeleteConfirmed.cshtml" />
