@@ -28,28 +28,28 @@ namespace Authentication2
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = "";
-            if (_hostingEnvironment.IsDevelopment())
-            {
-                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    connection = Configuration.GetConnectionString("DefaultWinConnection");
-                }
-                else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    connection = Configuration.GetConnectionString("DefaultMacConnection");
-                }
-                services.AddDbContext<MyIdentityContext>(options =>
-                  options.UseSqlite(connection));
+           // if (_hostingEnvironment.IsDevelopment())
+            //{
+            //    if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //    {
+            //        connection = Configuration.GetConnectionString("DefaultWinConnection");
+            //    }
+            //    else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            //    {
+            //        connection = Configuration.GetConnectionString("DefaultMacConnection");
+            //    }
+            //    services.AddDbContext<MyIdentityContext>(options =>
+            //      options.UseSqlite(connection));
 
-                var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
-                optionsBuilder.UseSqlite(connection);
-                var db = new MyIdentityContext(optionsBuilder.Options);
+            //    var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+            //    optionsBuilder.UseSqlite(connection);
+            //    var db = new MyIdentityContext(optionsBuilder.Options);
 
-                services.AddSingleton<IDbContext>(db);
-            }
-            else
-            {
-                connection = Configuration.GetConnectionString("Deployed");
+            //    services.AddSingleton<IDbContext>(db);
+            //}
+            //else
+            //{
+                connection = Configuration.GetConnectionString("DefaultConnection");
                 services.AddDbContext<MyIdentityContext>(options =>
                     options.UseSqlServer(connection));
                 var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
@@ -57,7 +57,7 @@ namespace Authentication2
                 var db = new MyIdentityContext(optionsBuilder.Options);
                 services.AddSingleton<IDbContext>(db);
 
-            }
+           // }
 
 
 

@@ -42,11 +42,11 @@ namespace Authentication2.Models
         public string Status { get; set; }
 
         [ForeignKey("PickupAddress")]
-        public int PickupAddressId { get; set; }
+        public int? PickupAddressId { get; set; }
         public Address PickupAddress { get; set; }
 
         [ForeignKey("DropOffAddress")]
-        public int DropOffAddressId { get; set; }
+        public int? DropOffAddressId { get; set; }
         public Address DropOffAddress { get; set; }
 
         public string Item { get; set; }
