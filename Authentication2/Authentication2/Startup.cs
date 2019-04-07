@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Authentication2
@@ -28,27 +29,8 @@ namespace Authentication2
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = "";
-           // if (_hostingEnvironment.IsDevelopment())
-            //{
-            //    if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //    {
-            //        connection = Configuration.GetConnectionString("DefaultWinConnection");
-            //    }
-            //    else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            //    {
-            //        connection = Configuration.GetConnectionString("DefaultMacConnection");
-            //    }
-            //    services.AddDbContext<MyIdentityContext>(options =>
-            //      options.UseSqlite(connection));
-
-            //    var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
-            //    optionsBuilder.UseSqlite(connection);
-            //    var db = new MyIdentityContext(optionsBuilder.Options);
-
-            //    services.AddSingleton<IDbContext>(db);
-            //}
-            //else
-            //{
+            if (_hostingEnvironment.IsProduction())
+            {
                 connection = Configuration.GetConnectionString("DefaultConnection");
                 services.AddDbContext<MyIdentityContext>(options =>
                     options.UseSqlServer(connection));
@@ -56,8 +38,27 @@ namespace Authentication2
                 optionsBuilder.UseSqlServer(connection);
                 var db = new MyIdentityContext(optionsBuilder.Options);
                 services.AddSingleton<IDbContext>(db);
+            }
+            if (_hostingEnvironment.IsDevelopment())
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    connection = Configuration.GetConnectionString("DefaultWinConnection");
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    connection = Configuration.GetConnectionString("DefaultMacConnection");
+                }
+                services.AddDbContext<MyIdentityContext>(options =>
+                  options.UseSqlite(connection));
 
-           // }
+                var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+                optionsBuilder.UseSqlite(connection);
+                var db = new MyIdentityContext(optionsBuilder.Options);
+
+                services.AddSingleton<IDbContext>(db);
+            }
+            Debug.WriteLine("You are using connection string: " + connection);
 
 
 
