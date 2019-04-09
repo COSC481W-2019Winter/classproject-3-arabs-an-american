@@ -20,6 +20,13 @@
               integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <!--
+    <style>
+        li.active {
+            background-color: #808080;
+        }
+    </style>
+    -->
 </head>
 <body>
     <header>
@@ -34,7 +41,7 @@
                 <div class="collapse navbar-collapse" id="navbarsExample07">
                     <ul class="navbar-nav mr-auto">
 
-                        <li class="nav-item; @Html.IsActive("Home", "Index")">
+                        <li class="nav-item">
                             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/OShip_Icon_v4.png" width="70" height="35" /></a>
                         </li>
 
