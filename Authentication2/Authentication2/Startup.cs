@@ -32,6 +32,11 @@ namespace Authentication2
             {
                 connection = Configuration.GetConnectionString("DefaultMacConnection");
             }
+            else
+            {
+                connection = Configuration.GetConnectionString("Default");
+            }
+
             services.AddDbContext<MyIdentityContext>(options =>
                     options.UseSqlite(connection));
 

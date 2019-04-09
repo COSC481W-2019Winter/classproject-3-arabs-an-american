@@ -44,8 +44,8 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item; @Html.IsActive("","")">
-                                <a class="nav-link" asp-area="" asp-controller="" asp-action="">Welcome @User.Identity.Name</a>
+                            <li class="nav-item; @Html.IsActive("Accounts","Index")">
+                                <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Index">Welcome @User.Identity.Name</a>
                             </li>
                             <li class="nav-item; @Html.IsActive("Request", "List")">
                                 <a class="nav-link" asp-area="User" asp-controller="Request" asp-action="List">My Requests</a>

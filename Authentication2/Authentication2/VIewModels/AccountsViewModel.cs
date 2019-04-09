@@ -17,7 +17,26 @@ namespace Authentication2.VIewModels
         }
     }
 
-    public  class Account
+
+    public class UserViewModel
+    {
+        public UserViewModel() { }
+
+        public UserViewModel(MyIdentityUser user)
+        {
+            this.Address = user.Address;
+            this.Email = user.Email;
+            this.Phone = user.PhoneNumber;
+        }
+
+        public Address Address { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+
+    }
+
+
+    public class Account
     {
         public string Username { get; set; }
         public string Password { get; set; }
