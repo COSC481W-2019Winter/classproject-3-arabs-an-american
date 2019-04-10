@@ -91,10 +91,10 @@ namespace Authentication2
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+        public void Configure(IApplicationBuilder app,
             UserManager<MyIdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if (env.IsDevelopment())
+            if (_hostingEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
