@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Authentication2.VIewModels
 {
@@ -32,6 +33,7 @@ namespace Authentication2.VIewModels
             DropoffStreetNumber = model.DropOffAddress.StreetNumber;
             DropoffZipcode = model.DropOffAddress.ZipCode;
             Item = model.Item;
+            //Image = model.ImagePath
         }
 
         [Required]
@@ -66,5 +68,7 @@ namespace Authentication2.VIewModels
 
         [Required]
         public string Item { get; set; }
+
+        public IFormFile Image { set; get; }
     }
 }

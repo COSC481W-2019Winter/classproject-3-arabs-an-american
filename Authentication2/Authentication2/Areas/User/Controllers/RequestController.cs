@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace Authentication2.Areas.Controllers
 {
@@ -15,15 +19,26 @@ namespace Authentication2.Areas.Controllers
     public class RequestController : Controller
     {
         private readonly IDbContext _context;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public RequestController(IDbContext context)
+        public RequestController(IDbContext context, IHostingEnvironment environment)
         {
             _context = context;
+            hostingEnvironment = environment;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
 
         public IActionResult Create()
@@ -47,6 +62,16 @@ namespace Authentication2.Areas.Controllers
                 PickUpInstructions = model.PickupInstructions,
                 DropOffInstructions = model.DropoffInstructions,
             };
+
+            if (model.Image != null)
+            {
+                var uniqueFileName = GetUniqueFileName(model.Image.FileName);
+                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                request.ImagePath = uniqueFileName;
+            }
 
             UpdatePickupAddress(model, request);
             UpdateDropoffAddress(model, request);
@@ -108,6 +133,8 @@ namespace Authentication2.Areas.Controllers
                 return Content("The model was null with ID: " + id.ToString());
             }
 
+            ViewData["ImagePath"] = request.ImagePath;
+       
             CreateRequestViewModel requestVM = new CreateRequestViewModel(request);
 
             return View(requestVM);
@@ -144,6 +171,16 @@ namespace Authentication2.Areas.Controllers
             request.Item = model.Item;
             request.PickUpInstructions = model.PickupInstructions;
             request.DropOffInstructions = model.DropoffInstructions;
+
+            if (model.Image != null)
+            {
+                var uniqueFileName = GetUniqueFileName(model.Image.FileName);
+                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                request.ImagePath = uniqueFileName;
+            }
 
             UpdatePickupAddress(model, request);
             UpdateDropoffAddress(model, request);
