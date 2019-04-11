@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Tests
 {
@@ -113,6 +114,7 @@ namespace Tests
         public void Index_Load_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                  new Claim(ClaimTypes.NameIdentifier, "1")
@@ -134,6 +136,7 @@ namespace Tests
         public void AcceptedRequests_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var requestMock = MockRequestModel();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
@@ -162,6 +165,7 @@ namespace Tests
         public void UpdateStatus_Success(int id)
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var controller = new RequestController(contextMock.Object);
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
@@ -180,6 +184,7 @@ namespace Tests
         public void UpdateStatus_Database_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var controller = new RequestController(contextMock.Object);
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
@@ -198,6 +203,7 @@ namespace Tests
         public void Open_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
@@ -228,6 +234,7 @@ namespace Tests
         public void Pickup_Success(int id)
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var controller = new RequestController(contextMock.Object);
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
@@ -246,6 +253,7 @@ namespace Tests
         public void PickupRequest_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var controller = new RequestController(contextMock.Object);
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
@@ -264,6 +272,7 @@ namespace Tests
         public void ConfirmPickup_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var controller = new RequestController(contextMock.Object);
 
             var response = controller.ConfirmPickup();
