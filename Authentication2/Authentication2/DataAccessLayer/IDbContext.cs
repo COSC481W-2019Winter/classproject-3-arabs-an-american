@@ -10,7 +10,7 @@ namespace Authentication2.DataAccessLayer
         RequestModel GetRequestById(int id);
         List<RequestModel> GetRequests();
         List<Address> GetUserAddresses(string id);
-        Address GetAddressById(int id);
+        Address GetAddressById(string id);
         void RemoveRequest(RequestModel requestModel);
         void UpdateRequest(RequestModel request);
         bool IfExistingAddress(Address address);

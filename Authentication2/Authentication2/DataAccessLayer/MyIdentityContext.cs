@@ -55,9 +55,16 @@ namespace Authentication2.DataAccessLayer
                 .ToList();
         }
 
-        public Address GetAddressById(int id)
+        public Address GetAddressById(string id)
         {
-            throw new NotImplementedException();
+            var user = Users
+                .Where(x => x.Id == id)
+                .Include(x => x.Address)
+                .ToList().ElementAt(0);
+
+            return user.Address;
+
+            //throw new NotImplementedException();
         }
 
         public void RemoveRequest(RequestModel request)

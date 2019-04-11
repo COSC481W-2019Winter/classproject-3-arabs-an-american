@@ -91,13 +91,18 @@ namespace Authentication2.Areas.Driver.Controllers
 
         public IActionResult Open()
         {
-            if (!_context.CheckActive(User.FindFirstValue(ClaimTypes.NameIdentifier))){
+            if (!_context.CheckActive(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            {
                 List<RequestModel> requests = _context.GetRequests();
+                var driverAddress = _context.GetAddressById(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
                 List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
                 foreach (RequestModel model in requests)
                 {
-                    if (model.DriverId == null && model.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier))
+                    if (model.DriverId == null
+                        && model.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier)
+                        && (model.PickupAddress.ZipCode == driverAddress.ZipCode
+                        || model.DropOffAddress.ZipCode == driverAddress.ZipCode))
                         requestsView.Add(new CreateRequestViewModel(model));
                 }
                 return View(requestsView);
