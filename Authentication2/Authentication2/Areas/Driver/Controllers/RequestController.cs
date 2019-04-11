@@ -109,8 +109,13 @@ namespace Authentication2.Areas.Driver.Controllers
             }
             else
             {
-                return RedirectToAction("AcceptedRequests");
+                return RedirectToAction("RequestQuota");
             }
+        }
+
+        public IActionResult RequestQuota()
+        {
+            return View();
         }
 
         public IActionResult Pickup(int id)
