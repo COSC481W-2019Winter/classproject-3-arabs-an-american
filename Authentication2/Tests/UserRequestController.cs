@@ -316,8 +316,6 @@ namespace Tests
             contextMock.Setup(x => x.UpdateRequest(It.IsAny<RequestModel>()));
             contextMock.Setup(x => x.IfExistingAddress(It.IsAny<Address>()))
                 .Returns(true);
-            //contextMock.Setup(x => x.GetAddressById(It.IsAny<int>()))
-                //.Returns(addressMock);
 
             var response = controller.Update(modelMock);
 
