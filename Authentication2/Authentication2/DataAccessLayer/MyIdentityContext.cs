@@ -57,14 +57,10 @@ namespace Authentication2.DataAccessLayer
 
         public Address GetAddressById(string id)
         {
-            var user = Users
+            return Users
                 .Where(x => x.Id == id)
                 .Include(x => x.Address)
-                .ToList().ElementAt(0);
-
-            return user.Address;
-
-            //throw new NotImplementedException();
+                .ToList().ElementAt(0).Address;
         }
 
         public void RemoveRequest(RequestModel request)
