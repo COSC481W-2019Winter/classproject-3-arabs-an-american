@@ -35,7 +35,7 @@ namespace Authentication2.Models
             Item = request.Item;
             PickUpInstructions = request.PickupInstructions;
             DropOffInstructions = request.DropoffInstructions;
-            
+            ImageName = request.ImageName;
     }
 
         public int Id{get;set;}
@@ -55,6 +55,6 @@ namespace Authentication2.Models
         public string PickUpInstructions { get; set; }
         public string DropOffInstructions { get; set; }
 
-        public string ImagePath { get; set; }
+        public string ImageName { get; set; }
     }
 }

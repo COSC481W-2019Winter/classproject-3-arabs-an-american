@@ -46,7 +46,17 @@
                     <td valign="top">Instructions at dropoff:</td>
                     <td>@ViewBag.request.DropoffInstructions</td>
                 </tr>
-
+                <tr>
+                    <td><br /></td>
+                </tr>
+                <tr>
+                    <td width="250px" valign="top">
+                        Receipt/Cart Image:
+                    </td>
+                    <td>
+                        <img src="~/uploads/@ViewBag.request.ImageName" width="50%" />
+                    </td>
+                </tr>
             </table>
             <br />
             <p>Are you sure you want to delete request?</p>

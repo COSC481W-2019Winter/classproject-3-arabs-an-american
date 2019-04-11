@@ -33,7 +33,7 @@ namespace Authentication2.VIewModels
             DropoffStreetNumber = model.DropOffAddress.StreetNumber;
             DropoffZipcode = model.DropOffAddress.ZipCode;
             Item = model.Item;
-            //Image = model.ImagePath
+            ImageName = model.ImageName;
         }
 
         [Required]
@@ -69,6 +69,7 @@ namespace Authentication2.VIewModels
         [Required]
         public string Item { get; set; }
 
+        public string ImageName { set; get; }
         public IFormFile Image { set; get; }
     }
 }

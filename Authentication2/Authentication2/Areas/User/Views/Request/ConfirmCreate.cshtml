@@ -43,13 +43,15 @@
         <td valign="top">Instructions at dropoff:</td>
         <td>@ViewBag.request.DropoffInstructions</td>
     </tr>
-
+    <tr>
+        <td><br /></td>
+    </tr>
     <tr>
         <td width="250px" valign="top">
-            Receipt/Cart Image
+            Receipt/Cart Image:
         </td>
         <td>
-            <!--<img src="~/uploads/@ViewData["ImagePath"]" width="50%" />-->
+            <img src="~/uploads/@ViewBag.request.ImageName" width="50%" />
         </td>
     </tr>
 </table>

@@ -35,6 +35,23 @@
                 }
             }
         }
+
+        function FillImage()
+        {
+            var preview = document.getElementById("image"); //selects the query named img
+            var file = document.getElementById("file").files[0]; //sames as here
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file); //reads the data as a URL
+            } else {
+                preview.src = "";
+            }
+        }
     </script>
 
     <!-- Bootstrap core CSS -->
@@ -253,9 +270,12 @@
                                 </tr>
                                 <tr><th><h3>Receipt/Cart Image</h3></th></tr>
                                 <tr>
-                                    <td class="form-label-group" colspan="3">
-                                        <input asp-for="Image" placeholder="Image" />
+                                    <td class="form-label-group" colspan="1">
+                                        <input asp-for="Image" id="file" placeholder="Image" accept="image/*" onchange="FillImage()"/>
                                         <span asp-validation-for="Image" class="text-danger"></span>
+                                    </td>
+                                    <td class="form-label-group" colspan="2">
+                                        <img id="image" src="" width="50%" />
                                     </td>
                                 </tr>
                             </table>
