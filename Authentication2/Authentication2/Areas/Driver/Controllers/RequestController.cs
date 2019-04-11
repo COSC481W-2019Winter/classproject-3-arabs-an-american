@@ -91,15 +91,21 @@ namespace Authentication2.Areas.Driver.Controllers
 
         public IActionResult Open()
         {
-            List<RequestModel> requests = _context.GetRequests();
+            if (!_context.CheckActive(User.FindFirstValue(ClaimTypes.NameIdentifier))){
+                List<RequestModel> requests = _context.GetRequests();
 
-            List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
-            foreach (RequestModel model in requests)
-            {
-                if (model.DriverId == null && model.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier))
-                    requestsView.Add(new CreateRequestViewModel(model));
+                List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
+                foreach (RequestModel model in requests)
+                {
+                    if (model.DriverId == null && model.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier))
+                        requestsView.Add(new CreateRequestViewModel(model));
+                }
+                return View(requestsView);
             }
-            return View(requestsView);
+            else
+            {
+                return RedirectToAction("AcceptedRequests");
+            }
         }
 
         public IActionResult Pickup(int id)

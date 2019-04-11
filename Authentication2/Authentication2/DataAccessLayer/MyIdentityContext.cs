@@ -98,5 +98,17 @@ namespace Authentication2.DataAccessLayer
                 .FirstOrDefault()
                 .Id;
         }
+
+        public bool CheckActive(string driverId)
+        {
+            if(Requests.Any(x => x.DriverId == driverId && x.Status != "Delivered"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
