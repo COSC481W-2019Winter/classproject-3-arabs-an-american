@@ -187,12 +187,13 @@ namespace Authentication2.Controllers
         public IActionResult BecomeDriver(BecomeDriverViewModel becomeDriverViewModel)
         {
             MyIdentityUser user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            user.DriversLicense = becomeDriverViewModel.DriversLicense;
             user.CarMake = becomeDriverViewModel.CarMake;
             user.CarModel = becomeDriverViewModel.CarModel;
             user.CarYear = becomeDriverViewModel.CarYear;
             user.CarColor = becomeDriverViewModel.CarColor;
             user.LicensePlate = becomeDriverViewModel.CarLicensePlate;
-            IdentityResult roleResult = _userManager.AddToRoleAsync(user, "Driver").Result;
+            //IdentityResult roleResult = _userManager.AddToRoleAsync(user, "Driver").Result;
             IdentityResult updateResult = _userManager.UpdateAsync(user).Result;
             _signInManager.SignOutAsync().Wait();
             _signInManager.SignInAsync(user, true).Wait();

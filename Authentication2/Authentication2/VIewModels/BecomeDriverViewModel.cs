@@ -18,7 +18,7 @@ namespace Authentication2.VIewModels
         public string CarYear { get; set; }
         [Required]
         public string CarLicensePlate { get; set; }
-
-
+        [Required]
+        public string DriversLicense { get; set; }
     }
 }

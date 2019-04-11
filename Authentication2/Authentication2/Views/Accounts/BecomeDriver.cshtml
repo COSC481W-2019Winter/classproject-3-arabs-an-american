@@ -114,6 +114,11 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Become a Driver</h5>
                     <div class="form-label-group">
+                        <input asp-for="DriversLicense" class="form-control" placeholder="Drivers License" />
+                        <label asp-for="DriversLicense">Drivers License</label>
+                        <span asp-validation-for="DriversLicense" class="text-danger"></span>
+                    </div>
+                    <div class="form-label-group">
                         <input asp-for="CarMake" class="form-control" placeholder="Username" required autofocus />
                         <label asp-for="CarMake">CarMake</label>
                         <span asp-validation-for="CarMake" class="text-danger"></span>
