@@ -70,7 +70,17 @@
                             @Html.DisplayFor(m => m.Item, new { @class = "form-control" })
                         </td>
                     </tr>
-
+                </table>
+                <hr />
+                <table>
+                    <tr>
+                        <td width="250px" valign="top">
+                            Receipt/Cart Image
+                        </td>
+                        <td>
+                            <img src="~/uploads/@ViewData["ImagePath"]" width="50%"/>
+                        </td>
+                    </tr>
                 </table>
                 <br />
                 <button class="btn btn-primary" href="##" onClick="history.go(-1); return false;">Back</button>

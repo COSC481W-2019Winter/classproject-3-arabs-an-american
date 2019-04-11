@@ -151,7 +151,7 @@
 
                         <!--<form asp-action="RegisterRequest" asp-controller="Request" method="post">-->
 
-                        <form method="post" action="@Url.Action("Create","Request")">
+                        <form method="post" action="@Url.Action("Create","Request")" enctype="multipart/form-data">
                             @Html.HiddenFor(m => m.Id)
                             <table>
                                 <tr>
@@ -251,6 +251,13 @@
                                         <span asp-validation-for="Item" class="text-danger"></span>
                                     </td>
                                 </tr>
+                                <tr><th><h3>Receipt/Cart Image</h3></th></tr>
+                                <tr>
+                                    <td class="form-label-group" colspan="3">
+                                        <input asp-for="Image" placeholder="Image" />
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </td>
+                                </tr>
                             </table>
                             <br />
                             <script>
@@ -258,7 +265,7 @@
                                     return confirm('If all information appears correct, click "OK"\nOtherwise click "Cancel" to stay on this page');
                                     }
                             </script>
-                            <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Create</button>
+                            <button class="btn btn-lg btn-success btn-block text-uppercase" onclick="" type="submit">Create</button>
                             <div asp-validation-summary="All" class="text-danger"></div>
                         </form>
                         </div>

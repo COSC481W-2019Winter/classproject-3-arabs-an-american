@@ -116,7 +116,7 @@
                         @if (Model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                         {
                             <div class="card-title text-center"><h1>Update Request</h1></div>
-                            <form method="post" action='@Url.Action("Update", "Request")'>
+                            <form method="post" action="@Url.Action("Update", "Request")" enctype="multipart/form-data">
                                 @Html.HiddenFor(m => m.Id)
                                 @Html.HiddenFor(m => m.UserId)
                                 @Html.HiddenFor(m => m.DriverId)
@@ -221,6 +221,13 @@
                                             <input asp-for="Item" class="form-control" placeholder="Item" />
                                             <label asp-for="Item">Item</label>
                                             <span asp-validation-for="Item" class="text-danger"></span>
+                                        </td>
+                                    </tr>
+                                    <tr><th><h3>Receipt/Cart Image</h3></th></tr>
+                                    <tr>
+                                        <td class="form-label-group" colspan="3">
+                                            <input asp-for="Image" placeholder="Image" />
+                                            <span asp-validation-for="Image" class="text-danger"></span>
                                         </td>
                                     </tr>
                                 </table>

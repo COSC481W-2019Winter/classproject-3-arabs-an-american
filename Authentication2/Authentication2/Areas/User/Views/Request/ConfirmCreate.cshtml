@@ -44,6 +44,14 @@
         <td>@ViewBag.request.DropoffInstructions</td>
     </tr>
 
+    <tr>
+        <td width="250px" valign="top">
+            Receipt/Cart Image
+        </td>
+        <td>
+            <!--<img src="~/uploads/@ViewData["ImagePath"]" width="50%" />-->
+        </td>
+    </tr>
 </table>
 <form method="post" action='@Url.Action("List","Request")'>
     <input type="hidden" name="id" value="@ViewBag.request.Id">
