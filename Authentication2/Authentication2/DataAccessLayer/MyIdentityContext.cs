@@ -55,9 +55,12 @@ namespace Authentication2.DataAccessLayer
                 .ToList();
         }
 
-        public Address GetAddressById(int id)
+        public Address GetAddressById(string id)
         {
-            throw new NotImplementedException();
+            return Users
+                .Where(x => x.Id == id)
+                .Include(x => x.Address)
+                .ToList().ElementAt(0).Address;
         }
 
         public void RemoveRequest(RequestModel request)
@@ -97,6 +100,18 @@ namespace Authentication2.DataAccessLayer
                     && x.ZipCode == address.ZipCode)
                 .FirstOrDefault()
                 .Id;
+        }
+
+        public bool CheckActive(string driverId)
+        {
+            if(Requests.Any(x => x.DriverId == driverId && x.Status != "Delivered"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

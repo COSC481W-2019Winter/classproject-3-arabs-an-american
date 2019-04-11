@@ -46,11 +46,23 @@
                 </td>
                 <td>
                     <a asp-action="Detail" asp-route-id="@item.Id">Details</a>
-                    @if (item.Status != "Delivered")
+                    @if (item.Status == "Awaiting Driver")
                     {
-                        <a asp-action="Update" asp-route-id="@item.Id">Edit</a>
-                        <a asp-action="ConfirmDelete" asp-route-id="@item.Id">Delete</a>
+                        <p style="display:inline">
+                            |
+                            <a asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                            |
+                            <a asp-action="ConfirmDelete" asp-route-id="@item.Id">Delete</a>
+                        </p>
                     }
+                    else if (item.Status != "Delivered")
+                    {
+                        <p style="display:inline">
+                            |
+                            <a asp-action="" asp-route-id="@item.DriverId">Contact Driver</a>
+                        </p>
+                    }
+                    else { }
                 </td>
             </tr>
         }

@@ -3,7 +3,9 @@ using Authentication2.Identity;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
@@ -28,22 +30,53 @@ namespace Authentication2.Controllers
             _identityContext = identityContext;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            AccountsViewModel accountsViewModel = new AccountsViewModel();
-            var users = _identityContext.Users.ToList();
-            foreach (var user in users)
-            {
-                var roles = await _userManager.GetRolesAsync(user);
-                var role = roles.First();
-                accountsViewModel.Accounts.Add(new Account
-                {
-                    Username = user.UserName,
-                    Password = user.Password,
-                    Role = role
-                });
-            }
-            return View("Index", accountsViewModel);
+            var user = _identityContext.Users
+                .Where(x => x.Id == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .Include(x => x.Address).ToList().ElementAt(0);
+
+            UserViewModel userViewModel = new UserViewModel(user);
+
+            //var users = _identityContext.Users.ToList();
+            //foreach (var user in users)
+            //{
+            //    var roles = await _userManager.GetRolesAsync(user);
+            //    var role = roles.First();
+            //    accountsViewModel.Accounts.Add(new Account
+            //    {
+            //        Username = user.UserName,
+            //        Password = user.Password,
+            //        Role = role
+            //    });
+            //}
+            return View("Index", userViewModel);
+        }
+
+        public IActionResult Update(UserViewModel user)
+        {
+            return View(user);
+        }
+
+        public IActionResult UpdateUser(UserViewModel user)
+        {
+            var identityUser = _identityContext.Users
+                .Where(x => x.Id == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .Include(x => x.Address).ToList().ElementAt(0);
+
+            identityUser.Address.StreetNumber = user.Address.StreetNumber;
+            identityUser.Address.StreetName = user.Address.StreetName;
+            identityUser.Address.City = user.Address.City;
+            identityUser.Address.State = user.Address.State;
+            identityUser.Address.ZipCode = user.Address.ZipCode;
+
+            identityUser.PhoneNumber = user.Phone;
+            identityUser.Email = user.Email;
+
+            _identityContext.Update(identityUser);
+            _identityContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Login()
@@ -154,12 +187,13 @@ namespace Authentication2.Controllers
         public IActionResult BecomeDriver(BecomeDriverViewModel becomeDriverViewModel)
         {
             MyIdentityUser user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            user.DriversLicense = becomeDriverViewModel.DriversLicense;
             user.CarMake = becomeDriverViewModel.CarMake;
             user.CarModel = becomeDriverViewModel.CarModel;
             user.CarYear = becomeDriverViewModel.CarYear;
             user.CarColor = becomeDriverViewModel.CarColor;
             user.LicensePlate = becomeDriverViewModel.CarLicensePlate;
-            IdentityResult roleResult = _userManager.AddToRoleAsync(user, "Driver").Result;
+            //IdentityResult roleResult = _userManager.AddToRoleAsync(user, "Driver").Result;
             IdentityResult updateResult = _userManager.UpdateAsync(user).Result;
             _signInManager.SignOutAsync().Wait();
             _signInManager.SignInAsync(user, true).Wait();

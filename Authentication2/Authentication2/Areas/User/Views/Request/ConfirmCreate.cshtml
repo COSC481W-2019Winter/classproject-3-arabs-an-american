@@ -43,10 +43,20 @@
         <td valign="top">Instructions at dropoff:</td>
         <td>@ViewBag.request.DropoffInstructions</td>
     </tr>
-
+    <tr>
+        <td><br /></td>
+    </tr>
+    <tr>
+        <td width="250px" valign="top">
+            Receipt/Cart Image:
+        </td>
+        <td>
+            <img src="~/uploads/@ViewBag.request.ImageName" width="50%" />
+        </td>
+    </tr>
 </table>
 <form method="post" action='@Url.Action("List","Request")'>
     <input type="hidden" name="id" value="@ViewBag.request.Id">
-    <a asp-action="Update" class="btn btn-lg btn-success" asp-route-id="@ViewBag.request.Id">Edit</a>
+    <a asp-action="Update" class="btn btn btn-success" asp-route-id="@ViewBag.request.Id">Edit</a>
     <button class="btn btn-success text-uppercase" type="submit">Confirm</button> 
 </form>

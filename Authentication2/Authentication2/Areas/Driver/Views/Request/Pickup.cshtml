@@ -60,6 +60,17 @@
                 <tr>
                     <td>@Html.DisplayFor(m => m.Item, new { @class = "form-control" })</td>
                 </tr>
+                <tr>
+                    <td><br /></td>
+                </tr>
+                <tr>
+                    <td width="250px" valign="top">
+                        Receipt/Cart Image:
+                    </td>
+                    <td>
+                        <img src="~/uploads/@Model.ImageName" width="50%" />
+                    </td>
+                </tr>
             </table>
             <br />
             <button class="btn btn-success text-uppercase" type="submit">Accept Request</button>

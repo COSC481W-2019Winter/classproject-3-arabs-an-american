@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Tests
 {
@@ -113,7 +114,8 @@ namespace Tests
         public void Index_Load_Success()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
 
             var response = controller.Index();
 
@@ -124,11 +126,12 @@ namespace Tests
         public void Create_LoadSuccess()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                  new Claim(ClaimTypes.NameIdentifier, "1")
             }));
-            var controller = new RequestController(contextMock.Object)
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object)
             {
                 ControllerContext = new ControllerContext()
                 {
@@ -151,11 +154,12 @@ namespace Tests
         public void Create_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                  new Claim(ClaimTypes.NameIdentifier, "1")
             }));
-            var controller = new RequestController(contextMock.Object)
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object)
             {
                 ControllerContext = new ControllerContext()
                 {
@@ -176,7 +180,8 @@ namespace Tests
         public void ConfirmCreate_Load_Success()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var model = MockCreateRequestViewModel();
 
             var response = controller.ConfirmCreate(model);
@@ -191,7 +196,8 @@ namespace Tests
         public void Delete_Load_Success()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
 
             var response = controller.Delete();
 
@@ -203,7 +209,8 @@ namespace Tests
         public void ConfirmDelete_Load_Success(int id)
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
 
             contextMock.Setup(x => x.GetRequestById(id)).Returns(MockRequestModel);
 
@@ -217,7 +224,8 @@ namespace Tests
         public void DeleteConfirmed_Success(int id)
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
 
             contextMock.Setup(x => x.GetRequestById(id))
                 .Returns(MockRequestModel());
@@ -232,7 +240,8 @@ namespace Tests
         public void DeleteConfirmed_Failure_Invalid_ID(int id)
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
 
             contextMock.Setup(x => x.GetRequestById(id))
                 .Returns(MockRequestModel());
@@ -247,7 +256,8 @@ namespace Tests
         public void Detail_Success(int id)
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
 
@@ -266,13 +276,14 @@ namespace Tests
         public void Update_Success(int id)
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                  new Claim(ClaimTypes.NameIdentifier, "1")
             }));
-            var controller = new RequestController(contextMock.Object)
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object)
             {
                 ControllerContext = new ControllerContext()
                 {
@@ -294,7 +305,8 @@ namespace Tests
         public void UpdateDatabase_Success()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var requestMock = MockRequestModel();
             var modelMock = new CreateRequestViewModel(requestMock);
             var addressMock = MockAddress();
@@ -304,8 +316,6 @@ namespace Tests
             contextMock.Setup(x => x.UpdateRequest(It.IsAny<RequestModel>()));
             contextMock.Setup(x => x.IfExistingAddress(It.IsAny<Address>()))
                 .Returns(true);
-            contextMock.Setup(x => x.GetAddressById(It.IsAny<int>()))
-                .Returns(addressMock);
 
             var response = controller.Update(modelMock);
 
@@ -316,7 +326,8 @@ namespace Tests
         public void ConfirmUpdate_Success()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var modelMock = MockCreateRequestViewModel();
 
             var response = controller.ConfirmUpdate(modelMock);
@@ -331,12 +342,13 @@ namespace Tests
         public void List_Success()
         { // Fails due to GetUserAddresses fix User.FindFirstValue(ClaimsTypes.NameIdentifier)
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var requestMock = MockRequestModel();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                  new Claim(ClaimTypes.NameIdentifier, requestMock.UserId)
             }));
-            var controller = new RequestController(contextMock.Object)
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object)
             {
                 ControllerContext = new ControllerContext()
                 {
@@ -359,6 +371,7 @@ namespace Tests
         public void GetAddressList_Success()
         {
             var contextMock = new Mock<IDbContext>();
+            var hostingEnv = new Mock<IHostingEnvironment>();
             var modelMock = MockCreateRequestViewModel();
             var addressMock = MockAddress();
             var str = addressMock.StreetNumber + " " +
@@ -370,7 +383,7 @@ namespace Tests
             {
                  new Claim(ClaimTypes.NameIdentifier, "1")
             }));
-            var controller = new RequestController(contextMock.Object)
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object)
             {
                 ControllerContext = new ControllerContext()
                 {
@@ -392,7 +405,8 @@ namespace Tests
         public void UpdateDropoffAddress_Success_Address_Found()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var requestMock = MockRequestModel();
             var modelMock = MockCreateRequestViewModel();
 
@@ -409,7 +423,8 @@ namespace Tests
         public void UpdateDropoffAddress_Success_Address_Not_Found()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var requestMock = MockRequestModel();
             var modelMock = MockCreateRequestViewModel();
 
@@ -431,7 +446,8 @@ namespace Tests
         public void UpdatePickupAddress_Success_Address_Found()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var requestMock = MockRequestModel();
             var modelMock = MockCreateRequestViewModel();
 
@@ -448,7 +464,8 @@ namespace Tests
         public void UpdatePickupAddress_Success_Address_Not_Found()
         {
             var contextMock = new Mock<IDbContext>();
-            var controller = new RequestController(contextMock.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            var controller = new RequestController(contextMock.Object, hostingEnv.Object);
             var requestMock = MockRequestModel();
             var modelMock = MockCreateRequestViewModel();
 

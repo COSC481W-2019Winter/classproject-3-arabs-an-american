@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Authentication2.Identity;
 using Authentication2.VIewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace Authentication2.Models
 {
@@ -34,6 +35,7 @@ namespace Authentication2.Models
             Item = request.Item;
             PickUpInstructions = request.PickupInstructions;
             DropOffInstructions = request.DropoffInstructions;
+            ImageName = request.ImageName;
     }
 
         public int Id{get;set;}
@@ -42,15 +44,17 @@ namespace Authentication2.Models
         public string Status { get; set; }
 
         [ForeignKey("PickupAddress")]
-        public int PickupAddressId { get; set; }
+        public int? PickupAddressId { get; set; }
         public Address PickupAddress { get; set; }
 
         [ForeignKey("DropOffAddress")]
-        public int DropOffAddressId { get; set; }
+        public int? DropOffAddressId { get; set; }
         public Address DropOffAddress { get; set; }
 
         public string Item { get; set; }
         public string PickUpInstructions { get; set; }
         public string DropOffInstructions { get; set; }
+
+        public string ImageName { get; set; }
     }
 }

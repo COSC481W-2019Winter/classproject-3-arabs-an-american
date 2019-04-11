@@ -8,38 +8,57 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Authentication2
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _hostingEnvironment = env;
+
         }
 
         public IConfiguration Configuration { get; }
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = "";
-            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (_hostingEnvironment.IsProduction())
             {
-                connection = Configuration.GetConnectionString("DefaultWinConnection");
+                connection = Configuration.GetConnectionString("DefaultConnection");
+                services.AddDbContext<MyIdentityContext>(options =>
+                    options.UseSqlServer(connection));
+                var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+                optionsBuilder.UseSqlServer(connection);
+                var db = new MyIdentityContext(optionsBuilder.Options);
+                services.AddSingleton<IDbContext>(db);
             }
-            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            if (_hostingEnvironment.IsDevelopment())
             {
-                connection = Configuration.GetConnectionString("DefaultMacConnection");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    connection = Configuration.GetConnectionString("DefaultWinConnection");
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    connection = Configuration.GetConnectionString("DefaultMacConnection");
+                }
+                services.AddDbContext<MyIdentityContext>(options =>
+                  options.UseSqlite(connection));
+
+                var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+                optionsBuilder.UseSqlite(connection);
+                var db = new MyIdentityContext(optionsBuilder.Options);
+
+                services.AddSingleton<IDbContext>(db);
             }
-            services.AddDbContext<MyIdentityContext>(options =>
-                    options.UseSqlite(connection));
-
-            var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
-            optionsBuilder.UseSqlite(connection);
-            var db = new MyIdentityContext(optionsBuilder.Options);
-
-            services.AddSingleton<IDbContext>(db);
+            Debug.WriteLine("You are using connection string: " + connection);
 
             services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
             {
@@ -70,10 +89,10 @@ namespace Authentication2
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+        public void Configure(IApplicationBuilder app,
             UserManager<MyIdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if (env.IsDevelopment())
+            if (_hostingEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

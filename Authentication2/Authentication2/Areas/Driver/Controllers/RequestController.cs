@@ -91,15 +91,31 @@ namespace Authentication2.Areas.Driver.Controllers
 
         public IActionResult Open()
         {
-            List<RequestModel> requests = _context.GetRequests();
-
-            List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
-            foreach (RequestModel model in requests)
+            if (!_context.CheckActive(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
-                if (model.DriverId == null && model.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier))
-                    requestsView.Add(new CreateRequestViewModel(model));
+                List<RequestModel> requests = _context.GetRequests();
+                var driverAddress = _context.GetAddressById(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                List<CreateRequestViewModel> requestsView = new List<CreateRequestViewModel> { };
+                foreach (RequestModel model in requests)
+                {
+                    if (model.DriverId == null
+                        && model.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier)
+                        && (model.PickupAddress.ZipCode == driverAddress.ZipCode
+                        || model.DropOffAddress.ZipCode == driverAddress.ZipCode))
+                        requestsView.Add(new CreateRequestViewModel(model));
+                }
+                return View(requestsView);
             }
-            return View(requestsView);
+            else
+            {
+                return RedirectToAction("RequestQuota");
+            }
+        }
+
+        public IActionResult RequestQuota()
+        {
+            return View();
         }
 
         public IActionResult Pickup(int id)
