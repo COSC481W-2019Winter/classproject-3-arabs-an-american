@@ -103,6 +103,15 @@
                     font-size: 12px;
                     color: #777;
                 }
+
+        select {
+            width: 100%;
+            height: 40px;
+            border: 0px;
+            border-radius: 10px;
+            outline: none;
+            box-shadow: 1rem 0.5rem 0 0 rgba(0, 0, 0, 0.1);
+        }
     </style>
 
 </head>
@@ -133,11 +142,11 @@
                 <label asp-for="Address.City">City</label>
                 <span asp-validation-for="Address.City" class="text-danger"></span>
             </td>
-            <td class="form-label-group">
-                <input asp-for="Address.State" class="form-control" placeholder="@Model.Address.State" />
-                <label asp-for="Address.State">State</label>
-                <span asp-validation-for="Address.State" class="text-danger"></span>
-            </td>
+            <td>
+                @Html.DropDownListFor(m => m.Address.State,
+                     new SelectList(Enum.GetValues(typeof(States))),
+                     "State")
+                </td>
             <td class="form-label-group">
                 <input asp-for="Address.ZipCode" class="form-control" placeholder="@Model.Address.ZipCode" />
                 <label asp-for="Address.ZipCode">Zipcode</label>
@@ -148,7 +157,7 @@
         <tr></tr>
         <tr>
             <td class="form-label-group" colspan="3">
-                <input asp-for="Email" class="form-control" placeholder="@Model.Email" />
+                <input asp-for="Email" class="form-control" placeholder="@Model.Email" type="email" />
                 <label asp-for="Email">Email</label>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </td>

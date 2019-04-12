@@ -21,6 +21,9 @@
     <Compile Remove="VIewModels\DriverViewModel.cs" />
     <Compile Remove="Controllers\RequestController.cs" />
     <Compile Remove="VIewModels\UserViewModel.cs" />
+    <Compile Remove="Models\EmptyEnumeration.cs" />
+    <Compile Remove="Models\EmptyClass.cs" />
+    <Compile Remove="Models\StateList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="DeleteConfirmed.cshtml" />

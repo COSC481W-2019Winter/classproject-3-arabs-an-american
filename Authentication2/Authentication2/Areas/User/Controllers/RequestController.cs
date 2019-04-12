@@ -22,11 +22,12 @@ namespace Authentication2.Areas.Controllers
         private readonly IDbContext _context;
         private readonly IHostingEnvironment hostingEnvironment;
 
+
         public RequestController(IDbContext context, IHostingEnvironment environment)
         {
             _context = context;
             hostingEnvironment = environment;
-        }
+    }
 
         public IActionResult Index()
         {
