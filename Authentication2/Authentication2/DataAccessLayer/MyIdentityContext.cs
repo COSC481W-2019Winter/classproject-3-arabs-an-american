@@ -113,5 +113,11 @@ namespace Authentication2.DataAccessLayer
                 return false;
             }
         }
+
+        public MyIdentityUser GetUser(string Userid)
+        {
+            var user = Users.FirstOrDefault(x => x.Id == Userid);
+            return user;
+        }
     }
 }
