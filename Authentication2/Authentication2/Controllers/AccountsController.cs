@@ -21,13 +21,11 @@ namespace Authentication2.Controllers
         public AccountsController(UserManager<MyIdentityUser> userManager,
             SignInManager<MyIdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<MyIdentityUser> signinManager,
-            MyIdentityContext identityContext)
+            SignInManager<MyIdentityUser> signinManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _identityContext = identityContext;
         }
 
         public IActionResult Index()
@@ -37,19 +35,6 @@ namespace Authentication2.Controllers
                 .Include(x => x.Address).ToList().ElementAt(0);
 
             UserViewModel userViewModel = new UserViewModel(user);
-
-            //var users = _identityContext.Users.ToList();
-            //foreach (var user in users)
-            //{
-            //    var roles = await _userManager.GetRolesAsync(user);
-            //    var role = roles.First();
-            //    accountsViewModel.Accounts.Add(new Account
-            //    {
-            //        Username = user.UserName,
-            //        Password = user.Password,
-            //        Role = role
-            //    });
-            //}
             return View("Index", userViewModel);
         }
 

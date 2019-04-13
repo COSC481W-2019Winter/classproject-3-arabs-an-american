@@ -32,12 +32,20 @@ namespace Authentication2
             if (_hostingEnvironment.IsProduction())
             {
                 connection = Configuration.GetConnectionString("DefaultConnection");
-                services.AddDbContext<MyIdentityContext>(options =>
-                    options.UseSqlServer(connection));
-                var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+                services.AddDbContext<MyProductionDbContext>();
+                var optionsBuilder = new DbContextOptionsBuilder<MyProductionDbContext>();
                 optionsBuilder.UseSqlServer(connection);
-                var db = new MyIdentityContext(optionsBuilder.Options);
+                var db = new MyProductionDbContext(optionsBuilder.Options);
                 services.AddSingleton<IDbContext>(db);
+
+                services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                }).AddEntityFrameworkStores<MyProductionDbContext>();
             }
             if (_hostingEnvironment.IsDevelopment())
             {
@@ -57,18 +65,18 @@ namespace Authentication2
                 var db = new MyIdentityContext(optionsBuilder.Options);
 
                 services.AddSingleton<IDbContext>(db);
+
+                services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                }).AddEntityFrameworkStores<MyIdentityContext>();
             }
             Debug.WriteLine("You are using connection string: " + connection);
 
-            services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 4;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-            })
-                .AddEntityFrameworkStores<MyIdentityContext>();
 
 
             services.ConfigureApplicationCookie(options =>
