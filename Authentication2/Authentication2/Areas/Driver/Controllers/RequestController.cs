@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using MimeKit;
-using MailKit.Net.Smtp;
+using Authentication2.Mail;
 
 namespace Authentication2.Areas.Driver.Controllers
 {
@@ -141,8 +140,11 @@ namespace Authentication2.Areas.Driver.Controllers
             request.Status = "Accepted By Driver";
 
             _context.UpdateRequest(request);
+
             //get user from ID for mail fields
-            getUserForMail(model.UserId);
+            var subject = "Request for " + model.Item + " has been accepted";
+            var message = "hello world";
+            new Mailer().SendMail(subject, _context.GetUser(model.UserId).Email, message);
 
             return RedirectToAction("ConfirmPickup");
         }
@@ -150,33 +152,6 @@ namespace Authentication2.Areas.Driver.Controllers
         public IActionResult ConfirmPickup()
         {
             return View();
-        }
-        public IActionResult sendMail(string name, string email)
-        {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("oshipemailer@gmail.com"));
-            message.To.Add(new MailboxAddress(email));
-            message.Subject = name;
-            message.Body = new TextPart("html")
-            {
-                Text = "Order accepted"
-            };
-
-            using(var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587);
-                client.Authenticate("oshipemailer@gmail.com","Gavin123!");
-                client.Send(message);
-                client.Disconnect(false);
-            }
-
-            return View();
-        }
-
-        public void getUserForMail(string id)
-        {
-            var mailer = _context.GetUser(id);
-            sendMail(mailer.UserName,mailer.Email);
         }
     }
 }

@@ -104,14 +104,7 @@ namespace Authentication2.DataAccessLayer
 
         public bool CheckActive(string driverId)
         {
-            if(Requests.Any(x => x.DriverId == driverId && x.Status != "Delivered"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Requests.Any(x => x.DriverId == driverId && x.Status != "Delivered");
         }
 
         public MyIdentityUser GetUser(string Userid)

@@ -36,5 +36,6 @@
     <Folder Include="Areas\User\Controllers\" />
     <Folder Include="Areas\User\Views\" />
     <Folder Include="Areas\User\Views\Request\" />
+    <Folder Include="Mail\" />
   </ItemGroup>
 </Project>
