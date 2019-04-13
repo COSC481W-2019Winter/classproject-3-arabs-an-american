@@ -14,7 +14,7 @@ namespace Authentication2.Mail
             message.Subject = subject;
             message.Body = new TextPart("html")
             {
-                Text = "Order accepted"
+                Text = body
             };
 
             using (var client = new SmtpClient())

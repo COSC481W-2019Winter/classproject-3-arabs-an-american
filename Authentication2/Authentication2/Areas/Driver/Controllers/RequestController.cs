@@ -143,7 +143,7 @@ namespace Authentication2.Areas.Driver.Controllers
 
             //get user from ID for mail fields
             var subject = "Request for " + model.Item + " has been accepted";
-            var message = "hello world";
+            var message = "Order accepted";
             new Mailer().SendMail(subject, _context.GetUser(model.UserId).Email, message);
 
             return RedirectToAction("ConfirmPickup");
