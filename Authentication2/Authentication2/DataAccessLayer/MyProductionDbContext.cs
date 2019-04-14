@@ -18,8 +18,8 @@ namespace Authentication2.DataAccessLayer
         public MyProductionDbContext(DbContextOptions<MyProductionDbContext> options) : base(options)
         {
             // TURNS OUT THIS FUCKING SHIT DOESNT USE MIGRATIONS!!!
-            //this.Database.EnsureCreated();
-            Database.Migrate();
+            this.Database.EnsureCreated();
+            //Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
