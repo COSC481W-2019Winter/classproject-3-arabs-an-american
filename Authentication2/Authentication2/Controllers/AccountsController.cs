@@ -16,16 +16,18 @@ namespace Authentication2.Controllers
         private readonly UserManager<MyIdentityUser> _userManager;
         private readonly SignInManager<MyIdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly MyIdentityContext _identityContext;
+        private readonly MyProductionDbContext _identityContext;
 
         public AccountsController(UserManager<MyIdentityUser> userManager,
             SignInManager<MyIdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<MyIdentityUser> signinManager)
+            SignInManager<MyIdentityUser> signinManager,
+            MyProductionDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _identityContext = context;
         }
 
         public IActionResult Index()

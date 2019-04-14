@@ -29,24 +29,6 @@ namespace Authentication2
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = "";
-            if (_hostingEnvironment.IsProduction())
-            {
-                connection = Configuration.GetConnectionString("DefaultConnection");
-                services.AddDbContext<MyProductionDbContext>();
-                var optionsBuilder = new DbContextOptionsBuilder<MyProductionDbContext>();
-                optionsBuilder.UseSqlServer(connection);
-                var db = new MyProductionDbContext(optionsBuilder.Options);
-                services.AddSingleton<IDbContext>(db);
-
-                services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 4;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireLowercase = false;
-                }).AddEntityFrameworkStores<MyProductionDbContext>();
-            }
             if (_hostingEnvironment.IsDevelopment())
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -57,27 +39,38 @@ namespace Authentication2
                 {
                     connection = Configuration.GetConnectionString("DefaultMacConnection");
                 }
-                services.AddDbContext<MyIdentityContext>(options =>
+                services.AddDbContext<MyProductionDbContext>(options =>
                   options.UseSqlite(connection));
 
-                var optionsBuilder = new DbContextOptionsBuilder<MyIdentityContext>();
+                var optionsBuilder = new DbContextOptionsBuilder<MyProductionDbContext>();
                 optionsBuilder.UseSqlite(connection);
-                var db = new MyIdentityContext(optionsBuilder.Options);
+                var db = new MyProductionDbContext(optionsBuilder.Options);
 
                 services.AddSingleton<IDbContext>(db);
 
-                services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 4;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireLowercase = false;
-                }).AddEntityFrameworkStores<MyIdentityContext>();
+            }
+            else
+            {
+                connection = Configuration.GetConnectionString("DefaultConnection");
+                var optionsBuilder = new DbContextOptionsBuilder<MyProductionDbContext>();
+                optionsBuilder.UseSqlServer(connection);
+                var db = new MyProductionDbContext(optionsBuilder.Options);
+                services.AddSingleton<IDbContext>(db);
+                services.AddDbContext<MyProductionDbContext>(
+                    options => options.UseSqlServer(connection)
+                    );
             }
             Debug.WriteLine("You are using connection string: " + connection);
 
 
+            services.AddIdentity<MyIdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            }).AddEntityFrameworkStores<MyProductionDbContext>();
 
             services.ConfigureApplicationCookie(options =>
             {

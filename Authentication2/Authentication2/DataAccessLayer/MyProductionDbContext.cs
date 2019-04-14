@@ -22,11 +22,6 @@ namespace Authentication2.DataAccessLayer
             Database.Migrate();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlServer("Server = tcp:oshipdbserver.database.windows.net, 1433; Initial Catalog = ohship_db; Persist Security Info = False; User ID = zafer; Password = !@#123anas;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-        }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
