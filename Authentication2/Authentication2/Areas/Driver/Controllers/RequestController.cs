@@ -139,11 +139,15 @@ namespace Authentication2.Areas.Driver.Controllers
             request.DriverId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             request.Status = "Accepted By Driver";
 
+            var driver = _context.GetUser(request.DriverId);
+
             _context.UpdateRequest(request);
 
             //get user from ID for mail fields
             var subject = "Request for " + model.Item + " has been accepted";
-            var message = "Order accepted";
+            var message = "Your order has been accepted by " + driver.UserName + ". \nThe driver will arrive in a "
+                + driver.CarColor + " " + driver.CarYear + " " + driver.CarMake + " " + driver.CarModel 
+                + ". You can contact the driver at " + driver.Email + " or by phone at " + driver.PhoneNumber + ".";
             new Mailer().SendMail(subject, _context.GetUser(model.UserId).Email, message);
 
             return RedirectToAction("ConfirmPickup");
