@@ -16,18 +16,18 @@ namespace Authentication2.Controllers
         private readonly UserManager<MyIdentityUser> _userManager;
         private readonly SignInManager<MyIdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly MyIdentityContext _identityContext;
+        private readonly MyProductionDbContext _identityContext;
 
         public AccountsController(UserManager<MyIdentityUser> userManager,
             SignInManager<MyIdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
             SignInManager<MyIdentityUser> signinManager,
-            MyIdentityContext identityContext)
+            MyProductionDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _identityContext = identityContext;
+            _identityContext = context;
         }
 
         public IActionResult Index()
@@ -37,19 +37,6 @@ namespace Authentication2.Controllers
                 .Include(x => x.Address).ToList().ElementAt(0);
 
             UserViewModel userViewModel = new UserViewModel(user);
-
-            //var users = _identityContext.Users.ToList();
-            //foreach (var user in users)
-            //{
-            //    var roles = await _userManager.GetRolesAsync(user);
-            //    var role = roles.First();
-            //    accountsViewModel.Accounts.Add(new Account
-            //    {
-            //        Username = user.UserName,
-            //        Password = user.Password,
-            //        Role = role
-            //    });
-            //}
             return View("Index", userViewModel);
         }
 

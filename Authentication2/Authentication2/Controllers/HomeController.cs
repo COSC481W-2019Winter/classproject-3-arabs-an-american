@@ -8,13 +8,6 @@ namespace Authentication2.Controllers
 {
     public class HomeController : Controller
     {
-        UserManager<MyIdentityUser> _manager;
-
-        public HomeController(UserManager<MyIdentityUser> manager)
-        {
-            _manager = manager;
-        }
-
         public IActionResult Index()
         {
             return View();
