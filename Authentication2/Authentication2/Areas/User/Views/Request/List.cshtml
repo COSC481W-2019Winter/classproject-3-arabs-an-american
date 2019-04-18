@@ -17,10 +17,10 @@
                 Item
             </th>
             <th>
-                PickUp Address
+                Pickup Address
             </th>
             <th>
-                DropOff Address
+                Drop Off Address
             </th>
             <th>
                 Status
@@ -59,7 +59,7 @@
                     {
                         <p style="display:inline">
                             |
-                            <a asp-action="" asp-route-id="@item.DriverId">Contact Driver</a>
+                            <a asp-action="ContactDriver" asp-route-id="@item.Id">Contact Driver</a>
                         </p>
                     }
                     else { }

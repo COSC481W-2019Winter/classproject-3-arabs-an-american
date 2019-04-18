@@ -16,5 +16,6 @@ namespace Authentication2.DataAccessLayer
         bool IfExistingAddress(Address address);
         int GetAddressId(Address address);
         bool CheckActive(string driverId);
+        MyIdentityUser GetUser(string UserId);
     }
 }

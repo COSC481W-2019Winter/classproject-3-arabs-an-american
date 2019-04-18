@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-
+using Authentication2.Mail;
 
 namespace Authentication2.Areas.Driver.Controllers
 {
@@ -65,7 +65,12 @@ namespace Authentication2.Areas.Driver.Controllers
             else if (status == "Awaiting Pickup")
                 newStatus = "Out for Delivery";
             else if (status == "Out for Delivery")
+            {
                 newStatus = "Delivered";
+                var subject = "Request for " + model.Item + " has been delivered";
+                var message = "Your order has been successfully delivered";
+                new Mailer().SendMail(subject, _context.GetUser(model.UserId).Email, message);
+            }
 
             request.UserId = model.UserId;
             request.DriverId = model.DriverId;
@@ -139,7 +144,16 @@ namespace Authentication2.Areas.Driver.Controllers
             request.DriverId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             request.Status = "Accepted By Driver";
 
+            var driver = _context.GetUser(request.DriverId);
+
             _context.UpdateRequest(request);
+
+            //get user from ID for mail fields
+            var subject = "Request for " + model.Item + " has been accepted";
+            var message = "Your order has been accepted by " + driver.UserName + ". \nThe driver will arrive in a "
+                + driver.CarColor + " " + driver.CarYear + " " + driver.CarMake + " " + driver.CarModel 
+                + ". You can contact the driver at " + driver.Email + " or by phone at " + driver.PhoneNumber + ".";
+            new Mailer().SendMail(subject, _context.GetUser(model.UserId).Email, message);
 
             return RedirectToAction("ConfirmPickup");
         }

@@ -1,5 +1,8 @@
 @using System.Security.Claims;
 @model CreateRequestViewModel
+@{
+    ViewData["Title"] = "Request Details";
+}
 
 <div class="card">
     @if (Model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) || Model.DriverId == User.FindFirstValue(ClaimTypes.NameIdentifier))
@@ -40,7 +43,7 @@
                 <table>
                     <tr>
                         <td valign="top">
-                            Dropoff Address
+                            Drop Off Address
                         </td>
                         <td>
                             @Html.DisplayFor(m => m.DropoffStreetNumber, new { @class = "form-control" })
@@ -53,7 +56,7 @@
 
                     <tr>
                         <td width="250px" valign="top">
-                            Dropoff Instructions
+                            Drop Off Instructions
                         </td>
                         <td>
                             @Html.DisplayFor(m => m.DropoffInstructions, new { @class = "form-control" })
@@ -78,7 +81,7 @@
                             Receipt/Cart Image
                         </td>
                         <td>
-                            <img src="~/uploads/@Model.ImageName" width="50%"/>
+                            <img src="~/uploads/@Model.ImageName" width="50%" />
                         </td>
                     </tr>
                 </table>

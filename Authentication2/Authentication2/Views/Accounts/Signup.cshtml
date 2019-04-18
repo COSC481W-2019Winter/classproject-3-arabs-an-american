@@ -5,7 +5,7 @@
 <html lang="en" class="gr__getbootstrap_com">
 <head>
     <!-- Bootstrap core CSS -->
-    <link href="/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    @*<link href="/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">*@
 
     <style>
         :root {
@@ -48,7 +48,8 @@
             margin-bottom: 1rem;
         }
 
-            .form-label-group input {
+            .form-label-group input,
+            .form-label-group select {
                 height: 2.5rem;
                 border-radius: 2rem;
             }
@@ -104,8 +105,11 @@
                  font-size: 12px;
                  color: #777;
             }
-     
-
+        select {
+            width: 100%;
+            color: #495057;
+            padding: 0 var(--input-padding-x);
+        }
     </style>
 </head>
 
@@ -127,23 +131,23 @@
                                     <span asp-validation-for="Username" class="text-danger"></span>
                                 </div>
                                 <div class="form-label-group">
-                                    <input asp-for="Password" class="form-control" placeholder="Password" />
+                                    <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
                                     <label asp-for="Password">Password</label>
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 <div class="form-label-group">
-                                    <input asp-for="Email" class="form-control" placeholder="Email" />
+                                    <input asp-for="Email" class="form-control" placeholder="Email" type="email" />
                                     <label asp-for="Email">Email</label>
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                                 <div class="form-label-group">
                                     <input asp-for="Address.StreetNumber" class="form-control" placeholder="StreetNumber" />
-                                    <label asp-for="Address.StreetNumber">StreetNumber</label>
+                                    <label asp-for="Address.StreetNumber">Street Number</label>
                                     <span asp-validation-for="Address.StreetNumber" text-danger"></span>
                                 </div>
                                 <div class="form-label-group">
                                     <input asp-for="Address.StreetName" class="form-control" placeholder="StreetName" />
-                                    <label asp-for="Address.StreetName">StreetName</label>
+                                    <label asp-for="Address.StreetName">Street Name</label>
                                     <span asp-validation-for="Address.StreetName" class="text-danger"></span>
                                 </div>
                                 <div class="form-label-group">
@@ -152,18 +156,18 @@
                                     <span asp-validation-for="Address.City" class="text-danger"></span>
                                 </div>
                                 <div class="form-label-group">
-                                    <input asp-for="Address.State" class="form-control" placeholder="State" />
-                                    <label asp-for="Address.State">State</label>
-                                    <span asp-validation-for="Address.State" class="text-danger"></span>
+                                    @Html.DropDownListFor(m => m.Address.State, 
+                                        new SelectList(Enum.GetValues(typeof(States))), 
+                                        "State")
                                 </div>
                                 <div class="form-label-group">
                                     <input asp-for="Address.ZipCode" class="form-control" placeholder="ZipCode" />
-                                    <label asp-for="Address.ZipCode">ZipCode</label>
+                                    <label asp-for="Address.ZipCode">Zip Code</label>
                                     <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
                                 </div>
                                 <div class="form-label-group">
                                     <input asp-for="PhoneNumber" class="form-control" placeholder="PhoneNumber" />
-                                    <label asp-for="PhoneNumber">PhoneNumber</label>
+                                    <label asp-for="PhoneNumber">Phone Number</label>
                                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
                                 <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Sign Up</button>

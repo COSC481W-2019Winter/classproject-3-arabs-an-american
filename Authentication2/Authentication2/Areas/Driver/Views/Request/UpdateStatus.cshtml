@@ -1,8 +1,11 @@
 ﻿@using System.Security.Claims;
 @model CreateRequestViewModel
+@{
+    ViewData["Title"] = "Update Status";
+}
 
 <div class="card">
-    @if (Model.DriverId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+    @if (Model.DriverId == User.FindFirstValue(ClaimTypes.NameIdentifier) && Model.Status != "Delivered")
     {
         <div class="card-header"><h1>Update Status</h1></div>
         <div class="card-body">

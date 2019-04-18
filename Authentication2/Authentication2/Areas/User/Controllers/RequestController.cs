@@ -12,6 +12,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Authentication2.Mail;
 
 namespace Authentication2.Areas.Controllers
 {
@@ -22,11 +23,12 @@ namespace Authentication2.Areas.Controllers
         private readonly IDbContext _context;
         private readonly IHostingEnvironment hostingEnvironment;
 
+
         public RequestController(IDbContext context, IHostingEnvironment environment)
         {
             _context = context;
             hostingEnvironment = environment;
-        }
+    }
 
         public IActionResult Index()
         {
@@ -206,6 +208,32 @@ namespace Authentication2.Areas.Controllers
                     requestsView.Add(new CreateRequestViewModel(model));
             }
             return View(requestsView);
+        }
+
+        public IActionResult ContactDriver(int id)
+        {
+            RequestModel request = _context.GetRequestById(id);
+
+            if (request == null)
+                return Content("Request with given id does not exist.");
+
+            CreateRequestViewModel model = new CreateRequestViewModel(request);
+
+            string subject = "";
+            string message = "";
+
+            ViewData["subject"] = subject;
+            ViewData["message"] = message;
+
+            return View(model);
+        }
+
+        public IActionResult Send(CreateRequestViewModel model, string subject, string message)
+        {
+            var driver = _context.GetUser(model.DriverId).Email;
+            new Mailer().SendMail(subject, driver, message);
+
+            return RedirectToAction("List");
         }
 
         public List<SelectListItem> GetAddressList()
