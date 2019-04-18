@@ -5,18 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Authentication2.DataAccessLayer
 {
-    public class MyIdentityContext : IdentityDbContext<MyIdentityUser>, IDbContext
+    public class MyProductionDbContext: IdentityDbContext<MyIdentityUser>, IDbContext
     {
         public DbSet<Models.RequestModel> Requests { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
 
-        public MyIdentityContext(DbContextOptions options) : base(options)
+        public MyProductionDbContext(DbContextOptions<MyProductionDbContext> options) : base(options)
         {
+            // TURNS OUT THIS FUCKING SHIT DOESNT USE MIGRATIONS!!!
             this.Database.EnsureCreated();
+            //Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
