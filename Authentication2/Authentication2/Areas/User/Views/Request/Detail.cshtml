@@ -1,5 +1,8 @@
 @using System.Security.Claims;
 @model CreateRequestViewModel
+@{
+    ViewData["Title"] = "Request Details";
+}
 
 <div class="card">
     @if (Model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) || Model.DriverId == User.FindFirstValue(ClaimTypes.NameIdentifier))
@@ -78,7 +81,7 @@
                             Receipt/Cart Image
                         </td>
                         <td>
-                            <img src="~/uploads/@Model.ImageName" width="50%"/>
+                            <img src="~/uploads/@Model.ImageName" width="50%" />
                         </td>
                     </tr>
                 </table>

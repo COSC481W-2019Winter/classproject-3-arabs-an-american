@@ -1,4 +1,7 @@
 @model CreateRequestViewModel
+@{
+    ViewData["Title"] = "Create Request";
+}
 
 <html lang="en" class="gr__getbootstrap_com">
 <head>
@@ -104,7 +107,7 @@
         }
 
             .form-label-group input,
-            .form-label-group select{
+            .form-label-group select {
                 height: 2.5rem;
                 border-radius: 2rem;
             }
@@ -154,19 +157,18 @@
                 padding-bottom: calc(var(--input-padding-y) / 3);
             }
 
-            .form-label-group input:not(:placeholder-shown) ~ label {
-                padding-top: calc(var(--input-padding-y) / 3);
-                padding-bottom: calc(var(--input-padding-y) / 3);
-                font-size: 12px;
-                color: #777;
-            }
+                .form-label-group input:not(:placeholder-shown) ~ label {
+                    padding-top: calc(var(--input-padding-y) / 3);
+                    padding-bottom: calc(var(--input-padding-y) / 3);
+                    font-size: 12px;
+                    color: #777;
+                }
 
         select {
             width: 100%;
             color: #495057;
             padding: 0 var(--input-padding-x);
         }
-
     </style>
 
 </head>
@@ -178,132 +180,133 @@
                     <div class="card-body">
                         <div class="card-title text-center"><h2>Create Request</h2></div>
 
-<!--<form asp-action="RegisterRequest" asp-controller="Request" method="post">-->
+                        <!--<form asp-action="RegisterRequest" asp-controller="Request" method="post">-->
                         <form method="post" action="@Url.Action("Create", "Request")" enctype="multipart/form-data">
-                        @Html.HiddenFor(m => m.Id)
-                        <table>
-                        <tr>
-                        <th><h4>Pickup</h4></th>
-                        <td colspan="2" class="form-label-group">
-                                @Html.DropDownList("addressList", null, new { @id = "pickupAddressList", onchange = "FillPickup()" })  
-                        </td>
-                        </tr>
-                        <tr> </tr>
-                        <tr>
-                        <td class="form-label-group">
-                        <input asp-for="PickupStreetNumber" class="form-control" placeholder="Street Number" />
-                        <label asp-for="PickupStreetNumber">Street Number</label>
-                        <span asp-validation-for="PickupStreetNumber" class="text-danger"></span>
-                        </td>
+                            @Html.HiddenFor(m => m.Id)
+                            <table>
+                                <tr>
+                                    <th><h4>Pickup</h4></th>
+                                    <td colspan="2" class="form-label-group">
+                                        @Html.DropDownList("addressList", null, new { @id = "pickupAddressList", onchange = "FillPickup()" })
+                                    </td>
+                                </tr>
+                                <tr> </tr>
+                                <tr>
+                                    <td class="form-label-group">
+                                        <input asp-for="PickupStreetNumber" class="form-control" placeholder="Street Number" />
+                                        <label asp-for="PickupStreetNumber">Street Number</label>
+                                        <span asp-validation-for="PickupStreetNumber" class="text-danger"></span>
+                                    </td>
 
-                        <td class="form-label-group" colspan="2">
-                        <input asp-for="PickupStreetName" class="form-control" placeholder="Street Name" />
-                        <label asp-for="PickupStreetName">Street Name</label>
-                        <span asp-validation-for="PickupStreetName" class="text-danger"></span>
-                        </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                        <td class="form-label-group">
-                        <input asp-for="PickupCity" class="form-control" placeholder="City" />
-                        <label asp-for="PickupCity">City</label>
-                        <span asp-validation-for="PickupCity" class="text-danger"></span>
-                        </td>
-                        <td class="form-label-group">
-                            @Html.DropDownListFor(m => m.PickupState,
-                            new SelectList(Enum.GetValues(typeof(States))),
-                            "State")
-                        </td>
-                        <td class="form-label-group">
-                        <input asp-for="PickupZipcode" class="form-control" placeholder="Zipcode" />
-                        <label asp-for="PickupZipcode">Zipcode</label>
-                        <span asp-validation-for="PickupZipcode" class="text-danger"></span>
-                        </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                        <td class="form-label-group" colspan="3">
-                        <input asp-for="PickupInstructions" class="form-control" placeholder="Instructions" />
-                        <label asp-for="PickupInstructions">Instructions/Pickup Time</label>
-                        <span asp-validation-for="PickupInstructions" class="text-danger"></span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <th><h4>Drop Off</h4></th>
-                        <td colspan="2" class="form-label-group">
-                            @Html.DropDownList("addressList", null, new { @id = "dropoffAddressList", onchange = "FillDropoff()" })
-                        </td>
-                        </tr>
-                        <tr> </tr>
-                        <tr>
-                        <td class="form-label-group">
-                        <input asp-for="DropoffStreetNumber" class="form-control" placeholder="Street Number" />
-                        <label asp-for="DropoffStreetNumber">Street Number</label>
-                        <span asp-validation-for="DropoffStreetNumber" class="text-danger"></span>
-                        </td>
-                        <td class="form-label-group" colspan="2">
-                        <input asp-for="DropoffStreetName" class="form-control" placeholder="Street Name" />
-                        <label asp-for="DropoffStreetName">Street Name</label>
-                        <span asp-validation-for="DropoffStreetName" class="text-danger"></span>
-                        </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                        <td class="form-label-group">
-                        <input asp-for="DropoffCity" class="form-control" placeholder="City" />
-                        <label asp-for="DropoffCity">City</label>
-                        <span asp-validation-for="DropoffCity" class="text-danger"></span>
-                        </td>
-                        <td class="form-label-group">
-                            @Html.DropDownListFor(m => m.DropoffState,
-                            new SelectList(Enum.GetValues(typeof(States))),
-                            "State")
-                        </td>
-                        <td class="form-label-group">
-                        <input asp-for="DropoffZipcode" class="form-control" placeholder="Zipcode" />
-                        <label asp-for="DropoffZipcode">Zipcode</label>
-                        <span asp-validation-for="DropoffZipcode" class="text-danger"></span>
-                        </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                        <td class="form-label-group" colspan="3">
-                        <input asp-for="DropoffInstructions" class="form-control" placeholder="Instructions" />
-                        <label asp-for="DropoffInstructions">Instructions/Drop Off Time</label>
-                        <span asp-validation-for="DropoffInstructions" class="text-danger"></span>
-                        </td>
-                        </tr>
-                        <tr><th><h4>Item</h4></th></tr>
-                        <tr></tr>
-                        <tr>
-                        <td class="form-label-group" colspan="3">
-                        <input asp-for="Item" class="form-control" placeholder="Item" />
-                        <label asp-for="Item">Item</label>
-                        <span asp-validation-for="Item" class="text-danger"></span>
-                        </td>
-                        </tr>
-                        <tr><th><h4>Receipt/Cart Image</h4></th></tr>
-                        <tr>
-                        <td colspan="1">
-                        <input asp-for="Image" id="file" placeholder="Image" accept="image/*" onchange="        FillImage()" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
-                        </td>
-                        <td colspan="2">
-                        <img id="image" src="" width="50%" />
-                        </td>
-                        </tr>
-                        </table>
-                        <br />
-                        <script>    function clicked() {
-                            return confirm('If all information appears correct, click "OK"\nOtherwise click "Cancel" to stay on this page');
-                        }</script>
-                        <button class="btn btn-lg btn-success btn-block text-uppercase" onclick="" type="submit">Create</button>
-                        <div asp-validation-summary="All" class="text-danger"></div>
+                                    <td class="form-label-group" colspan="2">
+                                        <input asp-for="PickupStreetName" class="form-control" placeholder="Street Name" />
+                                        <label asp-for="PickupStreetName">Street Name</label>
+                                        <span asp-validation-for="PickupStreetName" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td class="form-label-group">
+                                        <input asp-for="PickupCity" class="form-control" placeholder="City" />
+                                        <label asp-for="PickupCity">City</label>
+                                        <span asp-validation-for="PickupCity" class="text-danger"></span>
+                                    </td>
+                                    <td class="form-label-group">
+                                        @Html.DropDownListFor(m => m.PickupState,
+                                        new SelectList(Enum.GetValues(typeof(States))),
+                                        "State")
+                                    </td>
+                                    <td class="form-label-group">
+                                        <input asp-for="PickupZipcode" class="form-control" placeholder="Zipcode" />
+                                        <label asp-for="PickupZipcode">Zipcode</label>
+                                        <span asp-validation-for="PickupZipcode" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td class="form-label-group" colspan="3">
+                                        <input asp-for="PickupInstructions" class="form-control" placeholder="Instructions" />
+                                        <label asp-for="PickupInstructions">Instructions/Pickup Time</label>
+                                        <span asp-validation-for="PickupInstructions" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><h4>Drop Off</h4></th>
+                                    <td colspan="2" class="form-label-group">
+                                        @Html.DropDownList("addressList", null, new { @id = "dropoffAddressList", onchange = "FillDropoff()" })
+                                    </td>
+                                </tr>
+                                <tr> </tr>
+                                <tr>
+                                    <td class="form-label-group">
+                                        <input asp-for="DropoffStreetNumber" class="form-control" placeholder="Street Number" />
+                                        <label asp-for="DropoffStreetNumber">Street Number</label>
+                                        <span asp-validation-for="DropoffStreetNumber" class="text-danger"></span>
+                                    </td>
+                                    <td class="form-label-group" colspan="2">
+                                        <input asp-for="DropoffStreetName" class="form-control" placeholder="Street Name" />
+                                        <label asp-for="DropoffStreetName">Street Name</label>
+                                        <span asp-validation-for="DropoffStreetName" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td class="form-label-group">
+                                        <input asp-for="DropoffCity" class="form-control" placeholder="City" />
+                                        <label asp-for="DropoffCity">City</label>
+                                        <span asp-validation-for="DropoffCity" class="text-danger"></span>
+                                    </td>
+                                    <td class="form-label-group">
+                                        @Html.DropDownListFor(m => m.DropoffState,
+                                        new SelectList(Enum.GetValues(typeof(States))),
+                                        "State")
+                                    </td>
+                                    <td class="form-label-group">
+                                        <input asp-for="DropoffZipcode" class="form-control" placeholder="Zipcode" />
+                                        <label asp-for="DropoffZipcode">Zipcode</label>
+                                        <span asp-validation-for="DropoffZipcode" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td class="form-label-group" colspan="3">
+                                        <input asp-for="DropoffInstructions" class="form-control" placeholder="Instructions" />
+                                        <label asp-for="DropoffInstructions">Instructions/Drop Off Time</label>
+                                        <span asp-validation-for="DropoffInstructions" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr><th><h4>Item</h4></th></tr>
+                                <tr></tr>
+                                <tr>
+                                    <td class="form-label-group" colspan="3">
+                                        <input asp-for="Item" class="form-control" placeholder="Item" />
+                                        <label asp-for="Item">Item</label>
+                                        <span asp-validation-for="Item" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr><th><h4>Receipt/Cart Image</h4></th></tr>
+                                <tr>
+                                    <td colspan="1">
+                                        <input asp-for="Image" id="file" placeholder="Image" accept="image/*" onchange="        FillImage()" />
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </td>
+                                    <td colspan="2">
+                                        <img id="image" src="" width="50%" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <script>
+    function clicked() {
+                                    return confirm('If all information appears correct, click "OK"\nOtherwise click "Cancel" to stay on this page');
+                                }</script>
+                            <button class="btn btn-lg btn-success btn-block text-uppercase" onclick="" type="submit">Create</button>
+                            <div asp-validation-summary="All" class="text-danger"></div>
                         </form>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </body>
-                    </html>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

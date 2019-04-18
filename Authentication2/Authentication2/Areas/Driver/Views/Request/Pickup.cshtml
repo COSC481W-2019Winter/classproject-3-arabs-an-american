@@ -1,7 +1,9 @@
 ﻿@model CreateRequestViewModel
-
+@{
+    ViewData["Title"] = "Accept Request";
+}
 <div class="card">
-<div class="card-header"><h1>Accept Request</h1></div>
+    <div class="card-header"><h1>Accept Request</h1></div>
     <div class="card-body">
         <form method="post" action='@Url.Action("PickupRequest","Request")'>
             @Html.HiddenFor(m => m.Id)
@@ -76,6 +78,6 @@
             <button class="btn btn-success text-uppercase" type="submit">Accept Request</button>
             <button class="btn btn-primary" href="##" onClick="history.go(-1); return false;">Back</button>
         </form>
-        </div>
+    </div>
     <div class="card-footer"></div>
 </div>

@@ -1,4 +1,7 @@
 @using System.Security.Claims;
+@{
+    ViewData["Title"] = "Confirm Delete";
+}
 <div class="card">
     @if (ViewBag.request.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
     {
