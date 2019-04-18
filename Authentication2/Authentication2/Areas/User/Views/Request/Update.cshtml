@@ -47,7 +47,8 @@
             margin-bottom: 1rem;
         }
 
-            .form-label-group input {
+            .form-label-group input,
+            .form-label-group select {
                 height: 2.5rem;
                 border-radius: 2rem;
             }
@@ -106,11 +107,8 @@
 
         select {
             width: 100%;
-            height: 40px;
-            border: 0px;
-            border-radius: 10px;
-            outline: none;
-            box-shadow: 1rem 0.5rem 0 0 rgba(0, 0, 0, 0.1);
+            color: #495057;
+            padding: 0 var(--input-padding-x);
         }
     </style>
     <script type="text/javascript">
@@ -181,7 +179,7 @@
                                 <table>
                                     <tr>
                                         <th><h4>Pickup</h4></th>
-                                        <td colspan="2">
+                                        <td colspan="2" class="form-label-group">
                                             @Html.DropDownList("AddressList", null, new { @id = "pickUpAddressList", onchange = "FillFields(1)" })
                                         </td>
                                     </tr>
@@ -206,9 +204,11 @@
                                             <label asp-for="PickupCity">City</label>
                                             <span asp-validation-for="PickupCity" class="text-danger"></span>
                                         </td>
-                                        <td>@Html.DropDownListFor(m => m.PickupState, 
+                                        <td class="form-label-group">
+                                            @Html.DropDownListFor(m => m.PickupState, 
                                             new SelectList(Enum.GetValues(typeof(States))), 
-                                            "State")</td>
+                                            "State")
+                                        </td>
                                         <td class="form-label-group">
                                             <input asp-for="PickupZipcode" class="form-control" placeholder="Zipcode" />
                                             <label asp-for="PickupZipcode">Zipcode</label>
@@ -226,7 +226,7 @@
                                     </tr>
                                     <tr>
                                         <th><h4>Drop Off</h4></th>
-                                        <td colspan="2">
+                                        <td colspan="2" class="form-label-group">
                                             @Html.DropDownList("AddressList", null, new { @id = "dropOffAddressList", onchange = "FillFields(2)" })
                                         </td>
                                     </tr>
@@ -250,9 +250,11 @@
                                             <label asp-for="DropoffCity">City</label>
                                             <span asp-validation-for="DropoffCity" class="text-danger"></span>
                                         </td>
-                                        <td>@Html.DropDownListFor(m => m.DropoffState, 
+                                        <td class="form-label-group">
+                                            @Html.DropDownListFor(m => m.DropoffState, 
                                             new SelectList(Enum.GetValues(typeof(States))), 
-                                            "State")</td>
+                                            "State")
+                                        </td>
                                         <td class="form-label-group">
                                             <input asp-for="DropoffZipcode" class="form-control" placeholder="Zipcode" />
                                             <label asp-for="DropoffZipcode">Zipcode</label>
