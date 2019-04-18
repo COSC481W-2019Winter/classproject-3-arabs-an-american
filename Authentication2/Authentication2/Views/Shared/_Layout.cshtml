@@ -74,13 +74,13 @@
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Logout">Logout</a>
+                                <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Logout">Log Out</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item; @Html.IsActive("Accounts", "Signup")">
-                                <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign up</a>
+                                <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Signup">Sign Up</a>
                             </li>
                             <li class="nav-item; @Html.IsActive("Accounts", "Login")">
                                 <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
@@ -103,7 +103,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - Ship it- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - oShip- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 

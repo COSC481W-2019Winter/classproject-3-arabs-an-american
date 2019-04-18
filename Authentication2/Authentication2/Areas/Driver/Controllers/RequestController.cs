@@ -65,7 +65,12 @@ namespace Authentication2.Areas.Driver.Controllers
             else if (status == "Awaiting Pickup")
                 newStatus = "Out for Delivery";
             else if (status == "Out for Delivery")
+            {
                 newStatus = "Delivered";
+                var subject = "Request for " + model.Item + " has been delivered";
+                var message = "Your order has been successfully delivered";
+                new Mailer().SendMail(subject, _context.GetUser(model.UserId).Email, message);
+            }
 
             request.UserId = model.UserId;
             request.DriverId = model.DriverId;
