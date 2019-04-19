@@ -39,11 +39,16 @@
                     @item.Status
                 </td>
                 <td>
+                    <a asp-area="User" asp-action="Detail" asp-route-id="@item.Id">Details</a>
                     @if (item.Status != "Delivered")
                     {
-                        <a asp-action="UpdateStatus" asp-route-id="@item.Id">Update Status</a>
+                        <p style="display: inline">
+                            |
+                            <a asp-action="UpdateStatus" asp-route-id="@item.Id">Update Status</a>
+                            |
+                            <a asp-action="ContactDriver" asp-route-id="@item.UserId">Contact</a>
+                        </p>
                     }
-                    <a asp-area="User" asp-action="Detail" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }

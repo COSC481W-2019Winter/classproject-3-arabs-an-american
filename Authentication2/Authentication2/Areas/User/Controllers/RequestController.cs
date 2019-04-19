@@ -210,28 +210,21 @@ namespace Authentication2.Areas.Controllers
             return View(requestsView);
         }
 
-        public IActionResult ContactDriver(int id)
+        public IActionResult ContactDriver(string receiverId)
         {
-            RequestModel request = _context.GetRequestById(id);
-
-            if (request == null)
-                return Content("Request with given id does not exist.");
-
-            CreateRequestViewModel model = new CreateRequestViewModel(request);
-
             string subject = "";
             string message = "";
 
             ViewData["subject"] = subject;
             ViewData["message"] = message;
 
-            return View(model);
+            return View(receiverId);
         }
 
-        public IActionResult Send(CreateRequestViewModel model, string subject, string message)
+        public IActionResult Send(string receiverId, string subject, string message)
         {
-            var driver = _context.GetUser(model.DriverId).Email;
-            new Mailer().SendMail(subject, driver, message);
+            var email = _context.GetUser(receiverId).Email;
+            new Mailer().SendMail(subject, email, message);
 
             return RedirectToAction("List");
         }

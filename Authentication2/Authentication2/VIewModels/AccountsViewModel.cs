@@ -24,14 +24,30 @@ namespace Authentication2.VIewModels
 
         public UserViewModel(MyIdentityUser user)
         {
+            this.UserId = user.Id;
+            this.UserName = user.UserName;
             this.Address = user.Address;
             this.Email = user.Email;
             this.Phone = user.PhoneNumber;
+            this.DriversLicense = user.DriversLicense;
+            this.CarMake = user.CarMake;
+            this.CarModel = user.CarModel;
+            this.CarYear = user.CarYear;
+            this.CarColor = user.CarColor;
+            this.LicensePlate = user.LicensePlate;
         }
 
+        public string UserId { get; set; }
+        public string UserName { get; set; }
         public Address Address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public string DriversLicense { get; set; }
+        public string CarMake { get; set; }
+        public string CarModel { get; set; }
+        public string CarYear { get; set; }
+        public string CarColor { get; set; }
+        public string LicensePlate { get; set; }
 
     }
 

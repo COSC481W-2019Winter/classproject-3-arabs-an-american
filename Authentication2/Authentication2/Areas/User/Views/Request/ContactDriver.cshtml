@@ -1,6 +1,5 @@
-﻿@model CreateRequestViewModel
-@{
-    ViewData["Title"] = "Contact Driver";
+﻿@{
+    ViewData["Title"] = "Contact";
 }
 
 <html lang="en" class="gr__getbootstrap_com">
@@ -123,7 +122,6 @@
                     <div class="card-body">
                         <div class="card-title text-center"><h2>Send Message</h2></div>
                         <form id="email" action="@Url.Action("Send", "Request")" enctype="multipart/form-data">
-                            @Html.HiddenFor(m => m.DriverId)
                             <table>
                                 <tr>
                                     <td class="form-label-group">
