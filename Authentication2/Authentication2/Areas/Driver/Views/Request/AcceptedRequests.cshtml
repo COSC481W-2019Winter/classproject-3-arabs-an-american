@@ -46,7 +46,7 @@
                             |
                             <a asp-action="UpdateStatus" asp-route-id="@item.Id">Update Status</a>
                             |
-                            <a asp-action="ContactDriver" asp-route-id="@item.UserId">Contact</a>
+                            <a asp-area="User" asp-action="ContactDriver" asp-route-id="@item.UserId">Contact</a>
                         </p>
                     }
                 </td>

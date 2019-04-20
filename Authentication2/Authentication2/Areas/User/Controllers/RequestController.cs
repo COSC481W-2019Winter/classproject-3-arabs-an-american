@@ -210,22 +210,16 @@ namespace Authentication2.Areas.Controllers
             return View(requestsView);
         }
 
-        public IActionResult ContactDriver(string receiverId)
+        public IActionResult ContactDriver(string id)
         {
-            string subject = "";
-            string message = "";
-
-            ViewData["subject"] = subject;
-            ViewData["message"] = message;
-
-            return View(receiverId);
+            return View(new ContactViewModel(id, "", ""));
         }
 
-        public IActionResult Send(string receiverId, string subject, string message)
+        public IActionResult Send(ContactViewModel contact)
         {
-            var email = _context.GetUser(receiverId).Email;
-            new Mailer().SendMail(subject, email, message);
-
+            var email = _context.GetUser(contact.id).Email;
+            new Mailer().SendMail(contact.subject, email, contact.message);
+            
             return RedirectToAction("List");
         }
 

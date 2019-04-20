@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ContactViewModel
+@{
     ViewData["Title"] = "Contact";
 }
 
@@ -121,17 +122,18 @@
                 <div class="card card-signin my-0">
                     <div class="card-body">
                         <div class="card-title text-center"><h2>Send Message</h2></div>
-                        <form id="email" action="@Url.Action("Send", "Request")" enctype="multipart/form-data">
+                        <form action="@Url.Action("Send", "Request")" enctype="multipart/form-data">
+                            @Html.HiddenFor(x => x.id)
                             <table>
                                 <tr>
                                     <td class="form-label-group">
-                                        <input asp-for="@ViewData["subject"]" class="form-control" name="subject" placeholder="Subject" />
-                                        <label asp-for="@ViewData["subject"]">Subject</label>
+                                        <input asp-for="subject" class="form-control" placeholder="Subject" />
+                                        <label asp-for="subject">Subject</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="form-label-group">
-                                        <textarea asp-for="@ViewData["message"]" class="form-control" rows="10" cols="75" name="message" placeholder="Enter Message Here..."></textarea>
+                                        <textarea asp-for="message" class="form-control" rows="10" cols="75" placeholder="Enter Message Here..."></textarea>
                                     </td>
                                 </tr>
                             </table>

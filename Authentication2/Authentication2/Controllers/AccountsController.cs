@@ -89,7 +89,14 @@ namespace Authentication2.Controllers
                     _signInManager.SignInAsync(user, true).Wait();
                     if (roles.Contains("Driver"))
                     {
-                        return RedirectToAction("Open", "Request", new { area = "Driver" });
+                        if (!_identityContext.CheckActive(user.Id))
+                        {
+                            return RedirectToAction("Open", "Request", new { area = "Driver" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("AcceptedRequests", "Request", new { area = "Driver" });
+                        }
                     }
                     else if (roles.Contains("Admin"))
                     {
