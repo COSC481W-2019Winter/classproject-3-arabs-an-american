@@ -41,7 +41,7 @@ namespace Authentication2.Areas.Driver.Controllers
         {
             MyIdentityUser user = _context.GetUser(id);
             user.DriverStatus = "Accepted";
-            IdentityResult roleResult = _userManager.AddToRoleAsync(user, "Driver").Result;
+            _userManager.AddToRoleAsync(user, "Driver");
             _context.Update(user);
             _context.SaveChanges();
 
