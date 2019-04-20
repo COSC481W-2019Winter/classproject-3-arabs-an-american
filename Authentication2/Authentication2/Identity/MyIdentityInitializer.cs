@@ -83,7 +83,7 @@ namespace Authentication2.Identity
                 MyIdentityUser josh = new MyIdentityUser
                 {
                     UserName = "josh",
-                    Email = "josh@gmail.com",
+                    Email = "jthonnis@emich.edu",
                     Address = new Address
                     {
                         StreetName = "main st",
@@ -93,7 +93,7 @@ namespace Authentication2.Identity
                         ZipCode = 48197
                     },
                     Password = "josh",
-                    PhoneNumber = "7341234567"
+                    PhoneNumber = "5172704123"
                 };
 
                 IdentityResult jsohResult = userManager.CreateAsync(josh, josh.Password).Result;
@@ -103,7 +103,7 @@ namespace Authentication2.Identity
                 MyIdentityUser sean = new MyIdentityUser
                 {
                     UserName = "sean",
-                    Email = "sean@gmail.com",
+                    Email = "sleona12@emich.edu",
                     Address = new Address
                     {
                         StreetName = "main st",
