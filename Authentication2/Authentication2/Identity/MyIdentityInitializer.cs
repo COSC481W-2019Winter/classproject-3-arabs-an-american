@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using Authentication2.DataAccessLayer;
+using Authentication2.Models;
 
 namespace Authentication2.Identity
 {
@@ -14,7 +15,7 @@ namespace Authentication2.Identity
         {
             SeedRoles(roleManager);
             SeedUsers(userManager);
-            SeedRequests(context);
+            SeedRequests(context, userManager);
         }
 
         public static void SeedRoles(RoleManager<IdentityRole> roleManager)
@@ -176,8 +177,54 @@ namespace Authentication2.Identity
         }
 
   
-        public static void SeedRequests(MyProductionDbContext context)
+        public static void SeedRequests(MyProductionDbContext context, 
+            UserManager<MyIdentityUser> userManager)
         {
+            // users
+            MyIdentityUser zafer = userManager.FindByNameAsync("zafer").Result;
+            MyIdentityUser mattar = userManager.FindByNameAsync("mattar").Result;
+            MyIdentityUser josh = userManager.FindByNameAsync("josh").Result;
+
+            //drivers
+            MyIdentityUser gavin = userManager.FindByNameAsync("gavin").Result;
+            MyIdentityUser sean = userManager.FindByNameAsync("sean").Result;
+            MyIdentityUser anas = userManager.FindByNameAsync("anas").Result;
+
+            RequestModel zaferRequest = new RequestModel
+            {
+                Item = "Vape",
+                UserId = zafer.Id,
+                DriverId = anas.Id,
+                PickupAddress = anas.Address,
+                DropOffAddress = zafer.Address,
+                Status = "Accepted By Driver",
+                ImageName = "vape.png"
+
+            };
+            context.Requests.Add(zaferRequest);
+
+            RequestModel mattarRequest = new RequestModel
+            {
+                Item = "Hijab",
+                UserId = mattar.Id,
+                PickupAddress = gavin.Address,
+                DropOffAddress = gavin.Address,
+                Status = "Awaiting Driver",
+                ImageName = "hijab.jpg"
+            };
+            context.Requests.Add(mattarRequest);
+
+            RequestModel joshRequest = new RequestModel
+            {
+                Item = "American flag",
+                UserId = josh.Id,
+                PickupAddress = sean.Address,
+                DropOffAddress = sean.Address,
+                Status = "Awaiting Driver",
+                ImageName = "flag.jpg"
+            };
+            context.Requests.Add(joshRequest);
+            context.SaveChanges();
 
         }
     }
