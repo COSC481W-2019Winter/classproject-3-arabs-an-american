@@ -178,9 +178,9 @@ namespace Authentication2.Controllers
 
         public IActionResult BecomeDriver()
         {
-            ViewData["DriverStatus"] = _identityContext.GetUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).DriverStatus;
-            return View();
-        }
+            string driverStatus = _identityContext.GetUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).DriverStatus;
+            ViewData["DriverStatus"] = driverStatus;
+            return View();        }
 
         [HttpPost]
         public IActionResult BecomeDriver(BecomeDriverViewModel becomeDriverViewModel)
