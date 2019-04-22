@@ -89,7 +89,18 @@ namespace Authentication2.Controllers
                     _signInManager.SignInAsync(user, true).Wait();
                     if (roles.Contains("Driver"))
                     {
-                        return RedirectToAction("Open", "Request", new { area = "Driver" });
+                        if (!_identityContext.CheckActive(user.Id))
+                        {
+                            return RedirectToAction("Open", "Request", new { area = "Driver" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("AcceptedRequests", "Request", new { area = "Driver" });
+                        }
+                    }
+                    else if (roles.Contains("Admin"))
+                    {
+                        return RedirectToAction("RequestDriver", "Accounts", new { area = "Admin" });
                     }
                     else
                     {
@@ -167,6 +178,7 @@ namespace Authentication2.Controllers
 
         public IActionResult BecomeDriver()
         {
+            ViewData["DriverStatus"] = _identityContext.GetUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).DriverStatus;
             return View();
         }
 
@@ -174,6 +186,7 @@ namespace Authentication2.Controllers
         public IActionResult BecomeDriver(BecomeDriverViewModel becomeDriverViewModel)
         {
             MyIdentityUser user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            user.DriverStatus = "Pending";
             user.DriversLicense = becomeDriverViewModel.DriversLicense;
             user.CarMake = becomeDriverViewModel.CarMake;
             user.CarModel = becomeDriverViewModel.CarModel;

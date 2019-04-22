@@ -91,7 +91,9 @@ namespace Authentication2
         }
 
         public void Configure(IApplicationBuilder app,
-            UserManager<MyIdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+            UserManager<MyIdentityUser> userManager, 
+            RoleManager<IdentityRole> roleManager,
+            MyProductionDbContext context)
         {
             if (_hostingEnvironment.IsDevelopment())
             {
@@ -119,7 +121,7 @@ namespace Authentication2
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            MyIdentityInitializer.SeedData(userManager, roleManager);
+            MyIdentityInitializer.SeedData(userManager, roleManager, context);
 
 
         }

@@ -1,0 +1,68 @@
+@model IEnumerable<Authentication2.VIewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "Become Driver Requests";
+}
+
+<h1 class="text-center">Requests to Become a Driver</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Driver's License
+            </th>
+            <th>
+                Car Make
+            </th>
+            <th>
+                Car Model
+            </th>
+            <th>
+                Car Year
+            </th>
+            <th>
+                Car Color
+            </th>
+            <th>
+                License Plate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @item.DriversLicense
+            </td>
+            <td>
+                @item.CarMake
+            </td>
+            <td>
+                @item.CarModel
+            </td>
+            <td>
+                @item.CarYear
+            </td>
+            <td>
+                @item.CarColor
+            </td>
+            <td>
+                @item.LicensePlate
+            </td>
+            <td>
+                <a asp-action="Approve" asp-route-id="@item.UserId">Approve</a> |
+                <a asp-action="Deny" asp-route-id="@item.UserId">Deny</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

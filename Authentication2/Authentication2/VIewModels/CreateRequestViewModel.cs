@@ -72,4 +72,20 @@ namespace Authentication2.VIewModels
         public string ImageName { set; get; }
         public IFormFile Image { set; get; }
     }
+    
+    public class ContactViewModel
+    {
+        public ContactViewModel() { }
+
+        public ContactViewModel(string _id, string _subject, string _message)
+        {
+            id = _id;
+            subject = _subject;
+            message = _message;
+        }
+
+        public string id { get; set; }
+        public string subject { get; set; }
+        public string message { get; set; }
+    }
 }

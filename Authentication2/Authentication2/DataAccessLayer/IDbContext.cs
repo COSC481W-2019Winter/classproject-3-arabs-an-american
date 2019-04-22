@@ -17,5 +17,6 @@ namespace Authentication2.DataAccessLayer
         int GetAddressId(Address address);
         bool CheckActive(string driverId);
         MyIdentityUser GetUser(string UserId);
+        List<MyIdentityUser> GetRequestedDrivers();
     }
 }

@@ -115,5 +115,12 @@ namespace Authentication2.DataAccessLayer
             var user = Users.FirstOrDefault(x => x.Id == Userid);
             return user;
         }
+
+        public List<MyIdentityUser> GetRequestedDrivers()
+        {
+            return Users
+                .Where(x => x.DriverStatus == "Pending")
+                .ToList();
+        }
     }
 }
