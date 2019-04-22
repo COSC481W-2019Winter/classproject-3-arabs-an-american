@@ -112,39 +112,48 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Become a Driver</h5>
-                    <div class="form-label-group">
-                        <input asp-for="DriversLicense" class="form-control" placeholder="Drivers License" />
-                        <label asp-for="DriversLicense">Drivers License</label>
-                        <span asp-validation-for="DriversLicense" class="text-danger"></span>
-                    </div>
-                    <div class="form-label-group">
-                        <input asp-for="CarMake" class="form-control" placeholder="Username" required autofocus />
-                        <label asp-for="CarMake">CarMake</label>
-                        <span asp-validation-for="CarMake" class="text-danger"></span>
-                    </div>
-                    <div class="form-label-group">
-                        <input asp-for="CarColor" class="form-control" placeholder="Car Color" />
-                        <label asp-for="CarColor">CarColor</label>
-                        <span asp-validation-for="CarColor" class="text-danger"></span>
-                    </div>
-                    <div class="form-label-group">
-                        <input asp-for="CarModel" class="form-control" placeholder="Car Model" />
-                        <label asp-for="CarModel">CarModel</label>
-                        <span asp-validation-for="CarModel" class="text-danger"></span>
-                    </div>
-                    <div class="form-label-group">
-                        <input asp-for="CarYear" class="form-control" placeholder="Car Year" />
-                        <label asp-for="CarYear">CarYear</label>
-                        <span asp-validation-for="CarYear" class="text-danger"></span>
-                    </div>
-                    <div class="form-label-group">
-                        <input asp-for="CarLicensePlate" class="form-control" placeholder="Car License Plate" />
-                        <label asp-for="CarLicensePlate">Car License Plate</label>
-                        <span asp-validation-for="CarLicensePlate" class="text-danger"></span>
-                    </div>
-                    <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Become a Driver</button>
-                    <div asp-validation-summary="All" class="text-danger"></div>
+                    @if (ViewData["DriverStatus"] == null)
+                    {
+                        <h5 class="card-title text-center">Become a Driver</h5>
+                        <div class="form-label-group">
+                            <input asp-for="DriversLicense" class="form-control" placeholder="Drivers License" />
+                            <label asp-for="DriversLicense">Drivers License</label>
+                            <span asp-validation-for="DriversLicense" class="text-danger"></span>
+                        </div>
+                        <div class="form-label-group">
+                            <input asp-for="CarMake" class="form-control" placeholder="Username" required autofocus />
+                            <label asp-for="CarMake">Car Make</label>
+                            <span asp-validation-for="CarMake" class="text-danger"></span>
+                        </div>
+                        <div class="form-label-group">
+                            <input asp-for="CarModel" class="form-control" placeholder="Car Model" />
+                            <label asp-for="CarModel">Car Model</label>
+                            <span asp-validation-for="CarModel" class="text-danger"></span>
+                        </div>
+                        <div class="form-label-group">
+                            <input asp-for="CarYear" class="form-control" placeholder="Car Year" />
+                            <label asp-for="CarYear">Car Year</label>
+                            <span asp-validation-for="CarYear" class="text-danger"></span>
+                        </div>
+                        <div class="form-label-group">
+                            <input asp-for="CarColor" class="form-control" placeholder="Car Color" />
+                            <label asp-for="CarColor">Car Color</label>
+                            <span asp-validation-for="CarColor" class="text-danger"></span>
+                        </div>
+                        <div class="form-label-group">
+                            <input asp-for="CarLicensePlate" class="form-control" placeholder="Car License Plate" />
+                            <label asp-for="CarLicensePlate">Car License Plate</label>
+                            <span asp-validation-for="CarLicensePlate" class="text-danger"></span>
+                        </div>
+                        <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Become a Driver</button>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    }
+                    else
+                    {
+                        <h5 class="card-title text-center">Your Driver Status is @ViewData["DriverStatus"]</h5>
+                        <br />
+                        <button class="btn btn-primary btn-large btn-block" href="##" onClick="history.go(-1); return false;">Back</button>
+                    }
                 </div>
             </div>
         </div>

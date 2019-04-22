@@ -29,10 +29,34 @@ namespace Authentication2.Identity
             {
                 IdentityResult result = roleManager.CreateAsync(new IdentityRole("Driver")).Result;
             }
+            if (!roleManager.RoleExistsAsync("Admin").Result)
+            {
+                IdentityResult result = roleManager.CreateAsync(new IdentityRole("Admin")).Result;
+            }
         }
 
         public static void SeedUsers(UserManager<MyIdentityUser> userManager)
         {
+            if (userManager.FindByNameAsync("admin").Result == null)
+            {
+                MyIdentityUser admin = new MyIdentityUser()
+                {
+                    UserName = "admin",
+                    Password = "3Arabs&3Americans",
+                    Address = new Address()
+                };
+
+                IdentityResult adminResult = userManager.CreateAsync(admin, admin.Password).Result;
+                if (adminResult.Succeeded)
+                {
+                    IdentityResult adminRoleResult = userManager.AddToRoleAsync(admin, "Admin").Result;
+                    if (adminRoleResult.Succeeded)
+                    {
+                        Debug.WriteLine(admin.UserName + "Admin created successfuly");
+                    }
+                }
+            }
+          
             if (userManager.FindByNameAsync("zafer").Result == null)
             {
                 MyIdentityUser zafer = new MyIdentityUser
@@ -173,7 +197,6 @@ namespace Authentication2.Identity
             }
 
 
-
         }
 
   
@@ -225,7 +248,6 @@ namespace Authentication2.Identity
             };
             context.Requests.Add(joshRequest);
             context.SaveChanges();
-
         }
     }
 }

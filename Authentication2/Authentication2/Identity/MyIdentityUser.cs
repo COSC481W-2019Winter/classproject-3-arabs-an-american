@@ -16,6 +16,7 @@ namespace Authentication2.Identity
         public string DriversLicense { get; set; }
         public string LicensePlate { get; set; }
         public int AddressId { get; set; }
+        public string DriverStatus { get; set; }
     }
 
     public class Address

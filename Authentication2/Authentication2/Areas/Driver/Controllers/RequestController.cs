@@ -70,6 +70,10 @@ namespace Authentication2.Areas.Driver.Controllers
                 var subject = "Request for " + model.Item + " has been delivered";
                 var message = "Your order has been successfully delivered";
                 new Mailer().SendMail(subject, _context.GetUser(model.UserId).Email, message);
+
+                subject = "Request for " + model.Item + " has been delivered";
+                message = "You have successfully delivered the request";
+                new Mailer().SendMail(subject, _context.GetUser(model.DriverId).Email, message);
             }
 
             request.UserId = model.UserId;
