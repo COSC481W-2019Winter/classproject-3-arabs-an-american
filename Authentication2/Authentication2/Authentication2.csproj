@@ -37,5 +37,6 @@
     <Folder Include="Areas\User\Views\" />
     <Folder Include="Areas\User\Views\Request\" />
     <Folder Include="Mail\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

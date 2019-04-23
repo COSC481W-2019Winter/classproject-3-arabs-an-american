@@ -50,7 +50,7 @@ namespace Authentication2.Controllers
         {
             var identityUser = _identityContext.Users
                 .Where(x => x.Id == User.FindFirstValue(ClaimTypes.NameIdentifier))
-                .Include(x => x.Address).ToList().ElementAt(0);
+                .Include(x => x.Address).FirstOrDefault();
 
             identityUser.Address.StreetNumber = user.Address.StreetNumber;
             identityUser.Address.StreetName = user.Address.StreetName;
@@ -191,7 +191,8 @@ namespace Authentication2.Controllers
         {
             string driverStatus = _identityContext.GetUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).DriverStatus;
             ViewData["DriverStatus"] = driverStatus;
-            return View();        }
+            return View();
+        }
 
         [HttpPost]
         public IActionResult BecomeDriver(BecomeDriverViewModel becomeDriverViewModel)
