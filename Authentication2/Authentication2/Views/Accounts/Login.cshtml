@@ -1,5 +1,5 @@
 ﻿
-@model SignUpViewModel
+@model LoginViewModel
 @{
     ViewData["Title"] = "Login";
 }
@@ -139,9 +139,10 @@
                                 <label class="custom-control-label" for="customCheck1">Remember password</label>
                             </div>
                             <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">
-                            <span class="spinner-grow spinner-grow-sm"></span>
-                            Login
+                                <span class="spinner-grow spinner-grow-sm"></span>
+                                Login
                             </button>
+                            <div asp-validation-summary="All" class="text-danger"></div>
                         </form>
                     </div>
                 </div>

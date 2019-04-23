@@ -1,5 +1,6 @@
 ﻿using Authentication2.DataAccessLayer;
 using Authentication2.Identity;
+using Authentication2.Models;
 using Authentication2.VIewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -72,12 +73,16 @@ namespace Authentication2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            MyIdentityUser user = await _userManager.FindByNameAsync(username);
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Login");
+            }
+            MyIdentityUser user = await _userManager.FindByNameAsync(loginViewModel.Username);
             if (user != null)
             {
-                SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+                SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, loginViewModel.Password, false);
                 if (result.Succeeded)
                 {
                     var roles = await _userManager.GetRolesAsync(user);
@@ -107,16 +112,16 @@ namespace Authentication2.Controllers
                         return RedirectToAction("List", "Request", new { area = "User" });
                     }
                 }
-                //TODO: dont return content
                 else
                 {
-                    return Content("Failed to login");
+                    ModelState.AddModelError("error", "Username or password Incorrect please try again.");
+                    return View();
                 }
             }
-            //TODO: dont return content
             else
             {
-                return Content("Failed to login. User doesnt exist");
+                ModelState.AddModelError("error", "Username does not exist");
+                return View();
             }
 
         }
@@ -136,6 +141,10 @@ namespace Authentication2.Controllers
         [HttpPost]
         public IActionResult Signup(SignUpViewModel signUpViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Signup");
+            }
             MyIdentityUser user = new MyIdentityUser()
             {
                 UserName = signUpViewModel.Username,
@@ -167,12 +176,14 @@ namespace Authentication2.Controllers
                 }
                 else
                 {
-                    return Content("Adding role failed: " + roleResult.Errors.First().Description);
+                    ModelState.AddModelError("error", "Adding role failed: " + roleResult.Errors.First().Description);
+                    return View();
                 }
             }
             else
             {
-                return Content("User account creation failed: " + result.Errors.First().Description);
+                ModelState.AddModelError("error", "User account creation failed: " + result.Errors.First().Description);
+                return View();
             }
         }
 
